@@ -1,0 +1,82 @@
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
+
+.container {
+  margin: auto;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) { 
+    .container {
+        max-width: 750px;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) { 
+    .container {
+        max-width: 970px;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { 
+    .container {
+        max-width: 1170px;
+    }
+}
+
+/* Add column colors for demonstration */
+
+.pure-g > div,
+.pure-g-r > div {
+  color: white;
+  text-align: center;
+}
+
+.pure-g :nth-child(odd),
+.pure-g-r :nth-child(odd){
+}
+.pure-u-1-5{
+  height: 500px;
+  background-color: #8697AC;
+}
+.pure-u-3-5{
+  height: 500px;
+  background-color: #757575;
+}
+
+.pure-u-1{
+  height: 150px;
+  background-color: #757575;
+}
+/* Question Box
+-----------------*/
+.question-box {
+  height:4em;
+  padding: 1em;
+  background-color: #B6C1CE;
+}
+
+/* Attempt Box
+-----------------*/
+.attempt-box {
+  height:18em;
+  padding: 1em;
+  background-color: #708FA3;
+}
+
+/* Answer Box
+-----------------*/
+#answer-box{
+  padding: 1em;
+  background-color: #123752;
+}
+
+#answer-input{
+  height:1em;
+  font-size: 3em;
+  color: #757575;
+  background-color: #FFFFFF;
+}
