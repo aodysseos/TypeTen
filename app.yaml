@@ -1,4 +1,4 @@
-application: TenThingsGame
+application: test-game-000
 version: 1
 runtime: python27
 api_version: 1
@@ -9,5 +9,8 @@ libraries:
   version: latest
   
 handlers:
+- url: /style
+  static_dir: style
+
 - url: /.*
-  script: main.app
+  script: main.application
