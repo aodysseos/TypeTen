@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+
+            {% block head %}
+                <meta charset=utf-8 />
+                <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+                <title>{% block title%} {% endblock %}- TypeTen </title>
+            {% endblock %}
+        </head>
+        <body>
+
+
+            <div id="content" class="container">
+                {% include "./partials/header.html" %}
+
+                {% block content  %}
+
+                {% endblock %}
+
+                {% include "./partials/footer.html" %}
+            </div>
+
+
+	        {% include "./partials/scripts.html" %}
+
+        </body>
+
+    </html>
