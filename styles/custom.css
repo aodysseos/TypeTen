@@ -1,0 +1,41 @@
+.custom-header {
+	text-align: center;
+}
+
+.menu {
+	padding-top: 0.4rem;
+	text-align: center;
+}
+
+.menu ul {
+	list-style: none;
+}
+
+.element {
+	font-family: Arial;
+	padding-top: 0.3rem;
+	margin: 0.4rem auto;
+	display: block;
+	vertical-align: middle;
+}
+
+.menu_container {
+	/*
+	margin: 0rem auto;
+	width: 40%;
+	border: 0.08rem solid;
+	border-color: black;
+	background-color: white;  #f85032
+	border-bottom-left-radius: 2em;
+	border-bottom-right-radius: 2em;
+	border-top-left-radius: 2em;
+	border-top-right-radius: 2em;
+	*/
+}
+
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
