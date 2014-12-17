@@ -2,48 +2,59 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<link rel="stylesheet" href="../styles/pure/grids.css">
-<link rel="stylesheet" href="../styles/pure/base.css">
-<link rel="stylesheet" href="../styles/pure/forms.css">
-<link rel="stylesheet" href="../styles/pure/tables.css">
-<link rel="stylesheet" href="../styles/pure/buttons.css">
-<link rel="stylesheet" href="../styles/pure/menus.css">
-<link rel="stylesheet" href="../styles/pure/pure.css">
-<link rel="stylesheet" href="../styles/style.css">
-<title>JS Bin</title>
+    <link rel="stylesheet" href="../style/pure/grids.css">
+    <link rel="stylesheet" href="../style/pure/base.css">
+    <link rel="stylesheet" href="../style/pure/forms.css">
+    <link rel="stylesheet" href="../style/pure/tables.css">
+    <link rel="stylesheet" href="../style/pure/buttons.css">
+    <link rel="stylesheet" href="../style/pure/menus.css">
+    <link rel="stylesheet" href="../style/pure/pure.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="../scripts/jquery-1.11.1.js"></script>
+    <title>Type10</title>
 </head>
 <body>
- <header class="pure-g">
+ <div class="pure-g">
     <div class="pure-u-1">
         <h3>Main</h3>
-
+        <div class="pure-g">
+            <div class="pure-u-2-5">
+            </div>
+            <div class="pure-u-1-5">
+                <h3>Timer</h3>
+            </div>
+            <div class="pure-u-2-5">
+            </div>
+        </div>
     </div>
-</header>
+</div>
 <div class="pure-g">
     <div class="pure-u-1-5">
         <h3>High Scores</h3>
     </div>
     <div class="pure-u-3-5">
-    	<div class="question-box"> 
+        <div class="question-box"> 
             <h4>Type 10 things that we can find in the ECS lab</h4>    
         </div>
         <div class="attempt-box">
             <h4>Attempts</h4> 
         </div>
-    	<div id="answer-box">
-		    <form class="pure-form pure-form-stacked">
-			    <fieldset>
-			        <input id="answer-input" type="answer" placeholder="answer">
-			    </fieldset>
-			</form>
-		</div>
+        <div class="answer-box">
+            <form class="pure-form pure-form-stacked" id="question" >
+                <fieldset>
+                    <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }">
+                </fieldset>
+            </form>
+        </div>
     </div>
     <div class="pure-u-1-5">
         <h3>Answers</h3>
     </div>
 </div>
-<footer class="pure-g">
-    <div class="pure-u-1">Footer</div>
-</footer>
+<div class="pure-g">
+    <div class="pure-u-1">
+            <h4>Footer</h4> 
+    </div>
+</div>
 </body>
 </html>
