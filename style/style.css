@@ -69,12 +69,12 @@
 
 /* Answer Box
 -----------------*/
-#answer-box{
+.answer-box{
   padding: 1em;
   background-color: #123752;
 }
 
-#answer-input{
+.answer-input{
   height:1em;
   font-size: 3em;
   color: #757575;
