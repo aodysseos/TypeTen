@@ -36,7 +36,6 @@ def typeten_key(typeten_name=DEFAULT_TYPETEN_NAME):
 
 #4 - Sets model for data we're going to store, properties and attributes.
 class Question(ndb.Model):
-    question_key = ndb.Key('Question', 'id')
     _use_memcache = False
     content = ndb.StringProperty(required=True, indexed=False)
 
@@ -80,7 +79,7 @@ class MainPage(webapp2.RequestHandler):
 # Query to display all of the questions
         question_query = Question.query(
             ancestor=typeten_key(typeten_name))
-        questions = question_query.fetch(10)
+        questions = question_query.fetch(1)
 
 # Output data content
         for question in questions:
@@ -99,6 +98,43 @@ class Typeten_DataModel(webapp2.RequestHandler):
     def post(self):
         typeten_name = self.request.get('typeten_name',
                                         DEFAULT_TYPETEN_NAME)
+        # Gets content from form and writes to datastore
+        question = Question(parent=typeten_key(typeten_name))
+        question.content = "What are the highlights of France?"
+        question_key=question.put()
+
+        answer_rating1 = Answer_rating(parent=typeten_key(typeten_name))
+        answer_rating1.description='low'
+        answer_rating1.points=5
+        answer_rating1_key=answer_rating1.put()
+
+        answer_rating2 = Answer_rating(parent=typeten_key(typeten_name))
+        answer_rating2.description='medium'
+        answer_rating2.points=8
+        answer_rating2_key=answer_rating2.put()
+
+        answer_rating3 = Answer_rating(parent=typeten_key(typeten_name))
+        answer_rating3.description='high'
+        answer_rating3.points=10
+        answer_rating3_key=answer_rating3.put()
+
+        answer1 = Answer(parent=typeten_key(typeten_name))
+        answer1.content = 'Eiffel Tower'
+        answer1.question_id=question_key.id()
+        answer1.rating_id=answer_rating1_key.id()
+        answer1.put()
+
+        answer2 = Answer(parent=typeten_key(typeten_name))
+        answer2.content='Disneyland Paris'
+        answer2.question_id=question_key.id()
+        answer2.rating_id=answer_rating2_key.id()
+        answer2.put()
+
+        answer3 = Answer(parent=typeten_key(typeten_name))
+        answer3.content='Mont Blanc'
+        answer3.question_id=question_key.id()
+        answer3.rating_id=answer_rating3_key.id()
+        answer3.put()
 
 
         #User and Score table will be created and initialised when we create a login feature using gmail id.
