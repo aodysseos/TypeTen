@@ -40,11 +40,33 @@
             <h4>Attempts</h4> 
         </div>
     	<div class="answer-box">
-		    <form class="pure-form pure-form-stacked" id="question" >
+		    <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked" method="POST" action="main.html">
 			    <fieldset>
-			        <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }">
+			        <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { this.form.submit(); }">
 			    </fieldset>
 			</form>
+            <script>
+            //callback handler for form submit
+            $("#questionForm").submit(function(e)
+            {
+                $.ajax(
+                {
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serializeArray(),
+                    success: function(response) 
+                    {
+                        //$(".attempt-box").html(response);
+                        alert('ok');
+                    },
+                    error: function(html) 
+                    {
+                        alert('error');
+                    }
+                });
+                e.preventDefault();
+            });
+            </script>
 		</div>
     </div>
     <div class="pure-u-1-5">
