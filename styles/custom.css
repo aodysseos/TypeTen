@@ -2,21 +2,17 @@
 	text-align: center;
 }
 
-.menu {
-	padding-top: 0.4rem;
-	text-align: center;
-}
-
-.menu ul {
+.menu_element {
+	padding-bottom: 0.4rem;
 	list-style: none;
+	display: block;
 }
 
-.element {
-	font-family: Arial;
-	padding-top: 0.3rem;
-	margin: 0.4rem auto;
-	display: block;
-	vertical-align: middle;
+.menu_element_admin {
+	padding-top: 0.4rem;
+	padding-left: 0.4rem;
+	list-style: none;
+	display:inline-block
 }
 
 .menu_container {
@@ -33,9 +29,25 @@
 	*/
 }
 
-.button-secondary {
+.button-secondary-admin,
+.button-secondary-main {
     color: white;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+.button-error {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-secondary-main {
+   width: 30%;
+}
+
+.search_question{
+	padding-left: 3.2%;
 }
