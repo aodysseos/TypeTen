@@ -39,7 +39,7 @@ function checkAnswer(value, e) {
             if (correct_answer === false){
                 $(".attempt-box").append('<p>' + user_input + '</p>');
             }else{
-                $(".attempt-box").append('<p>correct</p>');
+                $("#correct-answers-box").append('<p>'+ user_input +'</p>');
             }  
             //alert('ok');
         },
