@@ -39,6 +39,7 @@ class Question(ndb.Model):
     _use_memcache = False
     content = ndb.StringProperty(required=True, indexed=False)
 
+
 class Answer_rating(ndb.Model):
 
     _use_memcache = False
@@ -77,10 +78,10 @@ class MainPage(webapp2.RequestHandler):
 
 
 # Query to display all of the questions
-
+		
         question_query = Question.query(
             ancestor=typeten_key(typeten_name))
-        questions = question_query.fetch()
+        questions = question_query.fetch(1)
 
 # Output data content
         for question in questions:
