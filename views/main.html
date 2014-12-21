@@ -37,8 +37,34 @@
     </div>
 </div>
 <div class="pure-g">
-    <div class="pure-u-1-5">
+    <div class="pure-u-1-5" id="high_scores">
         <h3>High Scores</h3>
+        <table class="pure-table pure-table-horizontal" style="margin-left:0.5rem">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>aaa</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>bbb</td>
+                    <td>70</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>ccc</td>
+                    <td>60</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="pure-u-3-5">
     	<div class="question-box"> 
@@ -48,11 +74,12 @@
             <h4>Attempts</h4> 
         </div>
     	<div class="answer-box">
-		    <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked" method="POST" action="main.html">
+		    <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
 			    <fieldset>
-			        <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { this.form.submit(); }">
+			        <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { return checkAnswer(this.value, event); }">
 			    </fieldset>
 			</form>
+<<<<<<< HEAD
             <script>
             //callback handler for form submit
             $("#questionForm").submit(function(e)
@@ -77,10 +104,12 @@
 
             });
             </script>
+=======
+>>>>>>> origin/master
 		</div>
     </div>
-    <div class="pure-u-1-5">
-        <h3>Answers</h3>
+    <div id="correct-answers-box" class="pure-u-1-5">
+        <h4>Answers</h4> 
     </div>
 </div>
 <div class="pure-g">
@@ -88,5 +117,6 @@
         <h4>Footer</h4> 
     </div>
 </div>
+<script src="../scripts/main.js"></script>
 </body>
 </html>

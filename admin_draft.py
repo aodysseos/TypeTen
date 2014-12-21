@@ -5,7 +5,7 @@ import random
 import jinja2
 import os
 
-from random import randint
+
 from google.appengine.ext import ndb
 from google.appengine.api import users
 import webapp2
@@ -37,8 +37,8 @@ def typeten_key(typeten_name=DEFAULT_TYPETEN_NAME):
 #4 - Sets model for data we're going to store, properties and attributes.
 class Question(ndb.Model):
     _use_memcache = False
-    content = ndb.StringProperty(required=True, indexed=True)
-    number = ndb.IntegerProperty(required=True, indexed=True)
+    content = ndb.StringProperty(required=True, indexed=False)
+
 
 class Answer_rating(ndb.Model):
 
@@ -78,14 +78,14 @@ class MainPage(webapp2.RequestHandler):
 
 
 # Query to display all of the questions
-        rand = randint(1,2);
-        qyr = Question.query(Question.number == rand)
-        questions = qyr.fetch(1)
-      
+		
+        question_query = Question.query(
+            ancestor=typeten_key(typeten_name))
+        questions = question_query.fetch(1)
 
 # Output data content
         for question in questions:
-
+        	
             self.response.write('<blockquote>%s</blockquote>' %
                                 cgi.escape(question.content))
 
@@ -103,8 +103,7 @@ class Typeten_DataModel(webapp2.RequestHandler):
                                         DEFAULT_TYPETEN_NAME)
         # Gets content from form and writes to datastore
         question = Question(parent=typeten_key(typeten_name))
-        question.content = "What are the highlights of Oman?"
-        question.number = 2
+        question.content = "What are the highlights of France?"
         question_key=question.put()
 
         answer_rating1 = Answer_rating(parent=typeten_key(typeten_name))
