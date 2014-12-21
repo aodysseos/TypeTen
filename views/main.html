@@ -10,14 +10,12 @@
     <link rel="stylesheet" href="../style/pure/menus.css">
     <link rel="stylesheet" href="../style/pure/pure.css">
     <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/TimeCircles.css" >
     <script src="../scripts/jquery-1.11.1.js"></script>
-    <title>Type10</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="../scripts/TimeCircles.js"></script>
-<link href="../style/TimeCircles.css" rel="stylesheet">
-<script type="text/javascript" src="../scripts/zeroalert.js"></script>
-
-
+    <script type="text/javascript" src="../scripts/TimeCircles.js"></script>
+    <script type="text/javascript" src="../scripts/zeroalert.js"></script>
+    <title>Type10</title>
 </head>
 <body>
  <div class="pure-g">
@@ -27,9 +25,6 @@
             <div class="pure-u-7-24">
             </div>
             <div id="timer" class="pure-u-10-24" data-timer="60" style="height:100px; width=300px">
-             
-               
-                
             </div>
             <div class="pure-u-7-24">
             </div>
@@ -67,46 +62,19 @@
         </table>
     </div>
     <div class="pure-u-3-5">
-    	<div class="question-box"> 
+        <div class="question-box"> 
             <h4>Type 10 things that we can find in the ECS lab</h4>    
         </div>
         <div class="attempt-box">
             <h4>Attempts</h4> 
         </div>
-    	<div class="answer-box">
-		    <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
-			    <fieldset>
-			        <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { return checkAnswer(this.value, event); }">
-			    </fieldset>
-			</form>
-<<<<<<< HEAD
-            <script>
-            //callback handler for form submit
-            $("#questionForm").submit(function(e)
-            {
-                $.ajax(
-                {
-                    url: $(this).attr('action'),
-                    type: $(this).attr('method'),
-                    data: $(this).serializeArray(),
-                    success: function(response) 
-                    {
-                        //$(".attempt-box").html(response);
-                        alert('ok');
-                    },
-                    error: function(html) 
-                    {
-                        alert('error');
-                    }
-                });
-                e.preventDefault();
-
-
-            });
-            </script>
-=======
->>>>>>> origin/master
-		</div>
+        <div class="answer-box">
+            <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
+                <fieldset>
+                    <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { return checkAnswer(this.value, event); }">
+                </fieldset>
+            </form>
+        </div>
     </div>
     <div id="correct-answers-box" class="pure-u-1-5">
         <h4>Answers</h4> 
