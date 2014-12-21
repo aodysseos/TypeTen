@@ -1,16 +1,19 @@
 function checkAnswer(value, e) {
-    alert(value);
+   console.log(value);
+   console.log("yes");
     $.ajax({
         //url: $(this).attr('action'),
         //type: $(this).attr('method'),
-        data: {value: value}
+        //data: {value: value}
     })
         .success(function (data) {
+            console.log("success");
             $(".attempt-box").append('<p>' + $('.answer-input').val() + '</p>');
             //alert('ok');
         })
         .error(function () {
-            alert("error");
+            console.log("error");
+            $(".attempt-box").append('<p>' + $('.answer-input').val() + '</p>');
 
         })
     return false;

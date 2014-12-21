@@ -68,7 +68,7 @@
     	<div class="answer-box">
 		    <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
 			    <fieldset>
-			        <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { checkAnswer(this.value); }">
+			        <input class="answer-input" type="answer" placeholder="answer" onkeydown="if (event.keyCode == 13) { return checkAnswer(this.value, event); }">
 			    </fieldset>
 			</form>
 		</div>
