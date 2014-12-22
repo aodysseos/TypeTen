@@ -1,4 +1,5 @@
 function checkAnswer(value, e) {
+   
    var answers = [
     {"answer":"right1"}, 
     {"answer":"right2"},  
@@ -37,14 +38,14 @@ function checkAnswer(value, e) {
                 }
             }
             if (correct_answer === false){
-                $(".attempt-box").append('<p>' + user_input + '</p>');
+                $(".attempt-box").append('<div id="false-answer">' + user_input + '</div>');
             }else{
-                $("#correct-answers-box").append('<p>'+ user_input +'</p>');
+                $("#correct-answers-box").append('<div id="correct-answer">'+ user_input +'</div>');
             }  
             //alert('ok');
         },
         error: function () {
-            $(".attempt-box").append('<p>' + $('.answer-input').val() + '</p>');
+            $(".attempt-box").append('<p>ERROR</p>');
         }
 
     });

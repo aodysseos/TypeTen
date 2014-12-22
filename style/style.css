@@ -68,7 +68,10 @@
 -----------------*/
 .attempt-box {
   height:18em;
+  width:70em;
   padding: 1em;
+  overflow: auto;
+  display:block;
   background-color: #708FA3;
 }
 
@@ -88,6 +91,14 @@
 
 /* Corrrect Answer Box
 -----------------*/
-.correct-answers-box{
-  
+#false-answer{
+  font-size: 3em;
+  color: #afc8d6;
+  vertical-align: bottom;
+}
+
+#correct-answer{
+  font-size: 3em;
+  color: #92cc80;
+  vertical-align: bottom;
 }
