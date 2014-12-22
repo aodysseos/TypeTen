@@ -803,13 +803,13 @@
         start: true,
         animation: "smooth",
         count_past_zero: true,
-        circle_bg_color: "#60686F",
+        circle_bg_color: "#757575",
         use_background: true,
         fg_width: 0.1,
         bg_width: 1.2,
         text_size: 0.07,
         total_duration: "Auto",
-        direction: "Clockwise",
+        direction: "Counter-clockwise",
         use_top_frame: false,
         start_angle: 0,
         time: {
@@ -831,7 +831,7 @@
             Seconds: {
                 show: true,
                 text: "Seconds",
-                color: "#F99"
+                color: "#a8dbb9"
             }
         }
     };
