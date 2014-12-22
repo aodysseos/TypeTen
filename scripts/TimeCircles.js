@@ -805,7 +805,7 @@
         count_past_zero: true,
         circle_bg_color: "#757575",
         use_background: true,
-        fg_width: 0.1,
+        fg_width: 0.12,
         bg_width: 1.2,
         text_size: 0.07,
         total_duration: "Auto",

@@ -3,12 +3,13 @@
  *	It is used so that your own element will not need to be altered
  **/
 .time_circles {
-
-    margin-bottom:25px;
-    margin-left:210px;
     position: relative;
     width: 100%;
     height: 100%;
+    margin: 0 auto;
+    text-align:center;
+            padding-top: -1.1em;
+
 }
 
 /**
@@ -24,11 +25,10 @@
  *	Titles (Days, Hours, etc)
  **/
 .time_circles > div > h4 {
-    margin: 0px;
-    padding: 0px;
     text-align: center;
     text-transform: uppercase;
     font-family: 'Century Gothic', Arial;
+
 }
 
 /**
@@ -40,6 +40,5 @@
     text-align: center;
     font-family: 'Century Gothic', Arial;
     font-size: 300%;
-    margin-top: 0.4em;
     font-weight: bold;
 }

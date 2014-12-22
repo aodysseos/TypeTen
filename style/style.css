@@ -2,6 +2,9 @@
 @screen-md-min: 992px;
 @screen-lg-min: 1200px;
 
+html{ 
+  background-color: #757575;
+}
 .container {
   margin: auto;
 }
@@ -38,24 +41,27 @@
 .pure-g :nth-child(odd),
 .pure-g-r :nth-child(odd){
 }
-.pure-u-1-5{
-  height: 500px;
+
+#main{
+  height:200px; 
+  background-color: #757575;
+}
+
+#timer{
+  height:200px; 
+  background-color: #757575;
+}
+
+#high-scores{
+  height: 520px;
   background-color: #8697AC;
 }
-.pure-u-3-5{
-  height: 500px;
-  background-color: #757575;
+
+#correct-answers-box{
+  height: 520px;
+  background-color: #8697AC;
 }
 
-.pure-u-10-24{
-  height:200px; 
-  background-color: #708FA3;
-}
-
-.pure-u-1{
-  height: 150px;
-  background-color: #757575;
-}
 /* Question Box
 -----------------*/
 .question-box {
