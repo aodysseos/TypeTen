@@ -4,9 +4,11 @@ import urllib
 import os
 import jinja2
 import webapp2
+import random
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
+from random import randint
 
 
 jinja_environment = jinja2.Environment(autoescape=True,
@@ -49,6 +51,7 @@ class Answer(ndb.Model):
     _use_memcache = False
     content = ndb.StringProperty(required=True, indexed=False)
     question_id = ndb.IntegerProperty(required=True)
+    number_id = ndb.IntegerProperty(required=True, indexed=True)
     rating_id = ndb.IntegerProperty(required=True)
 
 class GameUser(ndb.Model):
@@ -72,6 +75,24 @@ class MainPage(webapp2.RequestHandler):
         self.response.write('<html><body>')
         # Set variable for ancestor query, using name as the key
         typeten_name = self.request.get('typeten_name',DEFAULT_TYPETEN_NAME)
+
+        # Query to display all of the questions
+        rand = randint(1,2);
+        qyr = Question.query(Question.number == rand)
+        questions = qyr.fetch(1)
+
+        answer_qry = Answer.query(Answer.number_id == 1)
+        answers = answer_qry.fetch(1)
+
+        print answers
+
+# Output data content
+        for question in questions:
+
+            self.response.write('<blockquote>%s</blockquote>' %
+                                cgi.escape(question.content))
+
+
 
         # Output footer with typeten name and parameters
         onLoad_query_params = urllib.urlencode({'typeten_name': typeten_name})
@@ -110,18 +131,24 @@ class Typeten_DataModel(webapp2.RequestHandler):
         answer1.content = 'Eiffel Tower'
         answer1.question_id=question_key.id()
         answer1.rating_id=answer_rating1_key.id()
+        answer1.number_id= question.number()
+        answer1.number_id= 1
         answer1.put()
 
         answer2 = Answer(parent=typeten_key(typeten_name))
         answer2.content='Disneyland Paris'
         answer2.question_id=question_key.id()
         answer2.rating_id=answer_rating2_key.id()
+        answer1.number_id= question.number()
+        answer1.number_id= 1
         answer2.put()
 
         answer3 = Answer(parent=typeten_key(typeten_name))
         answer3.content='Mont Blanc'
         answer3.question_id=question_key.id()
         answer3.rating_id=answer_rating3_key.id()
+        answer1.number_id= question.number()
+        question.number = 1
         answer3.put()
 
         #User and Score table will be created and initialised when we create a login feature using gmail id.
