@@ -1,0 +1,22 @@
+== Main Screen ==
+There is a draft for the main screen, the menu is centered now and the buttons have the same size. 
+
+== Admin page ==
+Guys go are working with the back-end:
+
+1. Can start checking how to set an Administrator account and allow access only to that account for this page.
+
+2. The front end code is ready to send JSON to the back-end. We have the following scenarios:
+	- In the main screen of admin (or clicking on the "Check questions" button), when we start using jinja2 the title of the questions are going to be displayed in the dropdown (when you send the object to jinja template must contain the ID). After clicking on the button that ID is going to be send to the back end using AJAX to retrive the list of answers. Each answer will have an update/delete button. In case that there is going to be an update the information that is going to be send to the back end is: ID, answer text and difficulty (low/medium/high). In case of a delete, only the ID.
+
+3. "New question" (I will change the icon): you can type a question title and add 1 or more answers the data will be send as follows (its just an example):
+
+	question=question+title
+	&answer_1=answer+1&new_difficulty_answer_1=low
+	&answer_2=answer+2&new_difficulty_answer_2=medium
+	&answer_3=answer+3&new_difficulty_answer_3=high
+
+So you guys can start working on these things.
+
+Thanks,
+Fernando
