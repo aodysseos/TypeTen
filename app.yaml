@@ -22,9 +22,16 @@ handlers:
   static_dir: images
 
 - url: /.*
+  script: models.application
+
+- url: /.*
   script: typeten.application
   login: required
   secure: always
+
+
+
+
 
 
 

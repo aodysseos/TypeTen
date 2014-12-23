@@ -14,7 +14,7 @@ from decorators import admin_required
 #set jinja2 environment to connect html with python
 jinja_environment = jinja2.Environment(autoescape=True,
                                        loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),
-                                                                                   'templates')))
+                                                                                   'views')))
 
 
 #3 Establishes initial parent key to group entities
