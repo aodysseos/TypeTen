@@ -1,4 +1,4 @@
-application: lyrical-epigram-790
+application: type-ten-1
 version: 1
 runtime: python27
 api_version: 1
@@ -7,17 +7,24 @@ threadsafe: true
 libraries:
 - name: webapp2
   version: latest
+
 - name: jinja2
   version: latest
 
 handlers:
-- url: /.*
-  script: typeten.application
-
 - url: /styles
   static_dir: styles
 
 - url: /scripts
   static_dir: scripts
+
+- url: /images
+  static_dir: images
+
+- url: /.*
+  script: typeten.application
+  login: required
+  secure: always
+
 
 

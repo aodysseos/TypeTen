@@ -177,7 +177,7 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     color: #fff;
 }
 
-/* Focus styles for a dropdown menu-item when the parent has been opened */
+/* Focus style for a dropdown menu-item when the parent has been opened */
 .pure-menu .pure-menu-open {
     background: #dedede;
 }

@@ -172,7 +172,7 @@ abbr[title] {
 }
 
 /**
- * Address styles set to `bolder` in Firefox 3+, Safari 4/5, and Chrome.
+ * Address style set to `bolder` in Firefox 3+, Safari 4/5, and Chrome.
  */
 
 b,
@@ -428,8 +428,8 @@ input {
 /**
  * Address inconsistent `text-transform` inheritance for `button` and `select`.
  * All other form control elements do not inherit `text-transform` values.
- * Correct `button` styles inheritance in Chrome, Safari 5+, and IE 6+.
- * Correct `select` styles inheritance in Firefox 4+ and Opera.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 6+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
  */
 
 button,
@@ -440,8 +440,8 @@ select {
 /**
  * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
  *    and `video` controls.
- * 2. Correct inability to styles clickable `input` types in iOS.
- * 3. Improve usability and consistency of cursor styles between image-type
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
  *    `input` and others.
  * 4. Remove inner spacing in IE 7 without affecting normal text inputs.
  *    Known issue: inner spacing remains in IE 6.
@@ -555,7 +555,7 @@ table {
 }
 
 /**
- * Add this class to an image to make it fit within it'partials fluid parent wrapper while maintaining
+ * Add this class to an image to make it fit within it's fluid parent wrapper while maintaining
  * aspect ratio.
  */
 .pure-img {
@@ -625,7 +625,7 @@ table {
 }
 
 /*
-Resets the font family back to the OS/browser'partials default sans-serif font,
+Resets the font family back to the OS/browser's default sans-serif font,
 this the same font stack that Normalize.css sets for the `body`.
 */
 .pure-g [class *= "pure-u"] {
@@ -871,8 +871,8 @@ this the same font stack that Normalize.css sets for the `body`.
 .pure-button {
     font-family: inherit;
     font-size: 100%;
-    *font-size: 90%; /*IE 6/7 - To reduce IE'partials oversized button text*/
-    *overflow: visible; /*IE 6/7 - Because of IE'partials overly large left/right padding on buttons */
+    *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
+    *overflow: visible; /*IE 6/7 - Because of IE's overly large left/right padding on buttons */
     padding: 0.5em 1em;
     color: #444; /* rgba not supported (IE 8) */
     color: rgba(0, 0, 0, 0.80); /* rgba supported */
@@ -1406,7 +1406,7 @@ since IE8 won't execute CSS that contains a CSS3 selector.
     color: #fff;
 }
 
-/* Focus styles for a dropdown menu-item when the parent has been opened */
+/* Focus style for a dropdown menu-item when the parent has been opened */
 .pure-menu .pure-menu-open {
     background: #dedede;
 }

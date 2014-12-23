@@ -2,6 +2,12 @@
 @screen-md-min: 992px;
 @screen-lg-min: 1200px;
 
+html, body
+{
+    width: 100%;
+    height: 100%;
+}
+
 .container {
   margin: auto;
 }
@@ -38,19 +44,33 @@
 .pure-g :nth-child(odd),
 .pure-g-r :nth-child(odd){
 }
-.pure-u-1-5{
-  height: 500px;
-  background-color: #8697AC;
-}
-.pure-u-3-5{
-  height: 500px;
+
+#game{ 
+  width:100%;
+  height:100%;
   background-color: #757575;
 }
 
-.pure-u-1{
-  height: 150px;
+#main{
+  height:200px; 
   background-color: #757575;
 }
+
+#timer{
+  height:200px; 
+  background-color: #757575;
+}
+
+#high-scores{
+  height: 600px;
+  background-color: #8697AC;
+}
+
+#correct-answers-box{
+  height: 600px;
+  background-color: #8697AC;
+}
+
 /* Question Box
 -----------------*/
 .question-box {
@@ -59,24 +79,48 @@
   background-color: #B6C1CE;
 }
 
+#questionForm{
+ margin: 0 auto;
+ }
+
 /* Attempt Box
 -----------------*/
 .attempt-box {
-  height:18em;
+  height:22.35em;
   padding: 1em;
+  overflow: auto;
+  display:block;
   background-color: #708FA3;
 }
 
 /* Answer Box
 -----------------*/
-#answer-box{
-  padding: 1em;
+.answer-box{
+  padding: 0.3em;
+  text-align: center;
   background-color: #123752;
 }
 
-#answer-input{
-  height:1em;
-  font-size: 3em;
+.answer-input{
+  width: 500px;
+  font-size: 2em;
   color: #757575;
-  background-color: #FFFFFF;
+}
+.answer-box fieldset{
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+/* Corrrect Answer Box
+-----------------*/
+#false-answer{
+  font-size: 3em;
+  color: #afc8d6;
+  vertical-align: bottom;
+}
+
+#correct-answer{
+  font-size: 3em;
+  color: #92cc80;
+  vertical-align: bottom;
 }

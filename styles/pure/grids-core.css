@@ -65,7 +65,7 @@ https://github.com/yui/pure/blob/master/LICENSE.md
 }
 
 /*
-Resets the font family back to the OS/browser'partials default sans-serif font,
+Resets the font family back to the OS/browser's default sans-serif font,
 this the same font stack that Normalize.css sets for the `body`.
 */
 .pure-g [class *= "pure-u"] {
