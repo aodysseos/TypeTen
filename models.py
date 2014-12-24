@@ -80,12 +80,15 @@ class MainPage(webapp2.RequestHandler):
         rand = randint(1,4);
         qyr = Question.query(Question.number == rand).get()
 
-        answer_qry = Answer.query(Answer.number_id == qyr.number).get()
+        answer_qry= Answer.query(Answer.number_id == qyr.number)
+        answers = answer_qry.fetch()
 
         self.response.write('<blockquote>%s</blockquote>' %
                                 cgi.escape(qyr.content))
-        self.response.write('<blockquote>%s</blockquote>' %
-                                cgi.escape(answer_qry.content))
+
+        for answer in answers:
+            self.response.write('<blockquote>%s</blockquote>' %
+                                cgi.escape(answer.content))
 
 
         # Output footer with typeten name and parameters
