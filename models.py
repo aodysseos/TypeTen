@@ -5,7 +5,7 @@ import os
 import jinja2
 import webapp2
 import random
-
+import json
 from google.appengine.ext import ndb
 from google.appengine.api import users
 from random import randint
@@ -77,21 +77,15 @@ class MainPage(webapp2.RequestHandler):
         typeten_name = self.request.get('typeten_name',DEFAULT_TYPETEN_NAME)
 
         # Query to display all of the questions
-        rand = randint(1,2);
-        qyr = Question.query(Question.number == rand)
-        questions = qyr.fetch(1)
+        rand = randint(1,4);
+        qyr = Question.query(Question.number == rand).get()
 
-        answer_qry = Answer.query(Answer.number_id == 1)
-        answers = answer_qry.fetch(1)
+        answer_qry = Answer.query(Answer.number_id == qyr.number).get()
 
-        print answers
-
-# Output data content
-        for question in questions:
-
-            self.response.write('<blockquote>%s</blockquote>' %
-                                cgi.escape(question.content))
-
+        self.response.write('<blockquote>%s</blockquote>' %
+                                cgi.escape(qyr.content))
+        self.response.write('<blockquote>%s</blockquote>' %
+                                cgi.escape(answer_qry.content))
 
 
         # Output footer with typeten name and parameters
@@ -108,8 +102,8 @@ class Typeten_DataModel(webapp2.RequestHandler):
 
         # Gets content from form and writes to datastore
         question = Question(parent=typeten_key(typeten_name))
-        question.content = "What are the highlights of France?"
-        question.number = 1
+        question.content = "What are the highlights of Libya?"
+        question.number = 2
         question_key=question.put()
 
         answer_rating1 = Answer_rating(parent=typeten_key(typeten_name))
@@ -131,24 +125,21 @@ class Typeten_DataModel(webapp2.RequestHandler):
         answer1.content = 'Eiffel Tower'
         answer1.question_id=question_key.id()
         answer1.rating_id=answer_rating1_key.id()
-        answer1.number_id= question.number()
-        answer1.number_id= 1
+        answer1.number_id= 2
         answer1.put()
 
         answer2 = Answer(parent=typeten_key(typeten_name))
         answer2.content='Disneyland Paris'
         answer2.question_id=question_key.id()
         answer2.rating_id=answer_rating2_key.id()
-        answer1.number_id= question.number()
-        answer1.number_id= 1
+        answer2.number_id= 2
         answer2.put()
 
         answer3 = Answer(parent=typeten_key(typeten_name))
         answer3.content='Mont Blanc'
         answer3.question_id=question_key.id()
         answer3.rating_id=answer_rating3_key.id()
-        answer1.number_id= question.number()
-        question.number = 1
+        answer3.number_id= 2
         answer3.put()
 
         #User and Score table will be created and initialised when we create a login feature using gmail id.
