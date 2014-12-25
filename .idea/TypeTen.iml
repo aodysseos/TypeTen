@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="google-appengine-python" name="Google App Engine (Python)">
       <configuration>
-        <option name="rootFolder" value="C:\Users\Ayoub\Documents\GitHub\TypeTen" />
+        <option name="rootFolder" value="C:\Users\Soumya\Desktop\TypeTen" />
         <option name="sdkFolder" value="C:\Program Files (x86)\Google\google_appengine" />
         <option name="templatesFolder" value="" />
         <option name="oauth2" value="false" />
@@ -12,7 +12,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 2.7.6 (/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 2.7.9 (C:\Python27\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Google App Engine SDK" level="project" />
   </component>

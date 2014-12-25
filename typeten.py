@@ -85,6 +85,7 @@ class InitialiseDatabase(webapp2.RequestHandler):
        answer3.put()
        self.redirect('/MainPage')
 
+
 #Creates MainPage content
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -108,15 +109,16 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('draft.html')
         self.response.write(template.render(template_values))
 
-class NewGame(webapp2.RequestHandler):
-    def get(self):
 
+class NewGame(webapp2.RequestHandler):
+
+    def get(self):
         # Query to retrieve a particular question using random number generator
-        rand = randint(1,4)
-        question = Question.query(Question.number == rand).get()
+        rand = randint(1, 4)
+        qry = Question.query(Question.number == rand).get()
 
         template_values = {
-            'question': question.content
+            'question': qry.content
         }
 
         template = jinja_environment.get_template('game.html')
