@@ -17,16 +17,19 @@ jinja_environment = jinja2.Environment(autoescape=True,
                                        loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),
                                                                                    'views')))
 
+
 # Sets model for data we're going to store, properties and attributes.
 class Question(ndb.Model):
     _use_memcache = False
     content = ndb.StringProperty(required=True, indexed=True)
     number = ndb.IntegerProperty(required=True, indexed=True)
 
+
 class Answer_rating(ndb.Model):
     _use_memcache = False
     description = ndb.StringProperty(required=True, indexed=False)
     points = ndb.IntegerProperty(required=True, indexed=False)
+
 
 class Answer(ndb.Model):
     _use_memcache = False
@@ -34,14 +37,17 @@ class Answer(ndb.Model):
     question_id = ndb.IntegerProperty(required=True)
     rating_id = ndb.IntegerProperty(required=True)
 
+
 class GameUser(ndb.Model):
     username = ndb.StringProperty(required=True)
+
 
 class Score(ndb.Model):
     score = ndb.IntegerProperty()
     time = ndb.IntegerProperty()
     user_id = ndb.IntegerProperty(required=True)
 #End
+
 
 #Initialises the tables
 class InitialiseDatabase(webapp2.RequestHandler):
