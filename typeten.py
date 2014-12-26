@@ -96,7 +96,7 @@ class ManageAnswer(webapp2.RequestHandler):
         question = Question.get_by_id(int(question_id), parent=None)
 
         ans_json = [{'answer_id': str(a.key().id()),
-                    'answer_content': a.content} for a in question.answers]
+                    'answer_content': a.content, 'answer_difficulty': a.answer_rating} for a in question.answers]
 
         self.response.out.write(json.dumps(ans_json))
 

@@ -32,12 +32,6 @@
             </div>
             <!-- Div to show form to get the answers for a specific question -->
             <div id="questions" class="search_question">
-            <p> Note: this section should be only accessed by the admin </p>
-            By default, the questions should be send to this page. Something like: <br />
-            - Question title <br />
-            - question Id
-
-            To have something like: <br />
                 <form id="form_get_answers" class="pure-form" method="GET" action="/answers">
                     <div class="pure-control-group">
                         <label for="question">Question title: </label>
@@ -50,10 +44,9 @@
                         <button type="submit" id="get_answers" class="pure-button pure-button-primary">Get answers</button>
                     </div>
                 </form>
-                <p>The data in json format should be an array that contains all the answers : </p>
             </div>
             <!--div to show the results -->
-            <div id="question_results">
+            <div id="question_results" class="top_space">
 
             </div>
             <div id="new_question_result" style="display:none">
