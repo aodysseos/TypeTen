@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard {% endblock %}
+        {% block head %}
+            {{ super() }}
+
+        {% endblock %}
+
+        {% block content %}
+
+            <header class="custom-header">
+                <img src="images/logo.png"/>
+            </header>
+            <div class="menu" style="text-align:center">
+                <p>Welcome to Type Ten game</p>
+                <div class="menu_container">
+                    <ul>
+                        <li class="menu_element">
+                            <a class="pure-button button-secondary-main" href="/play">
+                                <i class="fa fa-pencil"></i> New game
+                            </a>
+                        </li>
+                        <li class="menu_element">
+                            <a class="pure-button button-secondary-main" href="#">
+                                <i class="fa fa-trophy"></i> Leaderboard
+                            </a>
+                        </li>
+                        <li class="menu_element">
+                            <a class="pure-button button-secondary-main" href="{{ url|safe }}">
+                                <i class="fa fa-user"></i>  {{ url_text  }}
+                            </a>
+                        </li>
+                        <li class="menu_element">
+                            <a class="pure-button button-secondary-main" href="#">
+                                <i class="fa fa-gamepad"></i> Instructions
+                            </a>
+                        </li>
+                        {% if is_admin == True %}
+                        <li class="menu_element">
+                            <a class="pure-button button-secondary-main" href="/admin">
+                                <i class="fa fa-cogs"></i> Admin
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+        {% endblock %}
+
+

@@ -4,23 +4,30 @@
 
             {% block head %}
                 <meta charset=utf-8 />
-                <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+                <title>Type Ten game </title>
+                <link rel="stylesheet" href="styles/pure/grids.css">
+                <link rel="stylesheet" href="styles/pure/base.css">
+                <link rel="stylesheet" href="styles/pure/forms.css">
+                <link rel="stylesheet" href="styles/pure/tables.css">
+                <link rel="stylesheet" href="styles/pure/buttons.css">
+                <link rel="stylesheet" href="styles/pure/menus.css">
+                <link rel="stylesheet" href="styles/pure/pure.css">
+                <link rel="stylesheet" href="styles/custom.css">
+                <link rel="stylesheet" href="styles/style.css">
+                <link rel="stylesheet" href="styles/TimeCircles.css" >
+                <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.min.css">
+                <script type="text/javascript" src="scripts/jquery-1.11.1.js"></script>
+                <script type="text/javascript" src="scripts/TimeCircles.js"></script>
+                <script type="text/javascript" src="scripts/countdown.js"></script>
                 <title>{% block title%} {% endblock %}- TypeTen </title>
             {% endblock %}
         </head>
         <body>
+            {% block content  %}
 
+            {% endblock %}
 
-            <div id="content" class="container">
-                {% include "./partials/header.html" %}
-
-                {% block content  %}
-
-                {% endblock %}
-
-                {% include "./partials/footer.html" %}
-            </div>
-
+            {% include "./partials/footer.html" %}
 
 	        {% include "./partials/scripts.html" %}
 
