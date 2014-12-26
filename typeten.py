@@ -2,97 +2,26 @@
 import cgi
 import urllib
 import random
-import json
 import jinja2
 import os
+import json
+#from webapp2_extras import json
 
+
+from models import *
 from google.appengine.api import users
 import webapp2
 from decorators import admin_required
-from google.appengine.ext import ndb
-from random import randint
+from google.appengine.ext.webapp.util import login_required
 
 #set jinja2 environment to connect html with python
 jinja_environment = jinja2.Environment(autoescape=True,
                                        loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),
-                                                                                   'views')))
+                                                                                   'templates')))
 
 
-# Sets model for data we're going to store, properties and attributes.
-class Question(ndb.Model):
-    _use_memcache = False
-    content = ndb.StringProperty(required=True, indexed=True)
-    number = ndb.IntegerProperty(required=True, indexed=True)
 
-
-class Answer_rating(ndb.Model):
-    _use_memcache = False
-    description = ndb.StringProperty(required=True, indexed=False)
-    points = ndb.IntegerProperty(required=True, indexed=False)
-
-
-class Answer(ndb.Model):
-    _use_memcache = False
-    content = ndb.StringProperty(required=True, indexed=False)
-    question_id = ndb.IntegerProperty(required=True)
-    rating_id = ndb.IntegerProperty(required=True)
-
-
-class GameUser(ndb.Model):
-    username = ndb.StringProperty(required=True)
-
-
-class Score(ndb.Model):
-    score = ndb.IntegerProperty()
-    time = ndb.IntegerProperty()
-    user_id = ndb.IntegerProperty(required=True)
-#End
-
-
-#Initialises the tables
-class InitialiseDatabase(webapp2.RequestHandler):
-    def get(self):
-       question = Question()
-       question.content = "What are the highlights of France?"
-       question.number = 1
-       question_key=question.put()
-
-       answer_rating1 = Answer_rating()
-       answer_rating1.description='low'
-       answer_rating1.points=5
-       answer_rating1_key=answer_rating1.put()
-
-       answer_rating2 = Answer_rating()
-       answer_rating2.description='medium'
-       answer_rating2.points=8
-       answer_rating2_key=answer_rating2.put()
-
-       answer_rating3 = Answer_rating()
-       answer_rating3.description='high'
-       answer_rating3.points=10
-       answer_rating3_key=answer_rating3.put()
-
-       answer1 = Answer()
-       answer1.content = 'Eiffel Tower'
-       answer1.question_id = question.number
-       answer1.rating_id = answer_rating1_key.id()
-       answer1.put()
-
-       answer2 = Answer()
-       answer2.content='Disneyland Paris'
-       answer2.question_id=question.number
-       answer2.rating_id=answer_rating2_key.id()
-       answer2.put()
-
-       answer3 = Answer()
-       answer3.content='Mont Blanc'
-       answer3.question_id=question.number
-       answer3.rating_id=answer_rating3_key.id()
-       answer3.put()
-       self.redirect('/MainPage')
-
-
-#Creates MainPage content
+#5 Creates MainPage content
 class MainPage(webapp2.RequestHandler):
     def get(self):
 
@@ -116,31 +45,88 @@ class MainPage(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 
-class NewGame(webapp2.RequestHandler):
-
+class AdminPage(webapp2.RequestHandler):
+    #get the all questions
+    @admin_required
     def get(self):
-        # Query to retrieve a particular question using random number generator
-        rand = randint(1, 4)
-        qry = Question.query(Question.number == rand).get()
-
-        template_values = {
-            'question': qry.content
-        }
-
-        template = jinja_environment.get_template('game.html')
+        questions = Question.all()
+        template_values = {'questions': questions}
+        template = jinja_environment.get_template('admin_draft.html')
         self.response.write(template.render(template_values))
 
 
-class AdminPage(webapp2.RequestHandler):
-    @admin_required
+class ManageQuestion(webapp2.RequestHandler):
+    
     def get(self):
-        template = jinja_environment.get_template('admin_draft.html')
+        question_id = self.request.get('question_id')
+        question = Question.get_by_id(int(question_id), parent=None)
+        que_json = [{'question_id': str(question.key().id()),
+                    'question_content': question.content}]
+
+        self.response.out.write(json.dumps(que_json))
+
+    #insert new question
+    #question_content
+    def post(self):
+        question_content = self.request.get('question_content')
+        new_question = Question(content=question_content)
+        new_question.put()
+        que_id = new_question.key().id()
+        self.response.out.write(json.dumps([{'qustion_id': que_id}]))
+    '''
+    def delete(self):
+        question_id = self.request.get('question_id')
+        question = Question.get_by_id(int(question_id), parent=None)
+        question.delete()
+    '''
+
+
+class NewGame(webapp2.RequestHandler):
+    @login_required
+    def get(self):
+
+        template = jinja_environment.get_template('main.html')
         self.response.write(template.render())
 
 
+class ManageAnswer(webapp2.RequestHandler):
+    #get answers for specific question
+    def get(self):
+        question_id = self.request.get('question_id')
+        question = Question.get_by_id(int(question_id), parent=None)
+
+        ans_json = [{'answer_id': str(a.key().id()),
+                    'answer_content': a.content} for a in question.answers]
+
+        self.response.out.write(json.dumps(ans_json))
+
+    # insert new answer for question specified by id
+    def post(self):
+
+        question_id = self.request.get('question_id')
+        question = Question.get_by_id(int(question_id), parent=None)
+
+        answer_content = self.request.get('answer_content')
+        answer_rating = self.request.get('answer_rating')
+
+        new_ans = Answer(question=question,
+                         content=answer_content,
+                         answer_rating=answer_rating)
+        new_ans.put()
+        ans_id = new_ans.key().id()
+        self.response.out.write(json.dumps([{'answer_id': ans_id}]))
+
+    '''
+    def delete(self):
+        answer_id = self.request.get('answer_id')
+        answer = Answer.get_by_id(int(answer_id), parent=None)
+        answer.delete()
+    '''
+
 application = webapp2.WSGIApplication([
-('/', InitialiseDatabase),
-('/MainPage', MainPage),
-('/game.html',NewGame),
-('/admin_draft.html',AdminPage)
+('/', MainPage),
+('/play',NewGame),
+('/admin', AdminPage),
+('/questions',ManageQuestion),
+('/answers',ManageAnswer)
 ], debug=True)
