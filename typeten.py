@@ -115,6 +115,7 @@ class ManageAnswer(webapp2.RequestHandler):
         self.response.out.write(json.dumps(ans_json))
 
     # insert new answer for question specified by id
+    # or update an answer if an answer id is passed
     def post(self):
 
         question_id = self.request.get('question_id')
@@ -163,6 +164,13 @@ class CheckAnswer(webapp2.RequestHandler):
         self.response.out.write(json.dumps([{'found': 'no'}]))
 
 
+class GetRandomQuestion(webapp2.RequestHandler):
+    def get(self):
+        ques_count = Question.all().count()
+        offset = random.randrange(0, ques_count)
+        question = Question.all().fetch(1, offset)[0]
+        self.response.out.write(json.dumps([{'question_id': question.key().id(),
+                                             'question_content': question.content}]))
 
 
 application = webapp2.WSGIApplication([
@@ -171,5 +179,6 @@ application = webapp2.WSGIApplication([
 ('/admin', AdminPage),
 ('/questions',ManageQuestion),
 ('/answers',ManageAnswer),
-('/check_ans',CheckAnswer)
+('/check_ans',CheckAnswer),
+('/random_ques',GetRandomQuestion)
 ], debug=True)
