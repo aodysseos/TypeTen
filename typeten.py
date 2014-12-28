@@ -54,9 +54,9 @@ class AdminPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('admin_draft.html')
         self.response.write(template.render(template_values))
 
-
+#handles questions inserts and updates
 class ManageQuestion(webapp2.RequestHandler):
-
+    #get question based on id and return a json object
     def get(self):
         question_id = self.request.get('question_id')
         question = Question.get_by_id(int(question_id), parent=None)
@@ -65,15 +65,17 @@ class ManageQuestion(webapp2.RequestHandler):
 
         self.response.out.write(json.dumps(que_json))
 
-    #insert new question
-    #question_content
+    #Insert or Update Question
+    #If question_id is passed, it updated, otherwise its an update
     def post(self):
         question_id = self.request.get('question_id')
         question_content = self.request.get('question_content')
 
+        #if question id exists then update
         if question_id:
             question = Question.get_by_id(int(question_id), parent=None)
             question.content = question_content
+        #Otherwsie create new instance of question
         else:
             question = Question(content=question_content)
 
@@ -91,6 +93,7 @@ class ManageQuestion(webapp2.RequestHandler):
     '''
 
 
+#Render new Game
 class NewGame(webapp2.RequestHandler):
     @login_required
     def get(self):
@@ -99,6 +102,7 @@ class NewGame(webapp2.RequestHandler):
         self.response.write(template.render())
 
 
+#Handles answers retreival, inserts and updates
 class ManageAnswer(webapp2.RequestHandler):
     #get answers for specific question
     def get(self):
@@ -138,9 +142,27 @@ class ManageAnswer(webapp2.RequestHandler):
         answer.delete()
     '''
 
+
 class CheckAnswer(webapp2.RequestHandler):
     def post(self):
-        question_id = self.request.get()
+
+        question_id = self.request.get('question_id')
+        user_answer = self.request.get('user_answer').lower()
+
+        question = Question.get_by_id(int(question_id), parent=None)
+
+        if not question:
+            webapp2.abort(404)
+
+        for a in question.answers:
+            if a.content.lower().find(user_answer, 0, len(a.content)) != -1:
+                self.response.out.write(json.dumps([{'found': 'yes'}]))
+                return
+            else:
+                continue
+        self.response.out.write(json.dumps([{'found': 'no'}]))
+
+
 
 
 application = webapp2.WSGIApplication([
@@ -148,5 +170,6 @@ application = webapp2.WSGIApplication([
 ('/play',NewGame),
 ('/admin', AdminPage),
 ('/questions',ManageQuestion),
-('/answers',ManageAnswer)
+('/answers',ManageAnswer),
+('/check_ans',CheckAnswer)
 ], debug=True)
