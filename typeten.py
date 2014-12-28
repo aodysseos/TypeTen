@@ -56,7 +56,7 @@ class AdminPage(webapp2.RequestHandler):
 
 
 class ManageQuestion(webapp2.RequestHandler):
-    
+
     def get(self):
         question_id = self.request.get('question_id')
         question = Question.get_by_id(int(question_id), parent=None)
@@ -68,11 +68,21 @@ class ManageQuestion(webapp2.RequestHandler):
     #insert new question
     #question_content
     def post(self):
+        question_id = self.request.get('question_id')
         question_content = self.request.get('question_content')
-        new_question = Question(content=question_content)
-        new_question.put()
-        que_id = new_question.key().id()
+
+        if question_id:
+            question = Question.get_by_id(int(question_id), parent=None)
+            question.content = question_content
+        else:
+            question = Question(content=question_content)
+
+        question.put()
+        que_id = question.key().id()
         self.response.out.write(json.dumps([{'qustion_id': que_id}]))
+
+
+
     '''
     def delete(self):
         question_id = self.request.get('question_id')
@@ -96,7 +106,7 @@ class ManageAnswer(webapp2.RequestHandler):
         question = Question.get_by_id(int(question_id), parent=None)
 
         ans_json = [{'answer_id': str(a.key().id()),
-                    'answer_content': a.content, 'answer_difficulty': a.answer_rating} for a in question.answers]
+                    'answer_content': a.content} for a in question.answers]
 
         self.response.out.write(json.dumps(ans_json))
 
@@ -106,14 +116,19 @@ class ManageAnswer(webapp2.RequestHandler):
         question_id = self.request.get('question_id')
         question = Question.get_by_id(int(question_id), parent=None)
 
+        answer_id = self.request.get('answer_id')
         answer_content = self.request.get('answer_content')
         answer_rating = self.request.get('answer_rating')
 
-        new_ans = Answer(question=question,
-                         content=answer_content,
-                         answer_rating=answer_rating)
-        new_ans.put()
-        ans_id = new_ans.key().id()
+        if answer_id:
+            answer_obj = Answer.get_by_id(int(answer_id), parent=None)
+            answer_obj.content = answer_content
+        else:
+            answer = Answer(question=question,
+                            content=answer_content,
+                            answer_rating=answer_rating)
+        answer.put()
+        ans_id = answer.key().id()
         self.response.out.write(json.dumps([{'answer_id': ans_id}]))
 
     '''
@@ -122,6 +137,11 @@ class ManageAnswer(webapp2.RequestHandler):
         answer = Answer.get_by_id(int(answer_id), parent=None)
         answer.delete()
     '''
+
+class CheckAnswer(webapp2.RequestHandler):
+    def post(self):
+        question_id = self.request.get()
+
 
 application = webapp2.WSGIApplication([
 ('/', MainPage),
