@@ -46,7 +46,7 @@ class MainPage(webapp2.RequestHandler):
 
 
 class AdminPage(webapp2.RequestHandler):
-    #get the all questions
+    #get all questions
     @admin_required
     def get(self):
         questions = Question.all()
