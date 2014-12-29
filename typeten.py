@@ -46,6 +46,14 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('draft.html')
         self.response.write(template.render(template_values))
 
+#Render new Game
+class NewGame(webapp2.RequestHandler):
+    @login_required
+    def get(self):
+
+        template = jinja_environment.get_template('main.html')
+        self.response.write(template.render())
+
 
 class AdminPage(webapp2.RequestHandler):
     #get all questions
@@ -95,13 +103,6 @@ class ManageQuestion(webapp2.RequestHandler):
     '''
 
 
-#Render new Game
-class NewGame(webapp2.RequestHandler):
-    @login_required
-    def get(self):
-
-        template = jinja_environment.get_template('main.html')
-        self.response.write(template.render())
 
 
 #Handles answers retreival, inserts and updates
@@ -174,29 +175,49 @@ class GetRandomQuestion(webapp2.RequestHandler):
         self.response.out.write(json.dumps([{'question_id': question.key().id(),
                                              'question_content': question.content}]))
 
-class newCompleteQuestion(webapp2.RequestHandler):
+
+class NewCompleteQuestion(webapp2.RequestHandler):
     def post(self):
 
         logging.info('post')
         logging.info(self.request.POST)
         logging.info(self.request.POST['question'])
         # Value for the question
-        question = self.request.POST['question']
+        question_content = self.request.POST['question']
+        question = Question(content=question_content)
+        question.put()
         #Answers are the length - 1 and then divided by 2
         if len(self.request.POST) > 3:
-            nAnswers = (len(self.request.POST) - 1) / 2
+            n_answers = (len(self.request.POST) - 1) / 2
             x = 1
             # Get answer value and answer rating
-            while (x <= nAnswers):
+            while x <= n_answers:
+
                 logging.info('X: ' + str(x) + 'Answer: ' + self.request.POST['answer_' + str(x)])
-                logging.info('x: ' + str(x) + 'Rating: ' +self.request.POST['new_difficulty_answer_' + str(x)])
+                logging.info('x: ' + str(x) + 'Rating: ' + self.request.POST['new_difficulty_answer_' + str(x)])
                 # TODO: insert answer with rating
-                x = x + 1
+                answer_content = self.request.POST['answer_' + str(x)]
+                answer_rating = self.request.POST['new_difficulty_answer_' + str(x)]
+
+                answer = Answer(question=question,
+                                content=answer_content,
+                                answer_rating=answer_rating)
+                answer.put()
+                x += 1
         else:
             logging.info('Answer: ' + self.request.POST['answer_' + str(1)])
             logging.info('Rating: ' +self.request.POST['new_difficulty_answer_' + str(1)])
 
-        self.response.out.write(json.dumps([{'success': True, 'message': 'The question with his answers has been saved.'}]))
+            answer_content = self.request.POST['answer_' + str(1)]
+            answer_rating = self.request.POST['new_difficulty_answer_' + str(1)]
+
+            answer = Answer(question=question,
+                            content=answer_content,
+                            answer_rating=answer_rating)
+            answer.put()
+
+        self.response.out.write(json.dumps([{'success': True,
+                                             'message': 'The question with his answers has been saved.'}]))
 
 
 application = webapp2.WSGIApplication([
@@ -204,7 +225,7 @@ application = webapp2.WSGIApplication([
 ('/play',NewGame),
 ('/admin', AdminPage),
 ('/questions',ManageQuestion),
-('/completeQuestion', newCompleteQuestion),
+('/completeQuestion', NewCompleteQuestion),
 ('/answers',ManageAnswer),
 ('/check_ans',CheckAnswer),
 ('/random_ques',GetRandomQuestion)
