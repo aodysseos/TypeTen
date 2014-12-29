@@ -77,6 +77,7 @@ class ManageQuestion(webapp2.RequestHandler):
 
     #Insert or Update Question
     #If question_id is passed, it updated, otherwise its an update
+    @admin_required
     def post(self):
         question_id = self.request.get('question_id')
         question_content = self.request.get('question_content')
@@ -100,16 +101,6 @@ class ManageQuestion(webapp2.RequestHandler):
                                                 'message': 'A question has been created.', 'question_id': que_id}))
 
 
-    '''
-    def delete(self):
-        question_id = self.request.get('question_id')
-        question = Question.get_by_id(int(question_id), parent=None)
-        question.delete()
-    '''
-
-
-
-
 #Handles answers retreival, inserts and updates
 class ManageAnswer(webapp2.RequestHandler):
     #get answers for specific question
@@ -124,6 +115,7 @@ class ManageAnswer(webapp2.RequestHandler):
 
     # insert new answer for question specified by id
     # or update an answer if an answer id is passed
+    @admin_required
     def post(self):
 
         question_id = self.request.get('question_id')
@@ -150,13 +142,6 @@ class ManageAnswer(webapp2.RequestHandler):
             self.response.out.write(json.dumps({'success': True,
                                                 'message': 'A new answer has been created.', 'answer_id': ans_id}))
 
-    '''
-    def delete(self):cool man
-        answer_id = self.request.get('answer_id')
-        answer = Answer.get_by_id(int(answer_id), parent=None)
-        answer.delete()
-    '''
-
 
 class CheckAnswer(webapp2.RequestHandler):
     def post(self):
@@ -171,7 +156,8 @@ class CheckAnswer(webapp2.RequestHandler):
 
         for a in question.answers:
             if a.content.lower().find(user_answer, 0, len(a.content)) != -1:
-                self.response.out.write(json.dumps([{'found': 'yes'}]))
+                self.response.out.write(json.dumps([{'found': 'yes', 'actual_answer': a.content,
+                                                     'rating': a.answer_rating}]))
                 return
             else:
                 continue
@@ -189,6 +175,7 @@ class GetRandomQuestion(webapp2.RequestHandler):
 
 # to delete question and its answers
 class DeleteQuestion(webapp2.RequestHandler):
+    @admin_required
     def post(self):
         question_id = self.request.get('question_id')
         question = Question.get_by_id(int(question_id), parent=None)
@@ -197,17 +184,19 @@ class DeleteQuestion(webapp2.RequestHandler):
         if not question:
             webapp2.abort(404)
             self.response.out.write(json.dumps({'success': False,
-                                             'message': 'The question was not deleted.'}))
+                                                'message': 'The question was not deleted.'}))
         #delete answers first
         for answer in question.answers:
             answer.delete()
 
         question.delete()
         self.response.out.write(json.dumps({'success': True,
-                                             'message': 'The question has been deleted.'}))
+                                            'message': 'The question has been deleted.'}))
+
 
 # to delete an answer
 class DeleteAnswer(webapp2.RequestHandler):
+    @admin_required
     def post(self):
         answer_id = self.request.get('answer_id')
         answer = Answer.get_by_id(int(answer_id), parent=None)
@@ -216,21 +205,17 @@ class DeleteAnswer(webapp2.RequestHandler):
         if not answer:
             webapp2.abort(404)
             self.response.out.write(json.dumps({'success': False,
-                                             'message': 'The answer was not deleted.'}))
+                                                'message': 'The answer was not deleted.'}))
         else:
             answer.delete()
             self.response.out.write(json.dumps({'success': True,
-                                             'message': 'The answer has been deleted.'}))
-
+                                                'message': 'The answer has been deleted.'}))
 
 
 class NewCompleteQuestion(webapp2.RequestHandler):
+    @admin_required
     def post(self):
 
-        logging.info('post')
-        logging.info(self.request.POST)
-        logging.info(self.request.POST['question'])
-        # Value for the question
         question_content = self.request.POST['question']
         question = Question(content=question_content)
         question.put()
@@ -241,8 +226,6 @@ class NewCompleteQuestion(webapp2.RequestHandler):
             # Get answer value and answer rating
             while x <= n_answers:
 
-                logging.info('X: ' + str(x) + 'Answer: ' + self.request.POST['answer_' + str(x)])
-                logging.info('x: ' + str(x) + 'Rating: ' + self.request.POST['new_difficulty_answer_' + str(x)])
                 # TODO: insert answer with rating
                 answer_content = self.request.POST['answer_' + str(x)]
                 answer_rating = self.request.POST['new_difficulty_answer_' + str(x)]
@@ -253,8 +236,6 @@ class NewCompleteQuestion(webapp2.RequestHandler):
                 answer.put()
                 x += 1
         else:
-            logging.info('Answer: ' + self.request.POST['answer_' + str(1)])
-            logging.info('Rating: ' + self.request.POST['new_difficulty_answer_' + str(1)])
 
             answer_content = self.request.POST['answer_' + str(1)]
             answer_rating = self.request.POST['new_difficulty_answer_' + str(1)]

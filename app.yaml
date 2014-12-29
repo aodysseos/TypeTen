@@ -23,8 +23,8 @@ handlers:
 
 - url: /.*
   script: typeten.application
-  #login: required
-  #secure: always
+  login: required
+  secure: always
 
 
 
