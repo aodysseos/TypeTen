@@ -15,12 +15,12 @@
                 <ul>
                     <li class="menu_element_admin">
                         <a class="pure-button button-secondary-admin" id="check_questions">
-                            <i class="fa fa-pencil"></i> Check questions
+                            <i class="fa fa-check"></i> Check questions
                         </a>
                     </li>
                     <li class="menu_element_admin">
                         <a class="pure-button button-secondary-admin" id="new_question">
-                            <i class="fa fa-trophy"></i> New question
+                            <i class="fa fa-plus"></i> New question
                         </a>
                     </li>
                     <li class="menu_element_admin">
@@ -44,6 +44,7 @@
                             <option value="{{ q.key().id() }}">{{q.content}}</option>
                             {% endfor %}
                         </select>
+                        <button type="button" id="get_answers_refresh" class="pure-button pure-button-primary"><i class="fa fa-refresh"></i></button>
                         <button type="submit" id="get_answers" class="pure-button pure-button-primary">Get answers</button>
                     </div>
                 </form>

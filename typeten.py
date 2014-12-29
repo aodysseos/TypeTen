@@ -217,7 +217,7 @@ class NewCompleteQuestion(webapp2.RequestHandler):
             answer.put()
 
         self.response.out.write(json.dumps([{'success': True,
-                                             'message': 'The question with his answers has been saved.'}]))
+                                             'message': 'The question with its answers has been saved.'}]))
 
 
 application = webapp2.WSGIApplication([

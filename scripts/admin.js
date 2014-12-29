@@ -240,29 +240,50 @@ $('#create_new_question').on("click", function() {
         }
     }
     if (empty) {
+        $('#notification_messages').empty().removeAttr('style');
         $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
         $('#notification_messages').append('<strong>Missing fields</strong>. All fields must have a value before submitting.');
-        $('#notification_messages').show();
+        $('#notification_messages').fadeOut(3000);
     } else {
-        $('#notification_messages').hide();
+        $('#notification_messages').attr('class', '');
         console.log(JSON.stringify($('#form_new_question').serializeArray()));
-        $.ajax({
-            type: "POST",
-            url: '/completeQuestion',
-            dataType: 'json',
-            ContentType: 'application/json',
-            data: $('#form_new_question').serialize()
-        })
-            .success(function (data) {
-                alert("ok");
-                console.log(data);
-                //$('#answer_' + realID).parent().remove();
+        console.log('length: ' + $('#form_new_question').serializeArray().length);
+        var actual = Number(($('#form_new_question').serializeArray().length - 1) / 2);
+        console.log('actual ' + actual);
+        if (actual < 10) {
+            $('#notification_messages').empty().removeAttr('style');
+            $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
+            $('#notification_messages').append('The question must contain at least <strong>10 answers </strong>.');
+            $('#notification_messages').fadeOut(3000);
+        } else {
+            $.ajax({
+                type: "POST",
+                url: '/completeQuestion',
+                dataType: 'json',
+                ContentType: 'application/json',
+                data: $('#form_new_question').serialize()
             })
-            .error(function () {
-                alert("error");
-                
-            })
-        return false;
+                .success(function (data) {
+                    console.log(data);
+                    console.log(data.success);
+                    console.log(data['success']);
+                    if (data[0].success) {
+                        console.log('print message');
+                        $('#notification_messages').empty().removeAttr('style');
+                        $('#notification_messages').attr('class', 'pure-alert pure-alert-success');
+                        $('#notification_messages').append(data[0].message);
+                        $('#notification_messages').fadeOut(3000);
+                        $('#form_new_question').trigger('reset');
+
+                    }
+                    //$('#answer_' + realID).parent().remove();
+                })
+                .error(function () {
+                    alert("error");
+                    
+                })
+            return false;
+        }
     }
     
 });
@@ -270,18 +291,20 @@ $('#create_new_question').on("click", function() {
 $('#check_questions').on("click", function () {
     $('#questions').show();
     $('#new_question_result').hide();
-    $('#notification_messages').hide();
     
 });
 
 $('#new_question').on("click", function () {
     $('#new_question_result').show();
     $('#questions').hide();
-    $('#notification_messages').hide();
     $('#question_results').empty();
     
 });
 
 $('#question_title').on('change', function() {
     $('#question_results').empty();
+});
+
+$('#get_answers_refresh').on('click', function() {
+    location.reload();
 });
