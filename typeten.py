@@ -91,8 +91,13 @@ class ManageQuestion(webapp2.RequestHandler):
 
         question.put()
         que_id = question.key().id()
-        self.response.out.write(json.dumps([{'qustion_id': que_id}]))
 
+        if question_id:
+            self.response.out.write(json.dumps({'success': True,
+                                                'message': 'The question has been updated.', 'question_id': que_id}))
+        else:
+            self.response.out.write(json.dumps({'success': True,
+                                                'message': 'A question has been created.', 'question_id': que_id}))
 
 
     '''
@@ -188,14 +193,35 @@ class DeleteQuestion(webapp2.RequestHandler):
         question_id = self.request.get('question_id')
         question = Question.get_by_id(int(question_id), parent=None)
 
-        #check if answer exists
+        #check if question exists
         if not question:
             webapp2.abort(404)
+            self.response.out.write(json.dumps({'success': False,
+                                             'message': 'The question was not deleted.'}))
         #delete answers first
         for answer in question.answers:
             answer.delete()
 
         question.delete()
+        self.response.out.write(json.dumps({'success': True,
+                                             'message': 'The question has been deleted.'}))
+
+# to delete an answer
+class DeleteAnswer(webapp2.RequestHandler):
+    def post(self):
+        answer_id = self.request.get('answer_id')
+        answer = Answer.get_by_id(int(answer_id), parent=None)
+
+        #check if answer exists
+        if not answer:
+            webapp2.abort(404)
+            self.response.out.write(json.dumps({'success': False,
+                                             'message': 'The answer was not deleted.'}))
+        else:
+            answer.delete()
+            self.response.out.write(json.dumps({'success': True,
+                                             'message': 'The answer has been deleted.'}))
+
 
 
 class NewCompleteQuestion(webapp2.RequestHandler):
@@ -251,5 +277,6 @@ application = webapp2.WSGIApplication([
 ('/answers',ManageAnswer),
 ('/check_ans',CheckAnswer),
 ('/random_ques',GetRandomQuestion),
-('/remove', DeleteQuestion)
+('/removeAnswer', DeleteAnswer),
+('/removeQuestion', DeleteQuestion)
 ], debug=True)
