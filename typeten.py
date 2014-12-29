@@ -132,11 +132,11 @@ class ManageAnswer(webapp2.RequestHandler):
             answer_obj = Answer.get_by_id(int(answer_id), parent=None)
             answer_obj.content = answer_content
         else:
-            answer = Answer(question=question,
+            answer_obj = Answer(question=question,
                             content=answer_content,
                             answer_rating=answer_rating)
-        answer.put()
-        ans_id = answer.key().id()
+        answer_obj.put()
+        ans_id = answer_obj.key().id()
         self.response.out.write(json.dumps([{'answer_id': ans_id}]))
 
     '''
