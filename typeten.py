@@ -146,7 +146,7 @@ class ManageAnswer(webapp2.RequestHandler):
                                                 'message': 'A new answer has been created.', 'answer_id': ans_id}))
 
     '''
-    def delete(self):
+    def delete(self):cool man
         answer_id = self.request.get('answer_id')
         answer = Answer.get_by_id(int(answer_id), parent=None)
         answer.delete()
@@ -182,6 +182,22 @@ class GetRandomQuestion(webapp2.RequestHandler):
                                              'question_content': question.content}]))
 
 
+# to delete question and its answers
+class DeleteQuestion(webapp2.RequestHandler):
+    def post(self):
+        question_id = self.request.get('question_id')
+        question = Question.get_by_id(int(question_id), parent=None)
+
+        #check if answer exists
+        if not question:
+            webapp2.abort(404)
+        #delete answers first
+        for answer in question.answers:
+            answer.delete()
+
+        question.delete()
+
+
 class NewCompleteQuestion(webapp2.RequestHandler):
     def post(self):
 
@@ -212,7 +228,7 @@ class NewCompleteQuestion(webapp2.RequestHandler):
                 x += 1
         else:
             logging.info('Answer: ' + self.request.POST['answer_' + str(1)])
-            logging.info('Rating: ' +self.request.POST['new_difficulty_answer_' + str(1)])
+            logging.info('Rating: ' + self.request.POST['new_difficulty_answer_' + str(1)])
 
             answer_content = self.request.POST['answer_' + str(1)]
             answer_rating = self.request.POST['new_difficulty_answer_' + str(1)]
@@ -234,5 +250,6 @@ application = webapp2.WSGIApplication([
 ('/completeQuestion', NewCompleteQuestion),
 ('/answers',ManageAnswer),
 ('/check_ans',CheckAnswer),
-('/random_ques',GetRandomQuestion)
+('/random_ques',GetRandomQuestion),
+('/remove', DeleteQuestion)
 ], debug=True)
