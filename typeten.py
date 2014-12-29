@@ -5,6 +5,8 @@ import random
 import jinja2
 import os
 import json
+import logging
+logging.getLogger().setLevel(logging.DEBUG)
 #from webapp2_extras import json
 
 
@@ -110,7 +112,7 @@ class ManageAnswer(webapp2.RequestHandler):
         question = Question.get_by_id(int(question_id), parent=None)
 
         ans_json = [{'answer_id': str(a.key().id()),
-                    'answer_content': a.content} for a in question.answers]
+                    'answer_content': a.content, 'answer_difficulty': a.answer_rating} for a in question.answers]
 
         self.response.out.write(json.dumps(ans_json))
 
@@ -172,12 +174,37 @@ class GetRandomQuestion(webapp2.RequestHandler):
         self.response.out.write(json.dumps([{'question_id': question.key().id(),
                                              'question_content': question.content}]))
 
+class newCompleteQuestion(webapp2.RequestHandler):
+    def post(self):
+
+        logging.info('post')
+        logging.info(self.request.POST)
+        logging.info(self.request.POST['question'])
+        # Value for the question
+        question = self.request.POST['question']
+        #Answers are the length - 1 and then divided by 2
+        if len(self.request.POST) > 3:
+            nAnswers = (len(self.request.POST) - 1) / 2
+            x = 1
+            # Get answer value and answer rating
+            while (x <= nAnswers):
+                logging.info('X: ' + str(x) + 'Answer: ' + self.request.POST['answer_' + str(x)])
+                logging.info('x: ' + str(x) + 'Rating: ' +self.request.POST['new_difficulty_answer_' + str(x)])
+                # TODO: insert answer with rating
+                x = x + 1
+        else:
+            logging.info('Answer: ' + self.request.POST['answer_' + str(1)])
+            logging.info('Rating: ' +self.request.POST['new_difficulty_answer_' + str(1)])
+
+        self.response.out.write(json.dumps([{'success': True, 'message': 'The question with his answers has been saved.'}]))
+
 
 application = webapp2.WSGIApplication([
 ('/', MainPage),
 ('/play',NewGame),
 ('/admin', AdminPage),
 ('/questions',ManageQuestion),
+('/completeQuestion', newCompleteQuestion),
 ('/answers',ManageAnswer),
 ('/check_ans',CheckAnswer),
 ('/random_ques',GetRandomQuestion)
