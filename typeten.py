@@ -133,11 +133,17 @@ class ManageAnswer(webapp2.RequestHandler):
             answer_obj.content = answer_content
         else:
             answer_obj = Answer(question=question,
-                            content=answer_content,
-                            answer_rating=answer_rating)
+                                content=answer_content,
+                                answer_rating=answer_rating)
         answer_obj.put()
         ans_id = answer_obj.key().id()
-        self.response.out.write(json.dumps([{'answer_id': ans_id}]))
+
+        if answer_id:
+            self.response.out.write(json.dumps({'success': True,
+                                                'message': 'The answer has been updated.', 'answer_id': ans_id}))
+        else:
+            self.response.out.write(json.dumps({'success': True,
+                                                'message': 'A new answer has been created.', 'answer_id': ans_id}))
 
     '''
     def delete(self):
@@ -217,7 +223,7 @@ class NewCompleteQuestion(webapp2.RequestHandler):
             answer.put()
 
         self.response.out.write(json.dumps([{'success': True,
-                                             'message': 'The question with his answers has been saved.'}]))
+                                             'message': 'The question with its answers has been saved.'}]))
 
 
 application = webapp2.WSGIApplication([
