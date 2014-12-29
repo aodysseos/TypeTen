@@ -1,7 +1,43 @@
 
-function updateAnswer(id, question) {
-    console.log("ID: " + id);
-    console.log("question param: " + question)
+function updateAnswer(answer_id, question_id, n) {
+    console.log("updateAnswer ID: " + answer_id);
+    console.log("updateAnswer question id: " + question_id);
+    console.log("updateAnswer answer content: " + $('#' + answer_id).val());
+    var number = Number(n);
+    var answer_rating = $('#difficulty_answer_' + number).val();
+    var answer_content = $('#' + answer_id).val();
+    console.log("updateAnswer answer dif: " + answer_rating);
+    if (answer_content.trim() === '' || answer_content.trim() === 'undefined') {
+        $('#notification_messages').empty().removeAttr('style');
+        $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
+        $('#notification_messages').append('The answer can\'t be <strong>empty</strong>.');
+        $('#notification_messages').fadeOut(3000);
+    } else {
+        $.ajax({
+            type: "POST",
+            url: '/answers',
+            dataType: 'json',
+            ContentType: 'application/json',
+            data: {'question_id': question_id, 'answer_id': answer_id, 'answer_content': answer_content, 'answer_rating': answer_rating}
+        })
+            .success(function (data) {
+                alert("ok");
+                console.log(data);
+                if (data.success) {
+                    $('#notification_messages').empty().removeAttr('style');
+                    $('#notification_messages').attr('class', 'pure-alert pure-alert-success');
+                    $('#notification_messages').append(data.message);
+                    $('#notification_messages').fadeOut(3000);
+                    $('#get_answers').trigger('click');
+                }
+            })
+            .error(function () {
+                alert("error");
+            })
+        return false;
+    }
+
+    /*
     var tmp = id.split('_');
     var realID = tmp[2];
     if (question) {
@@ -45,6 +81,7 @@ function updateAnswer(id, question) {
             return false;
         }    
     }
+    */
 }
 
 function deleteAnswer (id, question) {
@@ -115,17 +152,34 @@ function addAnswer(id) {
 // Function to create a new answer for an existing question.
 function createAnswer(numberId, questionId) {
     var number = Number(numberId);
-    console.log($('#answer_value_' + number).val());
-    console.log($('#difficulty_answer_' + number).val());
-    $.ajax({
+    console.log('question id: ' + questionId);
+    var answer_content = $('#answer_value_' + number).val();
+    var answer_rating = $('#difficulty_answer_' + number).val();
+    console.log('new answer value: ' + answer_content);
+    console.log('new answer dif: ' + answer_rating);
+    if (answer_content.trim() === '' || answer_content.trim() === 'undefined') {
+        $('#notification_messages').empty().removeAttr('style');
+        $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
+        $('#notification_messages').append('The <strong>new </strong>answer can\'t be empty.');
+        $('#notification_messages').fadeOut(3000);
+    } else {
+        $.ajax({
             type: "POST",
-            //url: // to define
+            url: '/answers',
             dataType: 'json',
             ContentType: 'application/json',
-            data: {answer_id: realID}
+            data: {'question_id': questionId, 'answer_content': answer_content, 'answer_rating': answer_rating}
         })
             .success(function (data) {
                 alert("ok");
+                console.log(data);
+                if (data.success) {
+                    $('#notification_messages').empty().removeAttr('style');
+                    $('#notification_messages').attr('class', 'pure-alert pure-alert-success');
+                    $('#notification_messages').append(data.message);
+                    $('#notification_messages').fadeOut(3000);
+                    $('#get_answers').trigger('click');
+                }
                 //$('#answer_' + realID).parent().remove();
             })
             .error(function () {
@@ -133,7 +187,13 @@ function createAnswer(numberId, questionId) {
                 
             })
         return false;
+    }
+    
 }
+
+//
+// function to create a new answer input for an existing question
+//
 
 function addAnswerExistingQuestion(id, questionId) {
     console.log("ID: " + id);
@@ -175,13 +235,14 @@ $('#get_answers').on("click", function () {
             console.log(data[0].answer_id);
             var n = 1;
             var i;
+            var flagten = false;
             var question_id = $("#question_title").val();
             $('#question_results').empty();
             $('#question_results').append('<form class="pure-form pure-form-aligned" id="form_answers">'
                                             + '<div class="pure-control-group">'
                                             + '<label for="question">Question:</label><input class="pure-input-2-3" id="' + $("#question_title").val() + '" type="text" value="' + $('#question_title').find(":selected").text() + '">'
-                                            + '<button style="margin-left: 0.3rem" type="button" id="update_question_1" name="update" class="pure-button pure-button-primary" onClick="updateAnswer(this.id, true)">Update</button>'
-                                            + '<button style="margin-left: 0.3rem" type="button" id="delete_question_1" name="update" class="pure-button button-error" onClick="deleteAnswer(this.id, true)">Delete</button>'
+                                            + '<button style="margin-left: 0.3rem" type="button" id="update_question_1" name="update" class="pure-button pure-button-primary" onClick="updateQuestion(this.id,' + question_id + ')">Update</button>'
+                                            + '<button style="margin-left: 0.3rem" type="button" id="delete_question_1" name="update" class="pure-button button-error" onClick="deleteQuestion(this.id, true)">Delete</button>'
                                             + '</div>'
                                             + '</form>');
             
@@ -205,12 +266,22 @@ $('#get_answers').on("click", function () {
                                                         + '<option value="medium" >medium</option>'
                                                         + '<option value="high" selected>high</option>');
                  }
-                
-                $('#difficulty_answer_' + n).after('<button style="margin-left: 0.3rem" type="button" id="update_answer_' + n + '" name="update" class="pure-button pure-button-primary" onClick="updateAnswer(this.id, false)">Update</button>'
+                if (data.length < 10) {
+                    $('#difficulty_answer_' + n).after('<button style="margin-left: 0.3rem" type="button" id="update_answer_' + n + '" name="update" class="pure-button pure-button-primary" onClick="updateAnswer(' + data[i].answer_id + ', ' + question_id + ', ' + n + ')">Update</button>');
+                } else {
+                    $('#difficulty_answer_' + n).after('<button style="margin-left: 0.3rem" type="button" id="update_answer_' + n + '" name="update" class="pure-button pure-button-primary" onClick="updateAnswer(' + data[i].answer_id + ', ' + question_id + ', ' + n + ')">Update</button>'
                                             + '<button style="margin-left: 0.3rem" type="button" id="delete_answer_' + n + '" name="update" class="pure-button button-error" onClick="deleteAnswer(this.id, false)">Delete</button>');
+                    flagten = true;
+                }
+                
                  n++;
             }
-            $('#delete_answer_' + (n - 1)).after('<button style="margin-left: 0.3rem" type="button" id="add_answer_' + (n - 1) + '" name="update" class="pure-button pure-button-primary" onClick="addAnswerExistingQuestion(this.id,' + question_id + ')"><i class="fa fa-plus"></i></button></div>');
+            if (flagten) {
+                $('#delete_answer_' + (n - 1)).after('<button style="margin-left: 0.3rem" type="button" id="add_answer_' + (n - 1) + '" name="update" class="pure-button pure-button-primary" onClick="addAnswerExistingQuestion(this.id,' + question_id + ')"><i class="fa fa-plus"></i></button></div>');
+            } else {
+                $('#update_answer_' + (n - 1)).after('<button style="margin-left: 0.3rem" type="button" id="add_answer_' + (n - 1) + '" name="update" class="pure-button pure-button-primary" onClick="addAnswerExistingQuestion(this.id,' + question_id + ')"><i class="fa fa-plus"></i></button></div>');
+            }
+            
            
         })
         .error(function () {

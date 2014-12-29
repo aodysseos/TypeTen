@@ -137,7 +137,10 @@ class ManageAnswer(webapp2.RequestHandler):
                             answer_rating=answer_rating)
         answer.put()
         ans_id = answer.key().id()
-        self.response.out.write(json.dumps([{'answer_id': ans_id}]))
+        if answer_id:
+            self.response.out.write(json.dumps({'success': True, 'message': 'The answer has been updated.'}))
+        else:
+            self.response.out.write(json.dumps({'success': True, 'message': 'A new answer has been created.'}))
 
     '''
     def delete(self):
