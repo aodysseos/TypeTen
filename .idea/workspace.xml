@@ -40,8 +40,8 @@
       <file leaf-file-name="typeten.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/typeten.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39013454" vertical-offset="2729" max-vertical-offset="3927">
-              <caret line="187" column="22" selection-start-line="187" selection-start-column="22" selection-end-line="187" selection-end-column="22" />
+            <state vertical-scroll-proportion="-0.12443946" vertical-offset="3035" max-vertical-offset="3927">
+              <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="219" selection-end-column="107" />
               <folding />
             </state>
           </provider>
@@ -798,8 +798,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/typeten.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39013454" vertical-offset="2729" max-vertical-offset="3927">
-          <caret line="187" column="22" selection-start-line="187" selection-start-column="22" selection-end-line="187" selection-end-column="22" />
+        <state vertical-scroll-proportion="-0.12443946" vertical-offset="3035" max-vertical-offset="3927">
+          <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="219" selection-end-column="107" />
           <folding />
         </state>
       </provider>

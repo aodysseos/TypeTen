@@ -80,8 +80,14 @@ html, body
 }
 
 #questionForm{
- margin: 0 auto;
- }
+  margin: 0 auto;
+}
+
+.question{
+  font-size: 2em;
+  padding: 5px 0 5px 0; 
+  color: #123752;
+}
 
 /* Attempt Box
 -----------------*/

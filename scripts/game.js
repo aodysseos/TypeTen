@@ -1,3 +1,20 @@
+function getQuestion() {
+    $.ajax({
+        url: 'random_ques',
+        type: 'GET',
+        data: 'json',
+        success: function(data) {
+            var questions = jQuery.parseJSON(data);
+
+            console.log(questions['question_content'] );
+            $(".question-box").append('<div id="question">' + questions['question_content'] + '</div>');
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
+}
+
 function checkAnswer(value, e) {
    
    var answers = [
