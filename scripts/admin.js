@@ -29,10 +29,9 @@ function updateAnswer(answer_id, question_id, n) {
             url: '/answers',
             dataType: 'json',
             ContentType: 'application/json',
-            data: {'question_id': question_id, 'answer_id': answer_id, 'answer_content': answer_content, 'answer_rating': answer_rating}
-        })
-            .success(function (data) {
-                console.log(data);
+            data: {'question_id': question_id, 'answer_id': answer_id, 'answer_content': answer_content, 'answer_rating': answer_rating},
+            success: function(data) {
+               console.log(data);
                 // If data.success = true, display the success message.
                 if (data.success) {
                     $("form#form_answers :input").prop("disabled", true);
@@ -43,10 +42,11 @@ function updateAnswer(answer_id, question_id, n) {
                     $('#notification_messages').fadeOut(3000);
                     $('#get_answers').trigger('click');
                 }
-            })
-            .error(function () {
-                alert("error");
-            })
+            },
+            error: function(e) {
+                console.log(e.message);
+            }
+        });
         return false;
     }
 }
@@ -74,9 +74,8 @@ function updateQuestion(question_id) {
             url: '/questions',
             dataType: 'json',
             ContentType: 'application/json',
-            data: {'question_id': question_id, 'question_content': question_content}
-        })
-            .success(function (data) {
+            data: {'question_id': question_id, 'question_content': question_content},
+            success: function(data) {
                 console.log(data);
                 // If in the response the data.success = true, display a success notification message.
                 if (data.success) {
@@ -88,10 +87,11 @@ function updateQuestion(question_id) {
                     $('#notification_messages').fadeOut(3000);
                     $('#get_answers').trigger('click');
                 }
-            })
-            .error(function () {
-                alert("error");
-            })
+            },
+            error: function(e) {
+                console.log(e.message);
+            }
+        });
         return false;
     }
 }
@@ -108,9 +108,8 @@ function deleteAnswer(answer_id) {
         url: '/removeAnswer',
         dataType: 'json',
         ContentType: 'application/json',
-        data: {'answer_id': answer_id}
-    })
-        .success(function (data) {
+        data: {'answer_id': answer_id},
+        success: function(data) {
             // If in the response the data.success = true, display a success notification message.
             console.log(data);
             if (data.success) {
@@ -122,12 +121,11 @@ function deleteAnswer(answer_id) {
                 $('#notification_messages').fadeOut(3000);
                 $('#get_answers').trigger('click');
             }
-            //$('#question_' + realID).parent().parent().empty();
-        })
-        .error(function () {
-            alert("error");
-
-        })
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
     return false;
 }
 
@@ -142,9 +140,8 @@ function deleteQuestion(question_id) {
         url: '/removeQuestion',
         dataType: 'json',
         ContentType: 'application/json',
-        data: {'question_id': question_id}
-    })
-        .success(function (data) {
+        data: {'question_id': question_id},
+        success: function(data) {
             // If in the response the data.success = true, display a success notification message.
             console.log(data);
             if (data.success) {
@@ -159,12 +156,11 @@ function deleteQuestion(question_id) {
                             }
                 , 2000);
             }
-            //$('#question_' + realID).parent().parent().empty();
-        })
-        .error(function () {
-            alert("error");
-
-        })
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
     return false;
 }
 
@@ -224,9 +220,8 @@ function createAnswer(numberId, questionId) {
             url: '/answers',
             dataType: 'json',
             ContentType: 'application/json',
-            data: {'question_id': questionId, 'answer_content': answer_content, 'answer_rating': answer_rating}
-        })
-            .success(function (data) {
+            data: {'question_id': questionId, 'answer_content': answer_content, 'answer_rating': answer_rating},
+            success: function(data) {
                 console.log(data);
                 // If in the response the data.success = true, display a success notification message.
                 if (data.success) {
@@ -237,14 +232,13 @@ function createAnswer(numberId, questionId) {
                     $('#get_answers').trigger('click');
                 }
                 //$('#answer_' + realID).parent().remove();
-            })
-            .error(function () {
-                alert("error");
-                
-            })
+            },
+            error: function(e) {
+                console.log(e.message);
+            }
+        });
         return false;
     }
-    
 }
 
 //
@@ -288,9 +282,8 @@ $('#get_answers').on("click", function () {
         type: 'get',
         dataType: 'json',
         ContentType: 'application/json',
-        data: $("#question_title").val()
-    })
-        .success(function (data) {
+        data: $("#question_title").val(),
+        success: function(data) {
             console.log(data);
             console.log(data[0].answer_id);
             var n = 1;
@@ -342,12 +335,11 @@ $('#get_answers').on("click", function () {
             } else {
                 $('#update_answer_' + (n - 1)).after('<button style="margin-left: 0.3rem" type="button" id="add_answer_' + (n - 1) + '" name="update" class="pure-button pure-button-primary" onClick="addAnswerExistingQuestion(this.id,' + question_id + ')"><i class="fa fa-plus"></i></button></div>');
             }
-            
-           
-        })
-        .error(function () {
-            //alert("error");
-        })
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
     return false;
 });
 
@@ -356,6 +348,7 @@ $('#get_answers').on("click", function () {
 //
 $('#create_new_question').on("click", function() {
     console.log("click");
+    $("button#create_new_question").prop("disabled", true);
     var tmp = $('#form_new_question').serialize();
     var split_obj = tmp.split('&');
     var i;
@@ -378,6 +371,7 @@ $('#create_new_question').on("click", function() {
         $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
         $('#notification_messages').append('<strong>Missing fields</strong>. All fields must have a value before submitting.');
         $('#notification_messages').fadeOut(3000);
+        $("button#create_new_question").prop("disabled", false);
     } else {
         $('#notification_messages').attr('class', '');
         console.log(JSON.stringify($('#form_new_question').serializeArray()));
@@ -390,6 +384,7 @@ $('#create_new_question').on("click", function() {
             $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
             $('#notification_messages').append('The question must contain at least <strong>10 answers </strong>.');
             $('#notification_messages').fadeOut(3000);
+            $("button#create_new_question").prop("disabled", false);
         } else {
             // Send data to the server.
             $.ajax({
@@ -397,12 +392,10 @@ $('#create_new_question').on("click", function() {
                 url: '/completeQuestion',
                 dataType: 'json',
                 ContentType: 'application/json',
-                data: $('#form_new_question').serialize()
-            })
-                .success(function (data) {
+                data: $('#form_new_question').serialize(),
+                success: function(data) {
+
                     console.log(data);
-                    console.log(data.success);
-                    console.log(data['success']);
                     // Display success notification message.
                     if (data[0].success) {
                         console.log('print message');
@@ -410,19 +403,20 @@ $('#create_new_question').on("click", function() {
                         $('#notification_messages').attr('class', 'pure-alert pure-alert-success');
                         $('#notification_messages').append(data[0].message);
                         $('#notification_messages').fadeOut(3000);
+                        $("button#create_new_question").prop("disabled", false);
                         $('#form_new_question').trigger('reset');
 
                     }
                     //$('#answer_' + realID).parent().remove();
-                })
-                .error(function () {
-                    alert("error");
-                    
-                })
+                },
+                error: function(e) {
+                    console.log(e.message);
+                    $("button#create_new_question").prop("disabled", false);
+                }
+            });
             return false;
         }
-    }
-    
+    }    
 });
 
 $('#check_questions').on("click", function () {
