@@ -10,11 +10,12 @@ class Answer(db.Model):
     question = db.ReferenceProperty(Question, collection_name='answers')
     answer_rating = db.StringProperty(choices=('low', 'medium', 'high'))
 
+
 class GameUser(db.Model):
     nickname = db.StringProperty(required=True, indexed=False)
 
 
 class UserScore(db.Model):
     score = db.IntegerProperty()
-    time = db.IntegerProperty()
-    game_user = db.ReferenceProperty(GameUser, collection_name='scores')
+    user_nickname = db.StringProperty()
+    game_id = db.StringProperty()

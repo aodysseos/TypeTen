@@ -249,6 +249,21 @@ class NewCompleteQuestion(webapp2.RequestHandler):
                                              'message': 'The question with its answers has been saved.'}]))
 
 
+class SaveScore(webapp2.RequestHandler):
+    def post(self):
+
+        game_id = self.request.get('game_id')
+        score_number = self.request.get('score_number')
+        current_user = users.get_current_user().nickname()
+
+        user_score = UserScore(score=score_number,
+                               user_nickname=current_user,
+                               game_id=game_id)
+
+        user_score.put()
+        self.response.out.write(json.dumps([{'success': True,
+                                             'message': 'Score has been saved'}]))
+
 application = webapp2.WSGIApplication([
 ('/', MainPage),
 ('/play',NewGame),
@@ -259,5 +274,6 @@ application = webapp2.WSGIApplication([
 ('/check_ans',CheckAnswer),
 ('/random_ques',GetRandomQuestion),
 ('/removeAnswer', DeleteAnswer),
-('/removeQuestion', DeleteQuestion)
+('/removeQuestion', DeleteQuestion),
+('/SaveScore', SaveScore)
 ], debug=True)
