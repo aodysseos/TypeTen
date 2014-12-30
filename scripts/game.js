@@ -17,7 +17,8 @@ function checkAnswer(user_answer) {
             if (answer[0].found === 'no'){
                 $(".attempt-box").append('<div id="false-answer">' + user_answer + '</div>');
             }else{
-                $("#correct-answers-box").append('<div id="correct-answer">'+ user_answer +'</div>');
+                var score = countScore(answer[0].rating);
+                $("#correct-answers-box").append('<div id="correct-answer">'+ answer[0].actual_answer + " " + score + 'pts</div>');
             } 
         },
         error: function(e) {
@@ -25,4 +26,21 @@ function checkAnswer(user_answer) {
         }
     });
     return false;
+}
+
+function countScore(rating) {
+    var score = 0;
+    switch (rating) {
+      case 'low':
+        score = 10;
+        break;
+      case 'medium':
+        score = 15;
+        break;
+      case 'high':
+        score = 20;
+        break;
+    }
+
+    return score
 }
