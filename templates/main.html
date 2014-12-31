@@ -6,7 +6,11 @@
         {% endblock %}
 
         {% block content %}
-
+        <!--Div to append bootsrap modal-->
+        <div class="pure-g">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            </div>      
+        </div>
         <div id="game">
             <div id="main-menu" class="pure-g">
                 <div id="main" class="pure-u-11-24">
@@ -18,50 +22,84 @@
             </div>
             <div class="pure-g">
                 <div id="high-scores" class="pure-u-1-5" >
-                    <h3>High Scores</h3>
-                    <table class="pure-table pure-table-horizontal" style="margin-left:5em;">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Username</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>aaa</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>bbb</td>
-                                <td>70</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>ccc</td>
-                                <td>60</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="high-scores-table">
+                        <table class="pure-table pure-table-horizontal" style="margin-left:2em;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Username</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>aaa</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>bbb</td>
+                                    <td>70</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>ccc</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>aaa</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>bbb</td>
+                                    <td>70</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>ccc</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>aaa</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>bbb</td>
+                                    <td>70</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>ccc</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>ccc</td>
+                                    <td>60</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+                <div id="score"></div>
                 </div>
                 <div class="pure-u-3-5">
-                    <div class="question-box"> 
-                        <h4>{{question}}</h4>
-                    </div>
-                    <div class="attempt-box">
-                    </div>
+                    <div class="question-box"></div>
+                    <div class="attempt-box"></div>
                     <div class="answer-box">
                         <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
                             <fieldset>
-                                <input class="answer-input" type="text" placeholder="answer" onkeydown="if (event.keyCode == 13) { return checkAnswer(this.value, event); }">
+                                <input class="answer-input" type="text" placeholder="answer" onkeydown="if (event.keyCode == 13) { return checkAnswer(this.value); }">
                             </fieldset>
                         </form>
                     </div>
                 </div>
                 <div id="correct-answers-box" class="pure-u-1-5">
-                    <h4>{{Answers}}</h4>
+                    <h4>Answers</h4>
                 </div>
             </div>
         </div>
