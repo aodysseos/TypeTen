@@ -53,22 +53,38 @@ html, body
 
 #main{
   height:200px; 
-  background-color: #757575;
+  background-color: white; /* background-color: #757575; */
+  /*border-right: 0.2rem solid;
+  border-color: black;*/
 }
 
-#timer{
+#timer, #timerbetween{
   height:200px; 
-  background-color: #757575;
+  background-color: white; /* background-color: #757575; */
+  color: #FF7F27;
 }
 
 #high-scores{
-  height: 600px;
+  height: 60rem; /*height: 600px;*/
   background-color: #8697AC;
 }
 
 #correct-answers-box{
-  height: 600px;
-  background-color: #8697AC;
+  height: 60rem; /*height: 600px; */
+  background-color: white; /*#8697AC */
+  border: 1px solid;
+  border-color:black;
+  font-size: 2.5rem;
+}
+
+/* Score Table
+-----------------*/
+#high-scores-table-title{
+  background-color: #FF8F35; /* #FF7F27*/
+  border: 0.2rem solid;
+  border-color: white;
+  color: white;
+  font-size: 2.5rem;
 }
 
 /* Question Box
@@ -76,7 +92,11 @@ html, body
 .question-box {
   height:4em;
   padding: 1em;
-  background-color: #B6C1CE;
+  background-color: white; /*background-color: #B6C1CE;*/
+  color:#009015;
+  border: 0.2rem solid;
+  border-color: black;
+  font-size: 2.5rem;
 }
 
 #questionForm{
@@ -92,11 +112,13 @@ html, body
 /* Attempt Box
 -----------------*/
 .attempt-box {
-  height:22.35em;
+  height:50rem;
   padding: 1em;
   overflow: auto;
-  display:block;
-  background-color: #708FA3;
+  display: block;
+  background-color: white; /*background-color: #708FA3; */
+  font-size: 2.5rem;
+
 }
 
 /* Answer Box
@@ -120,13 +142,19 @@ html, body
 /* Corrrect Answer Box
 -----------------*/
 #false-answer{
-  font-size: 3em;
-  color: #afc8d6;
+  /*font-size: 3rem;*/
+  /*color: #afc8d6;*/
+  font-size: 2.5rem;
   vertical-align: bottom;
 }
 
-#correct-answer{
-  font-size: 3em;
-  color: #92cc80;
+.correct-answer{
+  /*font-size: 3em;
+  color: #92cc80;*/
+  font-size: 1.75rem;
   vertical-align: bottom;
+}
+
+.answers {
+  margin-top: 0.5rem;
 }

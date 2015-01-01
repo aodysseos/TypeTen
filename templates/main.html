@@ -14,15 +14,29 @@
         <div id="game">
             <div id="main-menu" class="pure-g">
                 <div id="main" class="pure-u-11-24">
+                 <header class="custom-header">
+                    <img src="images/logo.png"/>
+                </header>
                 </div>
                 <div id="timer" class="pure-u-2-24" data-timer="60">
+                </div>
+                <div id="timerbetween" class="pure-u-2-24" data-timer="10" style="display:none"></div>
+                <div id="info">
+                    <input type="hidden" id="offset" name="-1">
+                    <input type="hidden" id="round" name="1">
+                    <input type="hidden" id="current-question" name="-1">
+                    <input type="hidden" id="total-questions" name="10">
+                    <input type="hidden" id="current-answer" name="0">
                 </div>
                 <div id="main" class="pure-u-11-24">
                 </div>
             </div>
             <div class="pure-g">
-                <div id="high-scores" class="pure-u-1-5" >
+                <div id="high-scores" class="pure-u-6-24" >
                     <div id="high-scores-table">
+                        <div id="high-scores-table-title">
+                            Leaderboard - Top ten
+                        </div>
                         <table class="pure-table pure-table-horizontal" style="margin-left:2em;">
                             <thead>
                                 <tr>
@@ -87,9 +101,10 @@
                 </div>
                 <div id="score"></div>
                 </div>
-                <div class="pure-u-3-5">
+                <div class="pure-u-12-24">
                     <div class="question-box"></div>
-                    <div class="attempt-box"></div>
+                    <div class="attempt-box">
+                    </div>
                     <div class="answer-box">
                         <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
                             <fieldset>
@@ -97,11 +112,13 @@
                             </fieldset>
                         </form>
                     </div>
+                    <div class="bottom-menu">
+                        <button type="button" id="start_game" class="pure-button pure-button-primary"><i class="fa fa-play"></i> Start game</button>
+                        <button type="button" id="pause_game" class="pure-button pure-button-primary"><i class="fa fa-play"></i> Pause game</button>
+                    </div>
                 </div>
-                <div id="correct-answers-box" class="pure-u-1-5">
-                    <h4>Answers</h4>
+                <div id="correct-answers-box" class="pure-u-6-24">
                 </div>
             </div>
         </div>
-        <script src="scripts/game.js"></script>
     {% endblock %}

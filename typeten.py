@@ -5,6 +5,7 @@ import random
 import jinja2
 import os
 import json
+from google.appengine.ext import db
 import logging
 logging.getLogger().setLevel(logging.DEBUG)
 #from webapp2_extras import json
@@ -156,8 +157,8 @@ class CheckAnswer(webapp2.RequestHandler):
 
         for a in question.answers:
             if a.content.lower().find(user_answer, 0, len(a.content)) != -1:
-                self.response.out.write(json.dumps([{'found': 'yes', 'actual_answer': a.content,
-                                                     'rating': a.answer_rating}]))
+                self.response.out.write(json.dumps({'found': 'yes', 'actual_answer': a.content,
+                                                     'rating': a.answer_rating}))
                 return
             else:
                 continue
@@ -264,6 +265,64 @@ class SaveScore(webapp2.RequestHandler):
         self.response.out.write(json.dumps([{'success': True,
                                              'message': 'Score has been saved'}]))
 
+
+class GetQuestions(webapp2.RequestHandler):
+    def get(self):
+        ques_count = Question.all().count()
+        logging.info(ques_count)
+        if ques_count <= 10:
+            x = 1
+            for question in Question.all():
+                logging.info(question.key().id())
+
+            logging.info("offset 1")
+            q = db.GqlQuery("SELECT * FROM Question OFFSET 1")
+            question = q.get()
+            logging.info(question.key().id())
+            logging.info("offset 2")
+            q = db.GqlQuery("SELECT * FROM Question OFFSET 2")
+            question = q.get()
+            logging.info(question.key().id())
+        else:
+            offset = random.randrange(0, ques_count)
+            question = Question.all().fetch(1, offset)[0]
+            self.response.out.write(json.dumps([{'question_id': question.key().id(),
+                                             'question_content': question.content}]))
+
+class GetQuestion(webapp2.RequestHandler):
+    def get(self):
+        offset =  int(self.request.get('offset'))
+        logging.info(offset);
+        if offset > -1:
+            q = db.GqlQuery("SELECT * FROM Question OFFSET " +  str(offset))
+            logging.info(q);
+            question = q.get()
+            logging.info(question.key().id())
+            self.response.out.write(json.dumps({'success': True, 'question_id': question.key().id(),
+                                             'question_content': question.content}))
+        else:
+            self.response.out.write(json.dumps({'success': False}))
+
+class GetOffset(webapp2.RequestHandler):
+    def get(self):
+        ques_count = Question.all().count()
+        logging.info(ques_count)
+        if ques_count <= 10:
+            self.response.out.write(json.dumps({'offset': 0}))
+        else:
+            limit = ques_count - 10
+            offset = random.randrange(0, limit)
+            self.response.out.write(json.dumps({'offset': offset}))
+
+class GetTotalQuestions(webapp2.RequestHandler):
+    def get(self):
+        ques_count = Question.all().count()
+        logging.info(ques_count)
+        if ques_count <= 10:
+            self.response.out.write(json.dumps({'ques_count': ques_count}))
+        else:
+            self.response.out.write(json.dumps({'ques_count': 10}))
+
 application = webapp2.WSGIApplication([
 ('/', MainPage),
 ('/play',NewGame),
@@ -275,5 +334,8 @@ application = webapp2.WSGIApplication([
 ('/random_ques',GetRandomQuestion),
 ('/removeAnswer', DeleteAnswer),
 ('/removeQuestion', DeleteQuestion),
-('/SaveScore', SaveScore)
+('/SaveScore', SaveScore),
+('/getQuestion', GetQuestion),
+('/getTotalQuestions', GetTotalQuestions),
+('/offset', GetOffset)
 ], debug=True)
