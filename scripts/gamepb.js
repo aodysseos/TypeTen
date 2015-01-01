@@ -161,7 +161,7 @@ function uniqueAnswer(current_answer, user_answer){
     var answerToCheck;
     var notFound = true;
     for (i = 1; i <= current_answer; i++) {
-        answerToCheck = $('#answer-' + i + 'span').val().trim().toLowerCase();
+        answerToCheck = $('#answer-' + i).text().trim().toLowerCase();
         console.log("Answer to check: " + answerToCheck);
         console.log("User answer: " + user_answer);
         if (answerToCheck === user_answer.trim().toLowerCase()) {
@@ -184,6 +184,7 @@ function checkAnswer(user_answer) {
         ContentType: 'application/json',
         data: {'question_id': question_id, 'user_answer': user_answer},
         success: function(answer) {
+            console.log(answer);
             //display attempt in answers if right or attempts if wrong    
             if (answer.found === 'no'){
                 $(".attempts").append('<div id="false-answer"><i class="fa fa-close" style="font-size:3rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');

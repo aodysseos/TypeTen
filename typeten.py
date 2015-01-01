@@ -162,7 +162,7 @@ class CheckAnswer(webapp2.RequestHandler):
                 return
             else:
                 continue
-        self.response.out.write(json.dumps([{'found': 'no'}]))
+        self.response.out.write(json.dumps({'found': 'no'}))
 
 
 class GetRandomQuestion(webapp2.RequestHandler):
