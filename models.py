@@ -11,11 +11,7 @@ class Answer(db.Model):
     answer_rating = db.StringProperty(choices=('low', 'medium', 'high'))
 
 
-class GameUser(db.Model):
-    nickname = db.StringProperty(required=True, indexed=False)
-
-
-class UserScore(db.Model):
+class UserGame(db.Model):
     score = db.IntegerProperty()
     user_nickname = db.StringProperty()
     game_id = db.StringProperty()

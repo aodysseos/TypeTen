@@ -260,13 +260,26 @@ class SaveScore(webapp2.RequestHandler):
         score_number = self.request.get('score_number')
         current_user = users.get_current_user().nickname()
 
-        user_score = UserScore(score=int(score_number),
-                               user_nickname=current_user,
-                               game_id=game_id)
+        user_score = UserGame(score=int(score_number),
+                              user_nickname=current_user,
+                              game_id=game_id)
 
         user_score.put()
         self.response.out.write(json.dumps([{'success': True,
                                              'message': 'Score has been saved'}]))
+
+
+# Class for updating score based on game_id
+class UpdateScore(webapp2.RequestHandler):
+    def post(self):
+        game_id = self.request.get('game_id')
+        new_score = self.request.get('score')
+        #construct quesry
+        query = UserGame.gql(" WHERE game_id = " + game_id)
+        #get the game
+        game = query.get()
+        game.score = new_score
+        game.put()
 
 
 class GetQuestions(webapp2.RequestHandler):
@@ -290,7 +303,8 @@ class GetQuestions(webapp2.RequestHandler):
             offset = random.randrange(0, ques_count)
             question = Question.all().fetch(1, offset)[0]
             self.response.out.write(json.dumps([{'question_id': question.key().id(),
-                                             'question_content': question.content}]))
+                                                 'question_content': question.content}]))
+
 
 class GetQuestion(webapp2.RequestHandler):
     def get(self):
@@ -306,6 +320,7 @@ class GetQuestion(webapp2.RequestHandler):
         else:
             self.response.out.write(json.dumps({'success': False}))
 
+
 class GetOffset(webapp2.RequestHandler):
     def get(self):
         ques_count = Question.all().count()
@@ -317,6 +332,7 @@ class GetOffset(webapp2.RequestHandler):
             offset = random.randrange(0, limit)
             self.response.out.write(json.dumps({'offset': offset}))
 
+
 class GetTotalQuestions(webapp2.RequestHandler):
     def get(self):
         ques_count = Question.all().count()
@@ -327,18 +343,19 @@ class GetTotalQuestions(webapp2.RequestHandler):
             self.response.out.write(json.dumps({'ques_count': 10}))
 
 application = webapp2.WSGIApplication([
-('/', MainPage),
-('/play',NewGame),
-('/admin', AdminPage),
-('/questions',ManageQuestion),
-('/completeQuestion', NewCompleteQuestion),
-('/answers',ManageAnswer),
-('/check_ans',CheckAnswer),
-('/random_ques',GetRandomQuestion),
-('/removeAnswer', DeleteAnswer),
-('/removeQuestion', DeleteQuestion),
-('/SaveScore', SaveScore),
-('/getQuestion', GetQuestion),
-('/getTotalQuestions', GetTotalQuestions),
-('/offset', GetOffset)
+    ('/', MainPage),
+    ('/play',NewGame),
+    ('/admin', AdminPage),
+    ('/questions',ManageQuestion),
+    ('/completeQuestion', NewCompleteQuestion),
+    ('/answers',ManageAnswer),
+    ('/check_ans',CheckAnswer),
+    ('/random_ques',GetRandomQuestion),
+    ('/removeAnswer', DeleteAnswer),
+    ('/removeQuestion', DeleteQuestion),
+    ('/SaveScore', SaveScore),
+    ('/getQuestion', GetQuestion),
+    ('/getTotalQuestions', GetTotalQuestions),
+    ('/offset', GetOffset),
+    ('/update_score', UpdateScore)
 ], debug=True)
