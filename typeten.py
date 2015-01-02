@@ -52,8 +52,10 @@ class NewGame(webapp2.RequestHandler):
     @login_required
     def get(self):
 
+        current_user = users.get_current_user().nickname()
+        template_values = {'user_nickname': current_user}
         template = jinja_environment.get_template('main.html')
-        self.response.write(template.render())
+        self.response.write(template.render(template_values))
 
 
 class AdminPage(webapp2.RequestHandler):
