@@ -7,7 +7,8 @@ $( document ).ready(function() {
     $("#timer").TimeCircles({use_background: false});
     $('.answer-input').prop('disabled', true);
     //set score
-    setScore('andreas' + $.now());
+    var game_id = $("#username").attr('value') + $.now();
+    setScore(game_id);
     //set offset
     setOffset();
     //set total questions
