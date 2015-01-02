@@ -1,50 +1,18 @@
+/**
+ * Intilise game
+ */
 $( document ).ready(function() {
-    console.log( "timer!" );
+    //set timer
     $("#timer").TimeCircles({start: false});
     $("#timer").TimeCircles({use_background: false});
     $('.answer-input').prop('disabled', true);
-    // Set offset
+    //set score
+    setScore('andreas' + $.now());
+    //set offset
     setOffset();
-    // Set total questions
+    //set total questions
     setTotalQuestions();
 });
-
-//
-//
-//
-function setOffset() {
-    $.ajax({
-        type: "get",
-        url: '/offset',
-        dataType: 'json',
-        ContentType: 'application/json',
-        success: function(offset) {
-            offset = offset.offset;
-            console.log(offset);
-            $('#offset').attr('name', offset);
-        },
-        error: function(e) {
-            console.log(e.message);
-        }
-    });
-}
-
-function setTotalQuestions() {
-    $.ajax({
-        type: "get",
-        url: '/getTotalQuestions',
-        dataType: 'json',
-        ContentType: 'application/json',
-        success: function(questions) {
-            console.log(questions.ques_count);
-            $('#total-questions').attr('name', questions.ques_count);
-        },
-        error: function(e) {
-            console.log(e.message);
-        }
-    });
-}
-
 
 $('#start_game').on("click", function () {
     $("#start_game").prop("disabled", true);
@@ -56,7 +24,7 @@ $('#start_game').on("click", function () {
     // Get total questions
     var totalQuestions = $('#total-questions').attr('name');
     // Text for attempt box
-    $('.attempt-box').append('<span style="color:red">Wrong attempts: </span>');
+    $('.attempt-box').append('<span style="color:red">Wrong attempts</span>');
     $('.attempt-box').append('<div class="attempts"></div>');
     // Text for answers box
     $('#correct-answers-box').append('<div class="answers"></div>');
@@ -75,7 +43,7 @@ $('#start_game').on("click", function () {
                 // Clean div
                 $('.question-box').empty();
                 // Append question
-                $('.question-box').append('<span style="color:black">Question: </span><span>"' + question.question_content +'"</span>');
+                $('.question-box').append('<span>' + question.question_content +'</span>');
                 // Enable answer box
                 $('.answer-input').prop('disabled', false);
                 //start the timer
@@ -92,13 +60,14 @@ $('#start_game').on("click", function () {
                     if(total === 15){
                         $("#timer").TimeCircles({ time: {Seconds: { color: "#db6767" }}});
                     }
-                    //fade timer out when time has run out
+                    //time is out
                     if(total === 0){
                         console.log("round finished timer");
                         // Clean div
                         $('.question-box').empty();
                         // Append question
-                        $('.question-box').append('<span style="color:red"><strong>Break</strong> for next round.</span>');
+                        var new_round = Number(round) + 1;
+                        $('.question-box').append('<span style="color:red"><strong>Get Ready for round ' + new_round + '</strong></span>');
                         $("#timer").TimeCircles().end();
                         $("#timer").TimeCircles().destroy();
                         $("#timer").hide();
@@ -154,6 +123,69 @@ $('#pause_game').on("click", function () {
     $("#timer").TimeCircles().stop();
 });
 
+//
+//
+//
+function setOffset() {
+    $.ajax({
+        type: "get",
+        url: '/offset',
+        dataType: 'json',
+        ContentType: 'application/json',
+        success: function(offset) {
+            offset = offset.offset;
+            console.log(offset);
+            $('#offset').attr('name', offset);
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
+}
+
+function setTotalQuestions() {
+    $.ajax({
+        type: "get",
+        url: '/getTotalQuestions',
+        dataType: 'json',
+        ContentType: 'application/json',
+        success: function(questions) {
+            console.log(questions.ques_count);
+            $('#total-questions').attr('name', questions.ques_count);
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
+}
+
+/**
+ * Create an initial entry for the score
+ * @param Number score
+ */
+function setScore(game_id){
+    
+    var score_number = 10;
+
+    $.ajax({
+        type: "POST",
+        url: '/SaveScore',
+        dataType: 'json',
+        ContentType: 'application/json',
+        data: {'game_id': game_id, 'score_number': score_number},
+        success: function(response) {
+            //display attempt in answers if right or attempts if wrong    
+            if (response[0].success === true){
+                $("#score").append('<p>Your score is ' + 0 + '</p>');
+            }else{
+                $("#score").append('<p>error</p>');
+            } 
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
+}
 
 function uniqueAnswer(current_answer, user_answer){
     var i;
@@ -225,47 +257,4 @@ function countScore(rating) {
 
     return score
 }
-/**
- * Calculate the new score of the current player and save it.
- * @param Number score
- */
-function adjustScore(score){
-    //get the question id
-    var question_id = $('#current-question').attr('name');   
-    $.ajax({
-        type: "POST",
-        url: '/SaveScore',
-        dataType: 'json',
-        ContentType: 'application/json',
-        data: {'question_id': question_id, 'user_answer': 'ok'},
-        success: function(answer) {
-            //display attempt in answers if right or attempts if wrong    
-            if (answer[0].found === 'no'){
-                $(".attempt-box").append('<div id="false-answer">' + user_answer + '</div>');
-            }else{
-                var score = countScore(answer[0].rating);//calculate answer score
-                var new_score = adjustScore(score);
-                $("#score").append(new_score);
-                $("#correct-answers-box").append('<div id="correct-answer">'+ answer[0].actual_answer + " " + score + 'pts</div>');
-            } 
-        },
-        error: function(e) {
-            console.log(e.message);
-        }
-    });
-    return false;
 
-
-
-
-
-
-
-    var current_score = 0;
-    var new_score = current_score + score;
-    return new_score;
-}
-
-function newRound(current_score){
-
-}

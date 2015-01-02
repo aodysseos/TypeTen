@@ -260,7 +260,7 @@ class SaveScore(webapp2.RequestHandler):
         score_number = self.request.get('score_number')
         current_user = users.get_current_user().nickname()
 
-        user_score = UserScore(score=score_number,
+        user_score = UserScore(score=int(score_number),
                                user_nickname=current_user,
                                game_id=game_id)
 

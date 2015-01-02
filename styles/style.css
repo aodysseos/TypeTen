@@ -76,6 +76,17 @@ html, body
   float:left;
 }
 
+#username{
+  float:right;
+  padding: 5px 10px 0 0;
+}
+
+#score{
+  width:30rem;
+  height:10rem;
+  float:left;
+  background-color: #1983E5;
+}
 /* Correct answers 
 -----------------*/
 #correct-answers-box{
