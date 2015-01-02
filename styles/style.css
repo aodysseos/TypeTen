@@ -48,42 +48,48 @@ html, body
 #game{ 
   width:100%;
   height:100%;
-  background-color: #757575;
+  background-color: #14A2CC;
 }
 
 #main{
   height:200px; 
-  background-color: white; /* background-color: #757575; */
-  /*border-right: 0.2rem solid;
-  border-color: black;*/
+  background-color: #14A2CC;
+}
+
+#main img{
+  float:left;
 }
 
 #timer, #timerbetween{
   height:200px; 
-  background-color: white; /* background-color: #757575; */
+  background-color: #14A2CC; /* background-color: #757575; */
   color: #FF7F27;
-}
-
-#high-scores{
-  height: 60rem; /*height: 600px;*/
-  background-color: #8697AC;
-}
-
-#correct-answers-box{
-  height: 60rem; /*height: 600px; */
-  background-color: white; /*#8697AC */
-  border: 1px solid;
-  border-color:black;
-  font-size: 2.5rem;
 }
 
 /* Score Table
 -----------------*/
 #high-scores-table-title{
   background-color: #FF8F35; /* #FF7F27*/
-  border: 0.2rem solid;
-  border-color: white;
   color: white;
+  font-size: 2.5rem;
+}
+
+#high-scores{
+  height: 60rem; /*height: 600px;*/
+  background-color: #0E497F;
+}
+
+#high-scores table{
+  margin:0 auto;
+  margin-top: 15%;
+  text-align: center;
+}
+
+/* Correct answers 
+-----------------*/
+#correct-answers-box{
+  height: 60rem; /*height: 600px; */
+  background-color: #0E497F;
   font-size: 2.5rem;
 }
 
@@ -92,10 +98,8 @@ html, body
 .question-box {
   height:4em;
   padding: 1em;
-  background-color: white; /*background-color: #B6C1CE;*/
+  background-color: #B6C1CE; /*background-color: #B6C1CE;*/
   color:#009015;
-  border: 0.2rem solid;
-  border-color: black;
   font-size: 2.5rem;
 }
 
@@ -112,7 +116,7 @@ html, body
 /* Attempt Box
 -----------------*/
 .attempt-box {
-  height:50rem;
+  height:39.2rem;
   padding: 1em;
   overflow: auto;
   display: block;
@@ -139,7 +143,7 @@ html, body
   margin-right: 25%;
 }
 
-/* Corrrect Answer Box
+/* Corrrect/False Answers
 -----------------*/
 #false-answer{
   /*font-size: 3rem;*/

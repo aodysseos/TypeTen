@@ -6,20 +6,17 @@
         {% endblock %}
 
         {% block content %}
-        <!--Div to append bootsrap modal-->
+        <!--
         <div class="pure-g">
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             </div>      
-        </div>
+        </div>Div to append bootsrap modal-->
         <div id="game">
             <div id="main-menu" class="pure-g">
                 <div id="main" class="pure-u-11-24">
-                 <header class="custom-header">
-                    <img src="images/logo.png"/>
-                </header>
+                    <img src="images/logo.png"/ width="400" height="100">
                 </div>
-                <div id="timer" class="pure-u-2-24" data-timer="60">
-                </div>
+                <div id="timer" class="pure-u-2-24" data-timer="60"></div>
                 <div id="timerbetween" class="pure-u-2-24" data-timer="10" style="display:none"></div>
                 <div id="info">
                     <input type="hidden" id="offset" name="-1">
@@ -28,16 +25,14 @@
                     <input type="hidden" id="total-questions" name="10">
                     <input type="hidden" id="current-answer" name="0">
                 </div>
-                <div id="main" class="pure-u-11-24">
-                </div>
             </div>
-            <div class="pure-g">
+            <div id="main-screen" class="pure-g">
                 <div id="high-scores" class="pure-u-6-24" >
                     <div id="high-scores-table">
                         <div id="high-scores-table-title">
                             Leaderboard - Top ten
                         </div>
-                        <table class="pure-table pure-table-horizontal" style="margin-left:2em;">
+                        <table class="pure-table pure-table-horizontal">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -103,8 +98,7 @@
                 </div>
                 <div class="pure-u-12-24">
                     <div class="question-box"></div>
-                    <div class="attempt-box">
-                    </div>
+                    <div class="attempt-box"></div>
                     <div class="answer-box">
                         <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
                             <fieldset>
@@ -118,7 +112,9 @@
                     </div>
                 </div>
                 <div id="correct-answers-box" class="pure-u-6-24">
-                </div>
+                    <div id="correct-answers-box-title" style="background-color:#00BF30; color:white">
+                        Correct Answers
+                    </div>
             </div>
         </div>
     {% endblock %}

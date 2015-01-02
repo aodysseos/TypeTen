@@ -59,7 +59,6 @@ $('#start_game').on("click", function () {
     $('.attempt-box').append('<span style="color:red">Wrong attempts: </span>');
     $('.attempt-box').append('<div class="attempts"></div>');
     // Text for answers box
-    $('#correct-answers-box').append('<div style="background-color:#00BF30; color:white">Correct Answers: </span>');
     $('#correct-answers-box').append('<div class="answers"></div>');
     if (Number(round) <= totalQuestions) {
         // Get question
