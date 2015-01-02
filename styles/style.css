@@ -66,29 +66,20 @@ html, body
   color: #FF7F27;
 }
 
-/* Score Table
+/* Nav menu 
 -----------------*/
-#high-scores-table-title{
-  background-color: #FF8F35; /* #FF7F27*/
-  color: white;
-  font-size: 2.5rem;
+#nav-menu{
+  background-color: #1983E5;
 }
 
-#high-scores{
-  height: 60rem; /*height: 600px;*/
-  background-color: #0E497F;
-}
-
-#high-scores table{
-  margin:0 auto;
-  margin-top: 15%;
-  text-align: center;
+#nav-left button{
+  float:left;
 }
 
 /* Correct answers 
 -----------------*/
 #correct-answers-box{
-  height: 60rem; /*height: 600px; */
+  height: 56.4rem; /*height: 600px; */
   background-color: #0E497F;
   font-size: 2.5rem;
 }
@@ -145,6 +136,12 @@ html, body
 
 /* Corrrect/False Answers
 -----------------*/
+#correct-answers-box-title{
+  background-color: #00BF30; /* #FF7F27*/
+  color: white;
+  font-size: 2.5rem;
+}
+
 #false-answer{
   /*font-size: 3rem;*/
   /*color: #afc8d6;*/
@@ -161,4 +158,23 @@ html, body
 
 .answers {
   margin-top: 0.5rem;
+}
+
+/* Score Table
+-----------------*/
+#high-scores-table-title{
+  background-color: #FF8F35; /* #FF7F27*/
+  color: white;
+  font-size: 2.5rem;
+}
+
+#high-scores{
+  height: 60rem; /*height: 600px;*/
+  background-color: #0E497F;
+}
+
+#high-scores table{
+  margin:0 auto;
+  margin-top: 15%;
+  text-align: center;
 }

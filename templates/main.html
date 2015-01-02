@@ -12,19 +12,27 @@
             </div>      
         </div>Div to append bootsrap modal-->
         <div id="game">
+            <div id="nav-menu" class="pure-g">
+                <div id="nav-left" class="pure-u-24-24">
+                    <button type="button" id="start_game" class="pure-button pure-button-primary"><i class="fa fa-play"></i> Start game</button>
+                </div>
+            </div>
             <div id="main-menu" class="pure-g">
-                <div id="main" class="pure-u-11-24">
+                <div id="main" class="pure-u-10-24">
                     <img src="images/logo.png"/ width="400" height="100">
+                    <div id="score"></div>
                 </div>
-                <div id="timer" class="pure-u-2-24" data-timer="60"></div>
-                <div id="timerbetween" class="pure-u-2-24" data-timer="10" style="display:none"></div>
-                <div id="info">
-                    <input type="hidden" id="offset" name="-1">
-                    <input type="hidden" id="round" name="1">
-                    <input type="hidden" id="current-question" name="-1">
-                    <input type="hidden" id="total-questions" name="10">
-                    <input type="hidden" id="current-answer" name="0">
-                </div>
+                <div id="timer" class="pure-u-4-24" data-timer="60"></div>
+                <div id="timerbetween" class="pure-u-4-24" data-timer="10" style="display:none"></div>
+                <div id="main" class="pure-u-10-24"></div>
+            </div>
+            
+            <div id="info">
+                <input type="hidden" id="offset" name="-1">
+                <input type="hidden" id="round" name="1">
+                <input type="hidden" id="current-question" name="-1">
+                <input type="hidden" id="total-questions" name="10">
+                <input type="hidden" id="current-answer" name="0">
             </div>
             <div id="main-screen" class="pure-g">
                 <div id="high-scores" class="pure-u-6-24" >
@@ -106,15 +114,12 @@
                             </fieldset>
                         </form>
                     </div>
-                    <div class="bottom-menu">
-                        <button type="button" id="start_game" class="pure-button pure-button-primary"><i class="fa fa-play"></i> Start game</button>
-                        <button type="button" id="pause_game" class="pure-button pure-button-primary"><i class="fa fa-play"></i> Pause game</button>
-                    </div>
                 </div>
-                <div id="correct-answers-box" class="pure-u-6-24">
-                    <div id="correct-answers-box-title" style="background-color:#00BF30; color:white">
+                <div id="correct-attempts-box" class="pure-u-6-24">
+                    <div id="correct-answers-box-title">
                         Correct Answers
                     </div>
-            </div>
+                    <div id="correct-answers-box"></div>
+                </div>
         </div>
     {% endblock %}
