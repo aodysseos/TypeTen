@@ -40,9 +40,11 @@
       <file leaf-file-name="typeten.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/typeten.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8891304" vertical-offset="3806" max-vertical-offset="4726">
-              <caret line="278" column="14" selection-start-line="278" selection-start-column="14" selection-end-line="278" selection-end-column="14" />
-              <folding />
+            <state vertical-scroll-proportion="0.74130434" vertical-offset="2038" max-vertical-offset="5780">
+              <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
+              <folding>
+                <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,7 +91,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1932" />
+    <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -118,7 +120,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -139,6 +140,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -373,7 +375,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -381,7 +383,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11169102" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11145833" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26466754" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25123152" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -416,7 +418,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -424,7 +426,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="2431">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -470,7 +474,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2550">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -486,7 +492,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2385">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -502,7 +510,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2490">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -518,7 +528,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1920">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -534,7 +546,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1920">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -550,7 +564,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1105" max-vertical-offset="1920">
           <caret line="93" column="6" selection-start-line="93" selection-start-column="6" selection-end-line="93" selection-end-column="6" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -566,7 +582,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="941" max-vertical-offset="1920">
           <caret line="95" column="14" selection-start-line="95" selection-start-column="14" selection-end-line="95" selection-end-column="14" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -582,7 +600,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="941" max-vertical-offset="1920">
           <caret line="95" column="14" selection-start-line="95" selection-start-column="14" selection-end-line="95" selection-end-column="14" />
-          <folding />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -799,9 +819,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/typeten.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8891304" vertical-offset="3806" max-vertical-offset="4726">
-          <caret line="278" column="14" selection-start-line="278" selection-start-column="14" selection-end-line="278" selection-end-column="14" />
-          <folding />
+        <state vertical-scroll-proportion="0.74130434" vertical-offset="2038" max-vertical-offset="5780">
+          <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
+          <folding>
+            <marker date="1420234787363" expanded="true" signature="10836:10866" placeholder="SELECT * FRO..Question..." />
+          </folding>
         </state>
       </provider>
     </entry>

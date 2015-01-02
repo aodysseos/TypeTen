@@ -148,7 +148,7 @@ class CheckAnswer(webapp2.RequestHandler):
     def post(self):
 
         question_id = self.request.get('question_id')
-        user_answer = self.request.get('user_answer').lower()
+        user_answer = self.request.get('user_answer').lower().strip()
 
         question = Question.get_by_id(int(question_id), parent=None)
 
@@ -156,9 +156,10 @@ class CheckAnswer(webapp2.RequestHandler):
             webapp2.abort(404)
 
         for a in question.answers:
-            if a.content.lower().find(user_answer, 0, len(a.content)) != -1:
+            #check if answers are exact match
+            if a.content.lower().strip() == user_answer:
                 self.response.out.write(json.dumps({'found': 'yes', 'actual_answer': a.content,
-                                                     'rating': a.answer_rating}))
+                                                    'rating': a.answer_rating}))
                 return
             else:
                 continue
@@ -291,10 +292,10 @@ class GetQuestions(webapp2.RequestHandler):
 
 class GetQuestion(webapp2.RequestHandler):
     def get(self):
-        offset =  int(self.request.get('offset'))
+        offset = int(self.request.get('offset'))
         logging.info(offset);
         if offset > -1:
-            q = db.GqlQuery("SELECT * FROM Question OFFSET " +  str(offset))
+            q = db.GqlQuery("SELECT * FROM Question OFFSET " + str(offset))
             logging.info(q);
             question = q.get()
             logging.info(question.key().id())
