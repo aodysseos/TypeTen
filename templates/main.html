@@ -14,8 +14,10 @@
         <div id="game">
             <div id="nav-menu" class="pure-g">
                 <div id="nav-left" class="pure-u-24-24">
+                    <a href="/"><button type="button" class="pure-button button-secondary-admin"><i class="fa fa-hand-o-left"></i> Go back</button></a>
                     <button type="button" id="start_game" class="pure-button pure-button-primary"><i class="fa fa-play"></i> Start game</button>
-                    <div id="username" value="{{ user_nickname }}">{{ user_nickname }}</div>
+                    
+                    <div id="username" value="{{ user_nickname }}">Welcome {{ user_nickname }}!</div>
                 </div>
             </div>
             <div id="main-menu" class="pure-g">
@@ -40,7 +42,7 @@
                         <div id="high-scores-table-title">
                             Leaderboard
                         </div>
-                        <table class="pure-table pure-table-horizontal">
+                        <table class="pure-table pure-table-horizontal" id="leaderboard">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -49,56 +51,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>aaa</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>bbb</td>
-                                    <td>70</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>ccc</td>
-                                    <td>60</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>aaa</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>bbb</td>
-                                    <td>70</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>ccc</td>
-                                    <td>60</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>aaa</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>bbb</td>
-                                    <td>70</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>ccc</td>
-                                    <td>60</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>ccc</td>
-                                    <td>60</td>
-                                </tr>
+                                {%set x = 1%}
+                                {% for u in users %}
+                                    <tr>
+                                        <td>{{ x }}</td>
+                                        <td>{{ u.user_nickname }}</td>
+                                        <td>{{ u.score }}</td>
+                                    </tr>
+                                    {%set x = x + 1%}
+                                {% endfor %}
                             </tbody>
                         </table>
                 </div>
