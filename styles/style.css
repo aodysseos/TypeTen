@@ -118,14 +118,13 @@ html, body
 
 #answerForm input{
   margin:0 auto;
-  margin-top: 1rem;
   width: 50%;
   font-size: 2em;
   color: #757575;
 }
 
 .answer-box{
-  padding: 0.3rem;
+  padding: 1.35rem;
   background-color: #123752;
 }
 
@@ -211,6 +210,6 @@ footer{
   color: #fff;
   text-align: center;
   padding-top: 3rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   background-color: #14A2CC;
 }
