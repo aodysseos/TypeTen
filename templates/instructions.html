@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard {% endblock %}
+        {% block head %}
+            {{ super() }}
+
+        {% endblock %}
+
+        {% block content %}
+     
+            <header class="custom-header">
+                <img src="images/logo.png"/>
+            </header>
+           <h2 class="demoHeaders">Instructions of the game</h2>
+			<div id="accordion">
+	<h3>Main Menu</h3>
+	<div>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>
+	<h3>New Game</h3>
+	<div>Phasellus mattis tincidunt nibh.</div>
+	<h3>Pause Game</h3>
+	<div>Nam dui erat, auctor a, dignissim quis.</div>
+	<h3>LeaderBoard</h3>
+	<div>Nam dui erat, auctor a, dignissim quis.</div>
+	<h3>Correct Answers</h3>
+	<div>Nam dui erat, auctor a, dignissim quis.</div>
+	<h3>Wrong attempts</h3>
+	<div>Nam dui erat, auctor a, dignissim quis.</div>
+	<h3>Timer</h3>
+	<div>Nam dui erat, auctor a, dignissim quis.</div>
+</div>
+<script src="scripts/jquery-ui-1.11.2/external/jquery/jquery.js"></script>
+<script src="scripts/jquery-ui-1.11.2/jquery-ui.js"></script>
+<script>
+
+$( "#accordion" ).accordion();
+
+
+</script>
+     
+        {% endblock %}
+
