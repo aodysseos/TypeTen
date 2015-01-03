@@ -1,7 +1,3 @@
-/**
- * Intilise game
- */
- var game_id = $("#username").attr('value') + $.now();
 
 $( document ).ready(function() {
     //set timer
@@ -9,7 +5,9 @@ $( document ).ready(function() {
     $("#timer").TimeCircles({use_background: false});
     $('.answer-input').prop('disabled', true);
     //set score
-    
+    var username = $("#username").attr('value');
+    var game_id = username + $.now();
+    $("#username").attr('value', game_id);
     setScore(game_id);
     //set offset
     setOffset();
@@ -255,6 +253,8 @@ function checkAnswer(user_answer) {
                 if (uniqueAnswer(current_answer, answer.actual_answer)) {
                     //calculate answer score
                     var score = countScore(answer.rating);
+                    // get game id
+                    var game_id = $("#username").attr('value');
                     //update score
                     updateScore(game_id, score);
                     //add new answer in the correct answers list
