@@ -66,47 +66,53 @@ $('#start_game').on("click", function () {
                         console.log("round finished timer");
                         // Clean div
                         $('.question-box').empty();
-                        // Append question
-                        var new_round = Number(round) + 1;
-                        $('.question-box').append('<span style="color:red"><strong>Get Ready for round ' + new_round + '</strong></span>');
-                        $("#timer").TimeCircles().end();
-                        $("#timer").TimeCircles().destroy();
-                        $("#timer").hide();
-                        $("#timerbetween").show();
-                        $("#timerbetween").TimeCircles({use_background: false}); 
-                        $("#timerbetween").TimeCircles().rebuild();
-                        //$("#timerbetween").TimeCircles().restart();
-                        $("#timerbetween").TimeCircles().start();
-                        // Notify of break
-                        
-                        // Reset current answer
-                        $('#current-answer').attr('name', '0');
-                        // Disable answer box
-                        $('.answer-input').prop('disabled', true);
-                        // Clean attempts box
-                        $('.attempt-box').empty();
-                        // Clean answers box
-                        $('#correct-answers-box').empty();
-                        $("#timerbetween").TimeCircles({count_past_zero: false}).addListener(function(unit, value, total){
-                            //fade timer out when time has run out
-                            if(total === 0){
-                                console.log("round finished between");
-                                $("#timerbetween").TimeCircles().end();
-                                $("#timerbetween").TimeCircles().destroy();
-                                $("#timerbetween").hide();
-                                $("#timer").show();
+                        // Final round - game ended
+                        if (Number(round) === totalQuestions) {
+                            $('.question-box').append('<span style="color:red"><strong>Game has ended. Thanks for playing.</strong></span>');
+                        } else {
+                            // Append question
+                            var new_round = Number(round) + 1;
+                            $('.question-box').append('<span style="color:red"><strong>Get Ready for round ' + new_round + '</strong></span>');
+                            $("#timer").TimeCircles().end();
+                            $("#timer").TimeCircles().destroy();
+                            $("#timer").hide();
+                            $("#timerbetween").show();
+                            $("#timerbetween").TimeCircles({use_background: false}); 
+                            $("#timerbetween").TimeCircles().rebuild();
+                            //$("#timerbetween").TimeCircles().restart();
+                            $("#timerbetween").TimeCircles().start();
+                            // Notify of break
+                            
+                            // Reset current answer
+                            $('#current-answer').attr('name', '0');
+                            // Disable answer box
+                            $('.answer-input').prop('disabled', true);
+                            // Clean attempts box
+                            $('.attempt-box').empty();
+                            // Clean answers box
+                            $('#correct-answers-box').empty();
+                            $("#timerbetween").TimeCircles({count_past_zero: false}).addListener(function(unit, value, total){
+                                //fade timer out when time has run out
+                                if(total === 0){
+                                    console.log("round finished between");
+                                    $("#timerbetween").TimeCircles().end();
+                                    $("#timerbetween").TimeCircles().destroy();
+                                    $("#timerbetween").hide();
+                                    $("#timer").show();
 
-                                // update round
-                                //$('#round').removeAttr('name');
-                                $('#round').attr('name', '' + (Number(round) + 1));
-                                // Update offset
-                                $('#offset').attr('name', '' + (Number(offset) + 1));
-                                console.log("CLICK");
-                                $('#start_game').trigger('click');
-                                //$("#timer").TimeCircles().start();
-                                
-                            }
-                        });
+                                    // update round
+                                    //$('#round').removeAttr('name');
+                                    $('#round').attr('name', '' + (Number(round) + 1));
+                                    // Update offset
+                                    $('#offset').attr('name', '' + (Number(offset) + 1));
+                                    console.log("CLICK");
+                                    $('#start_game').trigger('click');
+                                    //$("#timer").TimeCircles().start();
+                                    
+                                }
+                            });
+                        }
+                        
                         //$("#timer").TimeCircles().start();
                         
                     }
@@ -122,8 +128,23 @@ $('#start_game').on("click", function () {
 });
 
 $('#pause_game').on("click", function () {
-    //start the timer
+    // stop timers
     $("#timer").TimeCircles().stop();
+    $("#timerbetween").TimeCircles().stop()
+    // Show resume button
+    $('#resume_game').show();
+    // Hide pause button
+    $('#pause_game').hide();
+});
+
+$('#resume_game').on("click", function () {
+    // stop timers
+    $("#timer").TimeCircles().start();
+    $("#timerbetween").TimeCircles().start()
+    // hide resume button
+    $('#resume_game').hide();
+    // Show pause button
+    $('#pause_game').show();
 });
 
 //
