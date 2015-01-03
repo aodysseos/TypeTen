@@ -73,7 +73,11 @@ $('#start_game').on("click", function () {
                         } else {
                             // Append question
                             var new_round = Number(round) + 1;
-                            $('.question-box').append('<span style="color:red"><strong>Get Ready for round ' + new_round + '</strong></span>');
+                            if (new_round !== 11){ 
+                                $('.question-box').append('<span style="color:red"><strong>Get Ready for round ' + new_round + '</strong></span>');
+                            }else{
+                                $('.question-box').append('<span style="color:red"><strong>You have completed all 10 rounds!</strong></span>');
+                            }
                             $("#timer").TimeCircles().end();
                             $("#timer").TimeCircles().destroy();
                             $("#timer").hide();
