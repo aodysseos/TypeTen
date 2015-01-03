@@ -365,7 +365,7 @@ class GetTopTen(webapp2.RequestHandler):
         q = UserGame.all()
         q.order('-score')
         ans_json = [{'user_nickname': str(user.user_nickname),
-                    'score': str(user.score)} for user in q.run(limit=10)]
+                    'score': str(user.score), 'game_id': str(user.game_id)} for user in q.run(limit=10)]
 
         self.response.out.write(json.dumps(ans_json))
 

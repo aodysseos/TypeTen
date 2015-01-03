@@ -66,6 +66,7 @@ $('#start_game').on("click", function () {
                         console.log("round finished timer");
                         // Clean div
                         $('.question-box').empty();
+                        console.log("Round: " + round + " tota Questions: " + totalQuestions);
                         // Final round - game ended
                         if (Number(round) === totalQuestions) {
                             $('.question-box').append('<span style="color:red"><strong>Game has ended. Thanks for playing.</strong></span>');
@@ -278,10 +279,17 @@ function updateLeaderboard() {
                                         + '</thead>'
                                         + '<tbody id="leaderboard-table-body></tbody>').insertAfter('#high-scores-table-title');
                 var i;
+                var game_id = $("#username").attr('value');
                 for (i = 0; i < users.length; i++) {
-                    $('#leaderboard').append('<tr><td>' + (i + 1) +'</td>'
+                    if (game_id === users[i].game_id) {
+                        $('#leaderboard').append('<tr style="color:#FF8F35"><td>' + (i + 1) +'</td>'
                                                         + '<td>' + users[i].user_nickname + '</td>'
                                                         + '<td>' + users[i].score + '</td></tr>');
+                    } else {
+                        $('#leaderboard').append('<tr><td>' + (i + 1) +'</td>'
+                                                        + '<td>' + users[i].user_nickname + '</td>'
+                                                        + '<td>' + users[i].score + '</td></tr>');
+                    }
                 } 
             }
         },
@@ -297,42 +305,46 @@ function checkAnswer(user_answer) {
     var question_id = $('#current-question').attr('name');    
     var current_answer = $('#current-answer').attr('name');
     var proceed = false;
-    
-    $.ajax({
-        type: 'POST',
-        url: '/check_ans',
-        dataType: 'json',
-        ContentType: 'application/json',
-        data: {'question_id': question_id, 'user_answer': user_answer},
-        success: function(answer) {
-            //display attempt in answers if right or attempts if wrong    
-            if (answer.found === false){
-                $(".attempts").append('<div id="false-answer"><i class="fa fa-close" style="font-size:3rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
-            }else{
-                //check if the answer was not found before
-                if (uniqueAnswer(current_answer, answer.actual_answer)) {
-                    //calculate answer score
-                    var score = countScore(answer.rating);
-                    // get game id
-                    var game_id = $("#username").attr('value');
-                    //update score
-                    updateScore(game_id, score);
-                    //add new answer in the correct answers list
-                    var new_number_answer = Number(current_answer) + 1;
-                    $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:3rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">...' + score + 'pts</div>');
-                    $('#current-answer').attr('name', new_number_answer);
-                    //update the new score value
-                    //var new_score = adjustScore(score);
-                    //$("#score").append(new_score);
+    if (current_answer < 10) {
+        $.ajax({
+            type: 'POST',
+            url: '/check_ans',
+            dataType: 'json',
+            ContentType: 'application/json',
+            data: {'question_id': question_id, 'user_answer': user_answer},
+            success: function(answer) {
+                //display attempt in answers if right or attempts if wrong    
+                if (answer.found === false){
+                    $(".attempts").append('<div id="false-answer"><i class="fa fa-close" style="font-size:3rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
+                }else{
+                    //check if the answer was not found before
+                    if (uniqueAnswer(current_answer, answer.actual_answer)) {
+                        //calculate answer score
+                        var score = countScore(answer.rating);
+                        // get game id
+                        var game_id = $("#username").attr('value');
+                        //update score
+                        updateScore(game_id, score);
+                        //add new answer in the correct answers list
+                        var new_number_answer = Number(current_answer) + 1;
+                        $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:3rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">...' + score + 'pts</div>');
+                        $('#current-answer').attr('name', new_number_answer);
+                        if (new_number_answer === 10) {
+                            // All answers covered
+                            $(".attempts").append('<div><i class="fa fa-check" style="font-size:3rem; color:#00BF30"></i><span style="color:rgba(0, 191, 48, 0.9); padding-left:0.5rem">You already have 10 answers!</span></div>');
+                            $('.answer-input').prop('disabled', true);
+                        }
+                    }
                 }
+                $('.answer-input').val('');
+            },
+            error: function(e) {
+                console.log(e.message);
             }
-            $('.answer-input').val('');
-        },
-        error: function(e) {
-            console.log(e.message);
-        }
-    });
-    return false;
+        });
+        return false;
+    }
+    
 }
 
 function countScore(rating) {
