@@ -228,3 +228,13 @@ footer{
   font-size: 1.2rem;
   background-color: #14A2CC;
 }
+
+.demoHeaders{
+  margin-left: 8%;
+}
+
+#accordion{
+  margin-left: 7%;
+  margin-bottom: 1%;
+  margin-right: 7%;
+}

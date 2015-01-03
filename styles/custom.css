@@ -3,6 +3,10 @@
 	padding-top: 5rem;
 }
 
+.instruction-header{
+    text-align: center;
+	padding-top: 2rem;
+}
 .menu_element {
 	padding-bottom: 0.4rem;
 	list-style: none;
