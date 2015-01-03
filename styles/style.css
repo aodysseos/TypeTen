@@ -48,6 +48,7 @@ html, body
 #game{ 
   width:100%;
   height:100%;
+  margin:0;
   background-color: #14A2CC;
 }
 
@@ -81,26 +82,14 @@ html, body
   padding: 5px 10px 0 0;
 }
 
-/* Correct answers 
------------------*/
-#correct-answers-box{
-  height: 56.4rem; /*height: 600px; */
-  background-color: #0E497F;
-  font-size: 2.5rem;
-}
-
 /* Question Box
 -----------------*/
 .question-box {
-  height:4em;
-  padding: 1em;
-  background-color: #B6C1CE; /*background-color: #B6C1CE;*/
+  height:5rem;
+  padding:2.5rem;
+  background-color: #B6C1CE; 
   color:#009015;
   font-size: 2.5rem;
-}
-
-#questionForm{
-  margin: 0 auto;
 }
 
 .question{
@@ -112,7 +101,7 @@ html, body
 /* Attempt Box
 -----------------*/
 .attempt-box {
-  height:39.2rem;
+  height:25rem;
   padding: 1em;
   overflow: auto;
   display: block;
@@ -123,30 +112,25 @@ html, body
 
 /* Answer Box
 -----------------*/
-.answer-box{
-  padding: 0.3em;
-  text-align: center;
-  background-color: #123752;
+#answerForm{
+  width:100%;
 }
 
-.answer-input{
-  width: 500px;
+#answerForm input{
+  margin:0 auto;
+  margin-top: 1rem;
+  width: 50%;
   font-size: 2em;
   color: #757575;
 }
-.answer-box fieldset{
-  margin-left: 25%;
-  margin-right: 25%;
+
+.answer-box{
+  padding: 0.3rem;
+  background-color: #123752;
 }
 
 /* Corrrect/False Answers
 -----------------*/
-#correct-answers-box-title{
-  background-color: #00BF30; /* #FF7F27*/
-  color: white;
-  font-size: 2.5rem;
-}
-
 #false-answer{
   /*font-size: 3rem;*/
   /*color: #afc8d6;*/
@@ -155,14 +139,32 @@ html, body
 }
 
 .correct-answer{
-  /*font-size: 3em;
-  color: #92cc80;*/
-  font-size: 1.75rem;
+  font-size: 2.75rem;
   vertical-align: bottom;
 }
 
 .answers {
   margin-top: 0.5rem;
+}
+
+/* Correct answers 
+-----------------*/
+#correct-attempts-box{
+  height: 47.2rem;
+  background-color: #0E497F;
+}
+
+#correct-answers-box-title{
+  background-color: #00BF30; /* #FF7F27*/
+  color: white;
+  font-size: 2.5rem;
+}
+
+#correct-answers-box{
+  height:82%;
+  width:100%;
+  background-color: #0E497F;
+  font-size: 3.5rem;
 }
 
 /* Score Table
@@ -174,7 +176,7 @@ html, body
 }
 
 #high-scores{
-  height: 60rem; /*height: 600px;*/
+  height: 47.2rem;
   background-color: #0E497F;
 }
 
@@ -193,12 +195,22 @@ html, body
 #score{
   height:15%;
   width:50%;
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin:0 auto;
-  margin-top:-10px;
+  margin-top:-15px;
   background-color: #1983E5;
 }
-
+#score p {
+  margin-bottom: 0; 
+}
 #score .score-number{
+  font-size: 4rem;
+}
 
+footer{ 
+  color: #fff;
+  text-align: center;
+  padding-top: 3rem;
+  font-size: 2rem;
+  background-color: #14A2CC;
 }

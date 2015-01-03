@@ -6,11 +6,6 @@
         {% endblock %}
 
         {% block content %}
-        <!--
-        <div class="pure-g">
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            </div>      
-        </div>Div to append bootsrap modal-->
         <div id="game">
             <div id="nav-menu" class="pure-g">
                 <div id="nav-left" class="pure-u-24-24">
@@ -19,7 +14,7 @@
                     <button type="button" id="pause_game" class="pure-button pure-button-warning"><i class="fa fa-pause"></i> Pause game</button>
                     <button type="button" id="resume_game" class="pure-button pure-button-primary" style="display:none"><i class="fa fa-arrow-right"></i> Resume game</button>
                     
-                    <div id="username" value="{{ user_nickname }}">Welcome {{ user_nickname }}!</div>
+                    <div id="username" value="{{ user_nickname }}">Welcome {{ user_nickname }} !</div>
                 </div>
             </div>
             <div id="main-menu" class="pure-g">
@@ -64,14 +59,14 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                </div>
-                <div id="score"></div>
+                    </div>
+                    <div id="score"></div>
                 </div>
                 <div class="pure-u-12-24">
                     <div class="question-box"></div>
                     <div class="attempt-box"></div>
                     <div class="answer-box">
-                        <form name="questionForm" id="questionForm" class="pure-form pure-form-stacked">
+                        <form name="answerForm" id="answerForm" class="pure-form pure-form-stacked">
                             <fieldset>
                                 <input class="answer-input" type="text" placeholder="answer" onkeydown="if (event.keyCode == 13) { return checkAnswer(this.value); }">
                             </fieldset>
@@ -84,5 +79,5 @@
                     </div>
                     <div id="correct-answers-box"></div>
                 </div>
-        </div>
+            </div>
     {% endblock %}

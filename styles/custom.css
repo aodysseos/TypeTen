@@ -1,5 +1,6 @@
 .custom-header {
 	text-align: center;
+	padding-top: 5rem;
 }
 
 .menu_element {
@@ -13,20 +14,6 @@
 	padding-left: 0.4rem;
 	list-style: none;
 	display:inline-block
-}
-
-.menu_container {
-	/*
-	margin: 0rem auto;
-	width: 40%;
-	border: 0.08rem solid;
-	border-color: black;
-	background-color: white;  #f85032
-	border-bottom-left-radius: 2em;
-	border-bottom-right-radius: 2em;
-	border-top-left-radius: 2em;
-	border-top-right-radius: 2em;
-	*/
 }
 
 .button-secondary-admin,
