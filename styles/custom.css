@@ -13,11 +13,15 @@
 	padding-top: 0.4rem;
 	padding-left: 0.4rem;
 	list-style: none;
-	display:inline-block
+	display:inline-block;
 }
 
 .button-secondary-admin,
 .button-secondary-main {
+	height: 2.5rem;
+    max-width: 35rem;
+    min-width: 25rem;
+    font-size: 1.5rem;
     color: white;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);

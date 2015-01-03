@@ -58,6 +58,7 @@ html, body
 }
 
 #main img{
+  padding: 3rem 0 0 1rem;
   float:left;
 }
 
@@ -73,8 +74,13 @@ html, body
   background-color: #1983E5;
 }
 
+#nav-left{
+  padding:5px;
+}
+
 #nav-left button{
   float:left;
+  margin-left: 10px;
 }
 
 #username{
