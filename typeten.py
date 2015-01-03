@@ -46,6 +46,15 @@ class MainPage(webapp2.RequestHandler):
         # deal with static files
         template = jinja_environment.get_template('draft.html')
         self.response.write(template.render(template_values))
+        
+#5 Creates instructionPage content
+class InstructionPage(webapp2.RequestHandler):
+    def get(self):
+        template_values = {
+        }
+        # deal with static files
+        template = jinja_environment.get_template('instructions.html')
+        self.response.write(template.render(template_values))
 
 #Render new Game
 class NewGame(webapp2.RequestHandler):
@@ -387,5 +396,6 @@ application = webapp2.WSGIApplication([
     ('/offset', GetOffset),
     ('/update_score', UpdateScore),
     ('/compLeaderboard', GetLeaderBoardComplete),
-    ('/topTen', GetTopTen)
+    ('/topTen', GetTopTen),
+    ('/instruction', InstructionPage)
 ], debug=True)
