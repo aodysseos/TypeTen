@@ -63,7 +63,7 @@ html, body
 }
 
 #timer, #timerbetween{
-  padding-left:5%; 
+  padding-left:1%; 
   margin:0 auto;
   width:200px;
   height:200px; 
@@ -94,7 +94,7 @@ html, body
 /* Question Box
 -----------------*/
 .question-box {
-  height:5rem;
+  height:2.5rem;
   padding:2.5rem;
   background-color: #B6C1CE; 
   color:#009015;
@@ -133,7 +133,7 @@ html, body
 }
 
 .answer-box{
-  padding: 1.35rem;
+  padding: 1rem;
   background-color: #123752;
 }
 
@@ -158,14 +158,15 @@ html, body
 /* Correct answers 
 -----------------*/
 #correct-attempts-box{
-  height: 47.2rem;
+  height: 44rem;
   background-color: #0E497F;
 }
 
 #correct-answers-box-title{
   background-color: #00BF30; /* #FF7F27*/
   color: white;
-  font-size: 2.5rem;
+  height: 3rem;
+  font-size: 2rem;
 }
 
 #correct-answers-box{
@@ -180,11 +181,12 @@ html, body
 #high-scores-table-title{
   background-color: #FF8F35; /* #FF7F27*/
   color: white;
-  font-size: 2.5rem;
+  height: 3rem;
+  font-size: 2rem;
 }
 
 #high-scores{
-  height: 47.2rem;
+  height: 44rem;
   background-color: #0E497F;
 }
 
