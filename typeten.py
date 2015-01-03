@@ -53,7 +53,13 @@ class NewGame(webapp2.RequestHandler):
     def get(self):
 
         current_user = users.get_current_user().nickname()
-        template_values = {'user_nickname': current_user}
+        # Top ten Leaderboard
+        q = UserGame.all().order('-score').fetch(10)
+        #q.order('-score')
+        #q.run(10)
+
+
+        template_values = {'user_nickname': current_user, 'users': q}
         template = jinja_environment.get_template('main.html')
         self.response.write(template.render(template_values))
 
@@ -345,6 +351,25 @@ class GetTotalQuestions(webapp2.RequestHandler):
         else:
             self.response.out.write(json.dumps({'ques_count': 10}))
 
+class GetLeaderBoardComplete(webapp2.RequestHandler):
+    def get(self):
+        q = UserGame.all()
+        q.order('-score')
+        ans_json = [{'user_nickname': str(user.user_nickname),
+                    'score': str(user.score)} for user in q]
+
+        self.response.out.write(json.dumps(ans_json))
+
+class GetTopTen(webapp2.RequestHandler):
+    def get(self):
+        q = UserGame.all()
+        q.order('-score')
+        ans_json = [{'user_nickname': str(user.user_nickname),
+                    'score': str(user.score)} for user in q.run(limit=10)]
+
+        self.response.out.write(json.dumps(ans_json))
+
+
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/play',NewGame),
@@ -360,5 +385,7 @@ application = webapp2.WSGIApplication([
     ('/getQuestion', GetQuestion),
     ('/getTotalQuestions', GetTotalQuestions),
     ('/offset', GetOffset),
-    ('/update_score', UpdateScore)
+    ('/update_score', UpdateScore),
+    ('/compLeaderboard', GetLeaderBoardComplete),
+    ('/topTen', GetTopTen)
 ], debug=True)

@@ -206,6 +206,8 @@ function updateScore(game_id, score){
             if (response[0].success === true){
                 $("#score").empty();
                 $("#score").append('<p>Your score is</p><span class="score-number"><strong>' + response[0].new_score + '</strong></span>');
+                // Update Leaderboard
+                updateLeaderboard();
             }else{
                 $("#score").empty();
                 $("#score").append('<p>Your score is ' + score + '</p>');
@@ -230,6 +232,43 @@ function uniqueAnswer(current_answer, user_answer){
         }
     }
     return notFound;
+}
+
+//
+// Function updateLeaderboard
+// 
+// Function to update the leaderboard after the user has answers successfully.
+function updateLeaderboard() {
+    $.ajax({
+        type: 'get',
+        url: '/topTen',
+        dataType: 'json',
+        ContentType: 'application/json',
+        success: function(users) {
+            if (users.length > 0) {
+                $('#leaderboard').remove();
+                $('<table class="pure-table pure-table-horizontal" id="leaderboard">'
+                                        + '<thead>'
+                                        + '<tr>'
+                                        + '<th>#</th>'
+                                        + '<th>Username</th>'
+                                        + '<th>Score</th>'
+                                        + '</tr>'
+                                        + '</thead>'
+                                        + '<tbody id="leaderboard-table-body></tbody>').insertAfter('#high-scores-table-title');
+                var i;
+                for (i = 0; i < users.length; i++) {
+                    $('#leaderboard').append('<tr><td>' + (i + 1) +'</td>'
+                                                        + '<td>' + users[i].user_nickname + '</td>'
+                                                        + '<td>' + users[i].score + '</td></tr>');
+                } 
+            }
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
+    return false;
 }
 
 function checkAnswer(user_answer) {
@@ -260,7 +299,7 @@ function checkAnswer(user_answer) {
                     //add new answer in the correct answers list
                     var new_number_answer = Number(current_answer) + 1;
                     $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:3rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">...' + score + 'pts</div>');
-                    $('#current-answer').attr('name', new_number_answer); 
+                    $('#current-answer').attr('name', new_number_answer);
                     //update the new score value
                     //var new_score = adjustScore(score);
                     //$("#score").append(new_score);
@@ -289,6 +328,6 @@ function countScore(rating) {
         break;
     }
 
-    return score
+    return score;
 }
 
