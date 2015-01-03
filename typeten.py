@@ -273,12 +273,12 @@ class SaveScore(webapp2.RequestHandler):
 class UpdateScore(webapp2.RequestHandler):
     def post(self):
         game_id = self.request.get('game_id')
-        new_score = self.request.get('score')
+        new_points = self.request.get('score')
         #construct quesry
         query = UserGame.gql(" WHERE game_id = " + game_id)
         #get the game
         game = query.get()
-        game.score = new_score
+        game.score += new_points
         game.put()
 
 
