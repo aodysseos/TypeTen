@@ -41,8 +41,8 @@
       <file leaf-file-name="instructions.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/instructions.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19210978" vertical-offset="53" max-vertical-offset="660">
-              <caret line="11" column="148" selection-start-line="10" selection-start-column="16" selection-end-line="11" selection-end-column="148" />
+            <state vertical-scroll-proportion="0.5917667" vertical-offset="0" max-vertical-offset="630">
+              <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -935,8 +935,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/instructions.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19210978" vertical-offset="53" max-vertical-offset="660">
-          <caret line="11" column="148" selection-start-line="10" selection-start-column="16" selection-end-line="11" selection-end-column="148" />
+        <state vertical-scroll-proportion="0.5917667" vertical-offset="0" max-vertical-offset="630">
+          <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
           <folding />
         </state>
       </provider>
