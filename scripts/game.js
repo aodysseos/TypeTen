@@ -227,7 +227,7 @@ function updateScore(game_id, score){
             //display updated score    
             if (response[0].success === true){
                 $("#score").empty();
-                $("#score").append('<p>Your score is</p><span class="score-number"><strong>' + response[0].new_score + '</strong></span>');
+                $("#score").append('<p style="margin-bottom:0px;">Your score is</p><span class="score-number"><strong>' + response[0].new_score + '</strong></span>');
                 // Update Leaderboard
                 updateLeaderboard();
             }else{

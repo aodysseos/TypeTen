@@ -62,6 +62,10 @@ html, body
   float:left;
 }
 
+#main-screen{
+  margin-bottom: 15px;
+}
+
 #timer, #timerbetween{
   padding-left:1%; 
   margin:0 auto;
@@ -166,7 +170,8 @@ html, body
   background-color: #00BF30; /* #FF7F27*/
   color: white;
   height: 3rem;
-  font-size: 2rem;
+  padding-top: 0.5rem;
+  font-size: 1.5rem;
 }
 
 #correct-answers-box{
@@ -182,7 +187,8 @@ html, body
   background-color: #FF8F35; /* #FF7F27*/
   color: white;
   height: 3rem;
-  font-size: 2rem;
+  padding-top: 0.5rem;
+  font-size: 1.5rem;
 }
 
 #high-scores{
@@ -203,23 +209,22 @@ html, body
 }
 
 #score{
-  height:15%;
+  height:13%;
   width:50%;
   font-size: 2rem;
   margin:0 auto;
   margin-top:-15px;
   background-color: #1983E5;
+  border-radius: 4px;
 }
-#score p {
-  margin-bottom: 0; 
-}
+
 #score .score-number{
-  font-size: 4rem;
+  font-size: 3.3rem;
 }
 
 footer{ 
   color: #fff;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   background-color: #14A2CC;
 }
