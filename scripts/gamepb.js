@@ -81,6 +81,8 @@ $('#start_game').on("click", function () {
                         $("#timerbetween").TimeCircles().start();
                         // Notify of break
                         
+                        // Reset current answer
+                        $('#current-answer').attr('name', '0');
                         // Disable answer box
                         $('.answer-input').prop('disabled', true);
                         // Clean attempts box
@@ -257,7 +259,7 @@ function checkAnswer(user_answer) {
                     updateScore(game_id, score);
                     //add new answer in the correct answers list
                     var new_number_answer = Number(current_answer) + 1;
-                    $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:3rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">..."' + score + 'pts</div>');
+                    $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:3rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">...' + score + 'pts</div>');
                     $('#current-answer').attr('name', new_number_answer); 
                     //update the new score value
                     //var new_score = adjustScore(score);
