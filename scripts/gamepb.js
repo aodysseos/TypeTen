@@ -205,7 +205,7 @@ function updateScore(game_id, score){
             //display updated score    
             if (response[0].success === true){
                 $("#score").empty();
-                $("#score").append('<p>Your score is ' + response[0].new_score + '</p>');
+                $("#score").append('<p>Your score is</p><span class="score-number"><strong>' + response[0].new_score + '</strong></span>');
             }else{
                 $("#score").empty();
                 $("#score").append('<p>Your score is ' + score + '</p>');
