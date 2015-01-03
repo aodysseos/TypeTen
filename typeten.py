@@ -160,12 +160,12 @@ class CheckAnswer(webapp2.RequestHandler):
         for a in question.answers:
             #check if answers are exact match
             if a.content.lower().strip() == user_answer:
-                self.response.out.write(json.dumps({'found': 'yes', 'actual_answer': a.content,
+                self.response.out.write(json.dumps({'found': True, 'actual_answer': a.content,
                                                     'rating': a.answer_rating}))
                 return
             else:
                 continue
-        self.response.out.write(json.dumps({'found': 'no'}))
+        self.response.out.write(json.dumps({'found': False}))
 
 
 class GetRandomQuestion(webapp2.RequestHandler):
@@ -275,11 +275,14 @@ class UpdateScore(webapp2.RequestHandler):
         game_id = self.request.get('game_id')
         new_points = self.request.get('score')
         #construct quesry
-        query = UserGame.gql(" WHERE game_id = " + game_id)
+        query = UserGame.gql('WHERE game_id=:1', game_id)
         #get the game
         game = query.get()
-        game.score += new_points
+        game.score += int(new_points)
         game.put()
+
+        self.response.out.write(json.dumps([{'success': True,
+                                             'new_score': game.score}]))
 
 
 class GetQuestions(webapp2.RequestHandler):

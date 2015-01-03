@@ -1,13 +1,15 @@
 /**
  * Intilise game
  */
+ var game_id = $("#username").attr('value') + $.now();
+
 $( document ).ready(function() {
     //set timer
     $("#timer").TimeCircles({start: false});
     $("#timer").TimeCircles({use_background: false});
     $('.answer-input').prop('disabled', true);
     //set score
-    var game_id = $("#username").attr('value') + $.now();
+    
     setScore(game_id);
     //set offset
     setOffset();
@@ -129,7 +131,7 @@ $('#pause_game').on("click", function () {
 //
 function setOffset() {
     $.ajax({
-        type: "get",
+        type: 'GET',
         url: '/offset',
         dataType: 'json',
         ContentType: 'application/json',
@@ -146,7 +148,7 @@ function setOffset() {
 
 function setTotalQuestions() {
     $.ajax({
-        type: "get",
+        type: 'GET',
         url: '/getTotalQuestions',
         dataType: 'json',
         ContentType: 'application/json',
@@ -166,10 +168,10 @@ function setTotalQuestions() {
  */
 function setScore(game_id){
     
-    var score_number = 10;
+    var score_number = 0;
 
     $.ajax({
-        type: "POST",
+        type: 'POST',
         url: '/SaveScore',
         dataType: 'json',
         ContentType: 'application/json',
@@ -180,6 +182,33 @@ function setScore(game_id){
                 $("#score").append('<p>Your score is ' + 0 + '</p>');
             }else{
                 $("#score").append('<p>error</p>');
+            } 
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
+}
+
+/**
+ * Update the player score
+ * @param Number score
+ */
+function updateScore(game_id, score){
+    $.ajax({
+        type: 'POST',
+        url: '/update_score',
+        dataType: 'json',
+        ContentType: 'application/json',
+        data: {'game_id': game_id, 'score': score},
+        success: function(response) {
+            //display updated score    
+            if (response[0].success === true){
+                $("#score").empty();
+                $("#score").append('<p>Your score is ' + response[0].new_score + '</p>');
+            }else{
+                $("#score").empty();
+                $("#score").append('<p>Your score is ' + score + '</p>');
             } 
         },
         error: function(e) {
@@ -210,21 +239,23 @@ function checkAnswer(user_answer) {
     var proceed = false;
     
     $.ajax({
-        type: "POST",
+        type: 'POST',
         url: '/check_ans',
         dataType: 'json',
         ContentType: 'application/json',
         data: {'question_id': question_id, 'user_answer': user_answer},
         success: function(answer) {
-            console.log(answer);
             //display attempt in answers if right or attempts if wrong    
-            if (answer.found === 'no'){
+            if (answer.found === false){
                 $(".attempts").append('<div id="false-answer"><i class="fa fa-close" style="font-size:3rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
             }else{
-                console.log('Answer: ' + answer.actual_answer);
+                //check if the answer was not found before
                 if (uniqueAnswer(current_answer, answer.actual_answer)) {
-                    //display the answer and score
-                    var score = countScore(answer.rating);//calculate answer score
+                    //calculate answer score
+                    var score = countScore(answer.rating);
+                    //update score
+                    updateScore(game_id, score);
+                    //add new answer in the correct answers list
                     var new_number_answer = Number(current_answer) + 1;
                     $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:3rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">..."' + score + 'pts</div>');
                     $('#current-answer').attr('name', new_number_answer); 
