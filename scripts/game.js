@@ -8,7 +8,7 @@ window.settings = {};
     settings.currentAnswer = 0;
     settings.between = false;
     
-$( document ).ready(function() {
+$(document).ready(function() {
     //set timer
     $("#timer").TimeCircles({start: false});
     $("#timer").TimeCircles({use_background: false});
@@ -23,10 +23,7 @@ $( document ).ready(function() {
     setTotalQuestions();
 });
 
-/* 
-* Click on the button "start game"
-* Initialize the game.
-*/ I
+// click on the button "start game". Initialize the game
 $('#start_game').on("click", function () {
     $("#start_game").prop("disabled", true);
     // text for attempt box
@@ -93,7 +90,7 @@ $('#start_game').on("click", function () {
 $('#pause_game').on("click", function () {
     $('.answer-input').prop('disabled', true);
     if (settings.between) {
-        $("#timerbetween").TimeCircles().stop()
+        $("#timerbetween").TimeCircles().stop();
     } else {
         $("#timer").TimeCircles().stop();
     }
@@ -111,7 +108,7 @@ $('#pause_game').on("click", function () {
 $('#resume_game').on("click", function () {
     $('.answer-input').prop('disabled', false);
     if (settings.between) {
-        $("#timerbetween").TimeCircles().start()
+        $("#timerbetween").TimeCircles().start();
     } else {
         $("#timer").TimeCircles().start();
     }
@@ -250,25 +247,13 @@ function updateLeaderboard() {
                 // remove node
                 $('#leaderboard').remove();
                 // re-create the table
-                $('<table class="pure-table pure-table-horizontal" id="leaderboard">'
-                                        + '<thead>'
-                                        + '<tr>'
-                                        + '<th>#</th>'
-                                        + '<th>Username</th>'
-                                        + '<th>Score</th>'
-                                        + '</tr>'
-                                        + '</thead>'
-                                        + '<tbody id="leaderboard-table-body></tbody>').insertAfter('#high-scores-table-title');
+                $('<table class="pure-table pure-table-horizontal" id="leaderboard"><thead><tr><th>#</th><th>Username</th><th>Score</th></tr></thead><tbody id="leaderboard-table-body></tbody>').insertAfter('#high-scores-table-title');
                 var i;
                 for (i = 0; i < users.length; i++) {
                     if (settings.game_id === users[i].game_id) {
-                        $('#leaderboard').append('<tr style="color:#FF8F35"><td>' + (i + 1) +'</td>'
-                                                        + '<td>' + users[i].user_nickname + '</td>'
-                                                        + '<td>' + users[i].score + '</td></tr>');
+                        $('#leaderboard').append('<tr style="color:#FF8F35"><td>' + (i + 1) +'</td><td>' + users[i].user_nickname + '</td><td>' + users[i].score + '</td></tr>');
                     } else {
-                        $('#leaderboard').append('<tr><td>' + (i + 1) +'</td>'
-                                                        + '<td>' + users[i].user_nickname + '</td>'
-                                                        + '<td>' + users[i].score + '</td></tr>');
+                        $('#leaderboard').append('<tr><td>' + (i + 1) +'</td><td>' + users[i].user_nickname + '</td><td>' + users[i].score + '</td></tr>');
                     }
                 } 
             }
@@ -333,7 +318,6 @@ function betweenTimer() {
 * function to check if the answer typed is part of the answers pool for the current question.
 */
 function checkAnswer(user_answer) {
-    var proceed = false;
     if (settings.currentAnswer < 10) {
         $.ajax({
             type: 'POST',
@@ -401,4 +385,3 @@ function countScore(rating) {
 
     return score;
 }
-
