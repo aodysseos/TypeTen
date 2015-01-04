@@ -43,7 +43,7 @@ class MainPage(webapp2.RequestHandler):
             'is_admin': users.is_current_user_admin()
         }
         # deal with static files
-        template = jinja_environment.get_template('draft.html')
+        template = jinja_environment.get_template('home.html')
         self.response.write(template.render(template_values))
 
 
@@ -75,7 +75,7 @@ class NewGame(webapp2.RequestHandler):
         q = UserGame.all().order('-score').fetch(10)
 
         template_values = {'user_nickname': current_user, 'users': q}
-        template = jinja_environment.get_template('main.html')
+        template = jinja_environment.get_template('game.html')
         self.response.write(template.render(template_values))
 
 
@@ -86,7 +86,7 @@ class AdminPage(webapp2.RequestHandler):
     def get(self):
         questions = Question.all()
         template_values = {'questions': questions}
-        template = jinja_environment.get_template('admin_draft.html')
+        template = jinja_environment.get_template('admin.html')
         self.response.write(template.render(template_values))
 
 
