@@ -232,6 +232,7 @@ html, body
 .intructions-header{
   width: 100%;
   text-align: center;
+  font-size: 1.2rem;
 }
 
 .instructions-msg{
