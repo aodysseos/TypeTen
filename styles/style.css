@@ -47,7 +47,7 @@ html, body
 
 #game{ 
   width:100%;
-  height:100%;
+  height:95%;
   margin:0;
   background-color: #14A2CC;
 }
@@ -237,14 +237,6 @@ html, body
   font-size: 1.2rem;
 }
 
-.instructions-msg{
-  font-size: 3rem;
-  color:#FF8F35;
-  text-shadow: 4px 4px 4px #0E487E;
-  font-weight: bold;
-  text-align: center;
-}
-
 #accordion{
   margin-left: 20%;
   margin-right: 20%;
@@ -253,6 +245,7 @@ html, body
 
 footer{ 
   color: #fff;
+  height: 5%;
   text-align: center;
   font-size: 1rem;
   background-color: #14A2CC;

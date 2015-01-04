@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block title %} Dashboard {% endblock %}
+       
         {% block head %}
             {{ super() }}
-
         {% endblock %}
 
         {% block content %}
@@ -35,7 +35,11 @@
 				<div>Each round you get 60 seconds to type as many answers as possible, in the last few seconds the timer will get
 					red to alarm you that time is running out, so type faster !. Once the time runs out you will get 10 seconds to prepare for the new round.</div>
 			</div>
-			<div class="instructions-msg"><p>Happy Typing!</p></div>
+			<script>
+  $(function() {
+    $( "#accordion" ).accordion();
+  });
+</script>
      	</div>
         {% endblock %}
 
