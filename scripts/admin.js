@@ -1,24 +1,22 @@
 
-//
-// Function updateAnswer
-//
-// Function to update an answer that belongs to an specific question. It receives the next parameters:
-// answer_id: id of the answer.
-// question_id: id of the question.
-// n: number of the element. For example: answer # 2 has the id of the dropdown is difficulty_answer_2
+/*
+*  function updateAnswer
+*
+* @param answer_id: id of the answer.
+* @param question_id: id of the question.
+* @param n: number of the element. For example: answer # 2 has the id of the dropdown is difficulty_answer_2
+*
+* function to update an answer that belongs to an specific question.
+*/
 function updateAnswer(answer_id, question_id, n) {
-    console.log("updateAnswer ID: " + answer_id);
-    console.log("updateAnswer question id: " + question_id);
-    console.log("updateAnswer answer content: " + $('#' + answer_id).val());
     var number = Number(n);
-    // Get the difficulty value
+    // get the difficulty value
     var answer_rating = $('#difficulty_answer_' + number).val();
-    // Get the content or text of the answer
+    // get the content or text of the answer
     var answer_content = $('#' + answer_id).val();
-    console.log("updateAnswer answer dif: " + answer_rating);
-    // Check that the answer is not empty
+    // check that the answer is not empty
     if (answer_content.trim() === '' || answer_content.trim() === 'undefined') {
-        // If its empty, display an error message
+        // if its empty, display an error message
         $('#notification_messages').empty().removeAttr('style');
         $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
         $('#notification_messages').append('The answer can\'t be <strong>empty</strong>.');
@@ -31,7 +29,6 @@ function updateAnswer(answer_id, question_id, n) {
             ContentType: 'application/json',
             data: {'question_id': question_id, 'answer_id': answer_id, 'answer_content': answer_content, 'answer_rating': answer_rating},
             success: function(data) {
-               console.log(data);
                 // If data.success = true, display the success message.
                 if (data.success) {
                     $("form#form_answers :input").prop("disabled", true);
@@ -51,19 +48,19 @@ function updateAnswer(answer_id, question_id, n) {
     }
 }
 
-//
-// Function updateQuestion
-//
-// Function to update the question content. It receives one parameter:
-// question_id: id of the question.
+/*
+* function updateQuestion
+*
+* @param question_id: id of the question.
+* 
+* function to update the question content.
+*/ 
 function updateQuestion(question_id) {
-    console.log("updateAnswer question id: " + question_id);
-    console.log("updateAnswer question content: " + $('#' + question_id).val());
-    // Get the content value for the question
+    // get the content value for the question
     var question_content = $('#' + question_id).val();
-    // Check that the question content is not empty
+    // check that the question content is not empty
     if (question_content.trim() === '' || question_content.trim() === 'undefined') {
-        // If it is empty, display an error message. Otherwise, communicate with the server.
+        // if it is empty, display an error message. Otherwise, communicate with the server.
         $('#notification_messages').empty().removeAttr('style');
         $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
         $('#notification_messages').append('The question can\'t be <strong>empty</strong>.');
@@ -76,8 +73,7 @@ function updateQuestion(question_id) {
             ContentType: 'application/json',
             data: {'question_id': question_id, 'question_content': question_content},
             success: function(data) {
-                console.log(data);
-                // If in the response the data.success = true, display a success notification message.
+                // if in the response the data.success = true, display a success notification message.
                 if (data.success) {
                     $("form#form_answers :input").prop("disabled", true);
                     $("form#form_answers :button").prop("disabled", true);
@@ -96,13 +92,15 @@ function updateQuestion(question_id) {
     }
 }
 
-//
-// Function deleteAnswer
-//
-// Function to delete an answer from the list. It receives one argument:
-// answer_id: id of the answer.
+/*
+* function deleteAnswer
+*
+* @param answer_id: id of the answer.
+*
+* function to delete an answer from the list.
+*/ 
 function deleteAnswer(answer_id) {
-    // Communicate with the back end to delete the answer, sending the answer id.
+    // communicate with the back end to delete the answer, sending the answer id.
     $.ajax({
         type: "POST",
         url: '/removeAnswer',
@@ -110,7 +108,7 @@ function deleteAnswer(answer_id) {
         ContentType: 'application/json',
         data: {'answer_id': answer_id},
         success: function(data) {
-            // If in the response the data.success = true, display a success notification message.
+            // if in the response the data.success = true, display a success notification message.
             console.log(data);
             if (data.success) {
                 $("form#form_answers :input").prop("disabled", true);
@@ -129,12 +127,14 @@ function deleteAnswer(answer_id) {
     return false;
 }
 
-//
-// Function deleteQuestion
-// Function to delete a question, including its answers. It receives one argument:
-// question_id: id of the question.
+/*
+* function deleteQuestion
+* 
+* @param: question_id: id of the question.
+* function to delete a question, including its answers
+*/ 
 function deleteQuestion(question_id) {
-    // Communicate with the back end to delete the question, sending the question id.
+    // communicate with the back end to delete the question, sending the question id.
     $.ajax({
         type: "POST",
         url: '/removeQuestion',
@@ -142,7 +142,7 @@ function deleteQuestion(question_id) {
         ContentType: 'application/json',
         data: {'question_id': question_id},
         success: function(data) {
-            // If in the response the data.success = true, display a success notification message.
+            // if in the response the data.success = true, display a success notification message.
             console.log(data);
             if (data.success) {
                 $("form#form_answers :input").prop("disabled", true);
@@ -164,18 +164,19 @@ function deleteQuestion(question_id) {
     return false;
 }
 
-//
-// Function addAnswer
-//
-// Function to add more nodes/inputs to the form when clicking on the + button in the "New question" section.
-// It receives one argument:
-// id: id of the button, used to obtain the number at the end.
+/*
+* function addAnswer
+*
+* @param id: id of the button, used to obtain the number at the end.
+* 
+* function to add more nodes/inputs to the form when clicking on the + button in the "New question" section.
+*/ 
 function addAnswer(id) {
     var tmp = id.split('_');
-    // Get number from the id.
+    // get number from the id.
     var realID = tmp[2];
     var numberID = Number(realID) + 1;
-    // Add the nodes to the form.
+    // add the nodes to the form.
     $('<div class="pure-control-group">'
         + '<label for="answer_'+ numberID +'">Answer # ' + numberID + '</label>'
         + '<input class="pure-input-1-3" id="answer_' + numberID + '" name="answer_' + numberID + '" type="text" placeholder="Answer #' + numberID + '">'
@@ -187,28 +188,26 @@ function addAnswer(id) {
         + '<button style="margin-left: 0.3rem" type="button" id="add_answer_' + numberID + '" name="update" class="pure-button pure-button-primary" onClick="addAnswer(this.id)"><i class="fa fa-plus"></i></button>'
         + '</div>').insertBefore($('#button_section'));
 
-    // Remove + button. + button must be only next to the last input (added in the lines above).
+    // remove + button. + button must be only next to the last input (added in the lines above).
     $('#' + id).remove();
-    console.log("parent: " + parent);
-    console.log("add answer id: " + realID);
 }
 
-//
-// Function createAnswer
-// 
-// Function to create a new answer for an existing question. It receives two arguments:
-// numberId: number from the id.
-// questionId: id of the question.
+/*
+* function createAnswer
+* 
+* @param numberId: number from the id.
+* @param questionId: id of the question.
+* 
+* function to create a new answer for an existing question. It receives two arguments:
+*/ 
 function createAnswer(numberId, questionId) {
     var number = Number(numberId);
     console.log('question id: ' + questionId);
-    // Get answer content.
+    // get answer content.
     var answer_content = $('#answer_value_' + number).val();
-    // Get answer difficulty.
+    // get answer difficulty.
     var answer_rating = $('#difficulty_answer_' + number).val();
-    console.log('new answer value: ' + answer_content);
-    console.log('new answer dif: ' + answer_rating);
-    // Check that the answer content is not empty. In case that its empty display an error message. Otherwise, communicate with the server.
+    // check that the answer content is not empty. In case that its empty display an error message. Otherwise, communicate with the server.
     if (answer_content.trim() === '' || answer_content.trim() === 'undefined') {
         $('#notification_messages').empty().removeAttr('style');
         $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
@@ -223,7 +222,7 @@ function createAnswer(numberId, questionId) {
             data: {'question_id': questionId, 'answer_content': answer_content, 'answer_rating': answer_rating},
             success: function(data) {
                 console.log(data);
-                // If in the response the data.success = true, display a success notification message.
+                // if in the response the data.success = true, display a success notification message.
                 if (data.success) {
                     $('#notification_messages').empty().removeAttr('style');
                     $('#notification_messages').attr('class', 'pure-alert pure-alert-success');
@@ -231,7 +230,6 @@ function createAnswer(numberId, questionId) {
                     $('#notification_messages').fadeOut(3000);
                     $('#get_answers').trigger('click');
                 }
-                //$('#answer_' + realID).parent().remove();
             },
             error: function(e) {
                 console.log(e.message);

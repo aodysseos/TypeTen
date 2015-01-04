@@ -1,4 +1,4 @@
-// Variable with the settings of the games
+// Variable with the settings of the game
 window.settings = {};
     settings.offset = -1;
     settings.round = 1;
@@ -16,7 +16,6 @@ $( document ).ready(function() {
     //set score
     var username = $("#username").attr('value');
     settings.game_id = username + $.now();
-    console.log("Settings game_id: " + settings.game_id);
     setScore(settings.game_id);
     //set offset
     setOffset();
@@ -24,20 +23,19 @@ $( document ).ready(function() {
     setTotalQuestions();
 });
 
-// 
-// Click on the button "start game"
-//
-// Initialize the game.
+/* 
+* Click on the button "start game"
+* Initialize the game.
+*/ I
 $('#start_game').on("click", function () {
     $("#start_game").prop("disabled", true);
-    console.log("settings Offset: " + settings.offset);
-    // Text for attempt box
+    // text for attempt box
     $('.attempt-box').append('<span style="color:red; font-size:1.6rem;">Wrong attempts</span>');
     $('.attempt-box').append('<div class="attempts"></div>');
-    // Text for answers box
+    // text for answers box
     $('#correct-answers-box').append('<div class="answers"></div>');
     if (settings.round <= settings.totalQuestions) {
-        // Get question
+        // get question
         $.ajax({
             type: "get",
             url: '/getQuestion',
@@ -45,38 +43,35 @@ $('#start_game').on("click", function () {
             ContentType: 'application/json',
             data: {'offset': settings.offset},
             success: function(question) {
-                console.log(question);
                 // update current question
                 settings.currentQuestion = question.question_id;
-                // Clean div
+                // clean div
                 $('.question-box').empty();
-                // Append question
+                // append question
                 $('.question-box').append('<span class="q-content">' + question.question_content +'</span>');
-                // Enable answer box
+                // enable answer box
                 $('.answer-input').prop('disabled', false);
-                //start the timer
+                // start the timer
                 $("#timer").TimeCircles({use_background: false}); 
                 $("#timer").TimeCircles().rebuild();
                 $("#timer").TimeCircles().start();
                 $("#timer").TimeCircles({count_past_zero: false}).addListener(function(unit, value, total){
-                    //turn colour orange on 30 seconds remaining
-                    if(total === 30){
+                    // turn colour orange on 30 seconds remaining
+                    if (total === 30) {
                         $("#timer").TimeCircles({ time: {Seconds: { color: "#e5a960" }}});
                     }
                     //turn colour red on 15 seconds remaining
-                    if(total === 15){
+                    if (total === 15) {
                         $("#timer").TimeCircles({ time: {Seconds: { color: "#db6767" }}});
                     }
                     //time is out
-                    if(total === 0){
-                        console.log("round finished timer");
+                    if (total === 0) {
                         // Clean div
                         $('.question-box').empty();
                         // Final round - game ended
                         if (settings.round === settings.totalQuestions) {
                             $('.question-box').append('<span style="color:red"><strong>Game has ended. Thanks for playing.</strong></span>');
                         } else {
-                            console.log("betweenTimer");
                             betweenTimer();
                         }
                     }
@@ -91,11 +86,12 @@ $('#start_game').on("click", function () {
     }
 });
 
-// 
-// Clicking on the pause button
-//
-// Stop any timer and show button to resume game.
+/* 
+* clicking on the pause button
+* stop any timer and show button to resume game.
+*/ 
 $('#pause_game').on("click", function () {
+    $('.answer-input').prop('disabled', true);
     if (settings.between) {
         $("#timerbetween").TimeCircles().stop()
     } else {
@@ -108,11 +104,12 @@ $('#pause_game').on("click", function () {
     $('#pause_game').hide();
 });
 
-// 
-// Clicking on the resume button
-//
-// Resume time, hide resume button and show pause button.
+/* 
+* clicking on the resume button
+* resume time, hide resume button and show pause button.
+*/ 
 $('#resume_game').on("click", function () {
+    $('.answer-input').prop('disabled', false);
     if (settings.between) {
         $("#timerbetween").TimeCircles().start()
     } else {
@@ -124,10 +121,10 @@ $('#resume_game').on("click", function () {
     $('#pause_game').show();
 });
 
-//
-// function setOffset
-//
-// function to get the offset from the Database, used as pointer to obtain the questions, to avoid 
+/*
+* function setOffset
+* function to get the offset from the Database, used as pointer to obtain the questions, to avoid repetition
+*/ 
 function setOffset() {
     $.ajax({
         type: 'GET',
@@ -136,7 +133,6 @@ function setOffset() {
         ContentType: 'application/json',
         success: function(offset) {
             settings.offset = offset.offset;
-            console.log("settings offset: " + settings.offset);
         },
         error: function(e) {
             console.log(e.message);
@@ -144,6 +140,10 @@ function setOffset() {
     });
 }
 
+/*
+* function setTotalQuestions
+* function to get the total number of questions (if there are less than 10 questions in the DB)
+*/ 
 function setTotalQuestions() {
     $.ajax({
         type: 'GET',
@@ -152,7 +152,6 @@ function setTotalQuestions() {
         ContentType: 'application/json',
         success: function(questions) {
             settings.totalQuestions = questions.ques_count;
-            console.log("Settings Total questions: " + settings.totalQuestions);
         },
         error: function(e) {
             console.log(e.message);
@@ -189,7 +188,7 @@ function setScore(game_id){
 }
 
 /**
- * Update the player score
+ * function updateScore
  * @param Number score
  */
 function updateScore(game_id, score){
@@ -217,14 +216,18 @@ function updateScore(game_id, score){
     });
 }
 
+/*
+* function uniquerAnswer
+* @param current_answer: current number of answers.
+* @param user_answer: answer typed by the user.
+* function to check that the answer typed it was not already typed by the user.
+*/
 function uniqueAnswer(current_answer, user_answer){
     var i;
     var answerToCheck;
     var notFound = true;
     for (i = 1; i <= current_answer; i++) {
         answerToCheck = $('#answer-' + i).text().trim().toLowerCase();
-        console.log("Answer to check: " + answerToCheck);
-        console.log("User answer: " + user_answer);
         if (answerToCheck === user_answer.trim().toLowerCase()) {
             notFound = false;
         }
@@ -232,10 +235,10 @@ function uniqueAnswer(current_answer, user_answer){
     return notFound;
 }
 
-//
-// Function updateLeaderboard
-// 
-// Function to update the leaderboard after the user has answers successfully.
+/*
+* function updateLeaderboard
+* function to update the leaderboard after the user has answers successfully.
+*/ 
 function updateLeaderboard() {
     $.ajax({
         type: 'get',
@@ -244,7 +247,9 @@ function updateLeaderboard() {
         ContentType: 'application/json',
         success: function(users) {
             if (users.length > 0) {
+                // remove node
                 $('#leaderboard').remove();
+                // re-create the table
                 $('<table class="pure-table pure-table-horizontal" id="leaderboard">'
                                         + '<thead>'
                                         + '<tr>'
@@ -275,53 +280,58 @@ function updateLeaderboard() {
     return false;
 }
 
+/*
+* function betweenTimer
+* function to end the game timer and show the timer between the rounds.
+*/ 
 function betweenTimer() {
     var new_round = settings.round + 1;
     $('.question-box').empty();
-    if (new_round !== 11){ 
+    // show next round or end of the game.
+    if (new_round !== 11) { 
         $('.question-box').append('<span style="color:red"><strong>Get Ready for round ' + new_round + '</strong></span>');
-    }else{
+    } else {
         $('.question-box').append('<span style="color:red"><strong>You have completed all 10 rounds!</strong></span>');
     }
+    // end timer
     $("#timer").TimeCircles().end();
     $("#timer").TimeCircles().destroy();
     $("#timer").hide();
-    console.log("hide timer");
     settings.betweenTimer = true;
+    // show timer between rounds
     $("#timerbetween").show();
     $("#timerbetween").TimeCircles({use_background: false}); 
     $("#timerbetween").TimeCircles().rebuild();
     $("#timerbetween").TimeCircles().start();
-    console.log("start break");
-    // Reset current answer
+    // reset current answer
     settings.currentAnswer = 0;
-    // Disable answer box
+    // disable answer box
     $('.answer-input').prop('disabled', true);
-    // Clean attempts box
+    // clean attempts box
     $('.attempt-box').empty();
-    // Clean answers box
+    // clean answers box
     $('#correct-answers-box').empty();
     $("#timerbetween").TimeCircles({count_past_zero: false}).addListener(function(unit, value, total){
-        //fade timer out when time has run out
-        if(total === 0){
-            console.log("round finished between");
+        if (total === 0) {
             $("#timerbetween").TimeCircles().end();
             $("#timerbetween").TimeCircles().destroy();
             $("#timerbetween").hide();
             $("#timer").show();
-
             // update round
             settings.round = settings.round + 1;
-            // Update offset
+            // update offset
             settings.offset = settings.offset + 1;
-            console.log("CLICK");
             $('#start_game').trigger('click');
-            //$("#timer").TimeCircles().start();
             
         }
     });
 }
 
+/*
+* function betweenTimer
+* @param: user_answer. Answer typed in the input (user hit enter)
+* function to check if the answer typed is part of the answers pool for the current question.
+*/
 function checkAnswer(user_answer) {
     var proceed = false;
     if (settings.currentAnswer < 10) {
@@ -332,24 +342,24 @@ function checkAnswer(user_answer) {
             ContentType: 'application/json',
             data: {'question_id': settings.currentQuestion, 'user_answer': user_answer},
             success: function(answer) {
-                //display attempt in answers if right or attempts if wrong    
-                if (answer.found === false){
+                // display attempt in answers if right or attempts if wrong    
+                if (answer.found === false) {
                     $(".attempts").append('<div id="false-answer-' + user_answer + '"><i class="fa fa-close" style="font-size:1.5rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
                     $("#false-answer-"+ user_answer).effect("pulsate", { times:3 }, 300);
-                }else{
-                    //check if the answer was not found before
+                } else {
+                    // check if the answer was not found before
                     if (uniqueAnswer(settings.currentAnswer, answer.actual_answer)) {
-                        //calculate answer score
+                        // calculate answer score
                         var score = countScore(answer.rating);
-                        //update score
+                        // update score
                         updateScore(settings.game_id, score);
-                        //add new answer in the correct answers list
+                        // add new answer in the correct answers list
                         settings.currentAnswer = settings.currentAnswer + 1;
                         $(".answers").append('<div id="correct-answer-' + settings.currentAnswer + '" class="correct-answer"><i class="fa fa-check" style="font-size:2rem; color:#00B01D"></i><span id="answer-' + settings.currentAnswer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">...' + score + 'pts</div>');
-                        //add bounce effect
+                        // add bounce effect
                         $("#correct-answer-" + settings.currentAnswer).effect("bounce", { times:3 }, 300);
                         if (settings.currentAnswer === 10) {
-                            // All answers covered
+                            // all answers covered
                             $(".attempts").append('<div><i class="fa fa-check" style="font-size:2rem; color:#00BF30"></i><span style="color:rgba(0, 191, 48, 0.9); padding-left:0.5rem">You already have 10 answers!</span></div>');
                             $('.answer-input').prop('disabled', true);
 
@@ -370,6 +380,11 @@ function checkAnswer(user_answer) {
     
 }
 
+/*
+* function countScore
+* @param rating: difficulty of the answer
+* Get the points depending on the difficulty/rating of the answer.
+*/
 function countScore(rating) {
     var score = 0;
     switch (rating) {
