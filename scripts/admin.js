@@ -198,7 +198,7 @@ function addAnswer(id) {
 * @param numberId: number from the id.
 * @param questionId: id of the question.
 * 
-* function to create a new answer for an existing question. It receives two arguments:
+* function to create a new answer for an existing question.
 */ 
 function createAnswer(numberId, questionId) {
     var number = Number(numberId);
@@ -239,18 +239,20 @@ function createAnswer(numberId, questionId) {
     }
 }
 
-//
-// Function addAnswerExistingQuestion
-// 
-// Function to create a new answer input for an existing question. It receives two arguments:
-// id: id of the button, used to obtain the number at the end.
-// questionId: id of the question
+/*
+* Function addAnswerExistingQuestion
+* 
+* @param id: id of the button, used to obtain the number at the end.
+* @param questionId: id of the question
+* 
+* Function to create a new answer input for an existing question.
+*/ 
 function addAnswerExistingQuestion(id, questionId) {
     console.log("ID: " + id);
     var tmp = id.split('_');
     var realID = tmp[2];
     var numberID = Number(realID) + 1;
-    // Add new nodes to the form.
+    // add new nodes to the form.
     $('#answer_results_' +  Number(realID)).after('<div id="answer_results_' + numberID + '" class="pure-control-group">'
         + '<label for="answer_' + numberID + '">Answer # ' + numberID + '</label><input id="answer_value_' + numberID + '" class="pure-input-1-3" type="text" placeholder="New answer">' 
         + '<select id="difficulty_answer_' + numberID + '" style="margin-left: 0.3rem">'
@@ -261,20 +263,14 @@ function addAnswerExistingQuestion(id, questionId) {
         + '<button style="margin-left: 0.3rem" type="button" id="create_answer' + numberID + '" name="create" class="pure-button pure-button-primary" onClick="createAnswer(' + numberID + ',' + questionId + ')">New answer</button>'
         + '<button style="margin-left: 0.3rem" type="button" id="add_answer_' + numberID + '" name="update" class="pure-button pure-button-primary" onClick="addAnswerExistingQuestion(this.id)"><i class="fa fa-plus"></i></button></div>');
 
-    // Remove + button. + button must be only next to the last input (added in the lines above).
+    // remove + button. + button must be only next to the last input (added in the lines above).
     $('#' + id).remove();
-    console.log("parent: " + parent);
-    console.log("add answer id: " + realID);
 }
 
-//
-// Get answers for a given question ID
-//
+/*
+* Get answers for a given question ID
+*/
 $('#get_answers').on("click", function () {
-    console.log("value: " + $("#question_title").val());
-    // Disable the button
-    //$('#get_answers').prop('disabled', true);
-    console.log("url: " + $(this).attr('action'));
     $.ajax({
         url: '/answers?question_id=' + $("#question_title").val(),
         type: 'get',
@@ -282,13 +278,11 @@ $('#get_answers').on("click", function () {
         ContentType: 'application/json',
         data: $("#question_title").val(),
         success: function(data) {
-            console.log(data);
-            console.log(data[0].answer_id);
             var n = 1;
             var i;
             var flagten = false;
             var question_id = $("#question_title").val();
-            // Add nodes to the div to display the information.
+            // add nodes to the div to display the information.
             $('#question_results').empty();
             $('#question_results').append('<form class="pure-form pure-form-aligned" id="form_answers">'
                                             + '<div class="pure-control-group">'
@@ -298,7 +292,7 @@ $('#get_answers').on("click", function () {
                                             + '</div>'
                                             + '</form>');
 
-            // Loop to retrieve all the answers.
+            // loop to retrieve all the answers.
             for (i = 0; i < data.length; i++) {
                 $('#form_answers').append('<div id="answer_results_' + n + '" class="pure-control-group">'
                                         + '<label for="answer_' + n + '">Answer # ' + n + '</label><input class="pure-input-1-3" id="'+ data[i].answer_id + '" type="text" value="' + data[i].answer_content + '">' 
@@ -317,7 +311,7 @@ $('#get_answers').on("click", function () {
                                                     + '<option value="medium" >medium</option>'
                                                     + '<option value="high" selected>high</option>');
                 }
-                // There must be at least 11 answers to be able to delete. Everyquestion must have, at least, 10 answers.
+                // there must be at least 11 answers to be able to delete. Everyquestion must have, at least, 10 answers.
                 if (data.length <= 10) {
                     $('#difficulty_answer_' + n).after('<button style="margin-left: 0.3rem" type="button" id="update_answer_' + n + '" name="update" class="pure-button pure-button-primary" onClick="updateAnswer(' + data[i].answer_id + ', ' + question_id + ', ' + n + ')">Update</button>');
                 } else {
@@ -341,29 +335,25 @@ $('#get_answers').on("click", function () {
     return false;
 });
 
-//
-// Send data of the new question, from the form found in "New question" section, to the server.
-//
+/*
+* Send data of the new question, from the form found in "New question" section, to the server.
+*/
 $('#create_new_question').on("click", function() {
-    console.log("click");
     $("button#create_new_question").prop("disabled", true);
     var tmp = $('#form_new_question').serialize();
     var split_obj = tmp.split('&');
     var i;
     var value;
     var empty = false;
-    // Check that there are not empty fields in the serialized data.
+    // check that there are not empty fields in the serialized data.
     for (i = 0; i < split_obj.length; i++) {
         value = split_obj[i].split('=');
         if (value[1].trim().toLowerCase() === '') {
-            console.log("vacio");
             empty = true;
             break;
-        } else {
-            console.log("no vacio");
         }
     }
-    // If one field is empty display an error message.
+    // if one field is empty display an error message.
     if (empty) {
         $('#notification_messages').empty().removeAttr('style');
         $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
@@ -372,11 +362,8 @@ $('#create_new_question').on("click", function() {
         $("button#create_new_question").prop("disabled", false);
     } else {
         $('#notification_messages').attr('class', '');
-        console.log(JSON.stringify($('#form_new_question').serializeArray()));
-        console.log('length: ' + $('#form_new_question').serializeArray().length);
         var actual = Number(($('#form_new_question').serializeArray().length - 1) / 2);
-        console.log('actual ' + actual);
-        // If there are less than 10 answers, display error message. Otherwise, communicate with the server.
+        // if there are less than 10 answers, display error message. Otherwise, communicate with the server.
         if (actual < 10) {
             $('#notification_messages').empty().removeAttr('style');
             $('#notification_messages').attr('class', 'pure-alert pure-alert-error');
@@ -384,7 +371,7 @@ $('#create_new_question').on("click", function() {
             $('#notification_messages').fadeOut(3000);
             $("button#create_new_question").prop("disabled", false);
         } else {
-            // Send data to the server.
+            // send data to the server.
             $.ajax({
                 type: "POST",
                 url: '/completeQuestion',
@@ -392,20 +379,15 @@ $('#create_new_question').on("click", function() {
                 ContentType: 'application/json',
                 data: $('#form_new_question').serialize(),
                 success: function(data) {
-
-                    console.log(data);
                     // Display success notification message.
                     if (data[0].success) {
-                        console.log('print message');
                         $('#notification_messages').empty().removeAttr('style');
                         $('#notification_messages').attr('class', 'pure-alert pure-alert-success');
                         $('#notification_messages').append(data[0].message);
                         $('#notification_messages').fadeOut(3000);
                         $("button#create_new_question").prop("disabled", false);
                         $('#form_new_question').trigger('reset');
-
                     }
-                    //$('#answer_' + realID).parent().remove();
                 },
                 error: function(e) {
                     console.log(e.message);
@@ -416,6 +398,7 @@ $('#create_new_question').on("click", function() {
         }
     }    
 });
+
 
 $('#check_questions').on("click", function () {
     $('#questions').show();
