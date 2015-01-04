@@ -44,7 +44,7 @@ $('#start_game').on("click", function () {
                 // Clean div
                 $('.question-box').empty();
                 // Append question
-                $('.question-box').append('<span>' + question.question_content +'</span>');
+                $('.question-box').append('<span class="q-content">' + question.question_content +'</span>');
                 // Enable answer box
                 $('.answer-input').prop('disabled', false);
                 //start the timer
@@ -319,7 +319,8 @@ function checkAnswer(user_answer) {
             success: function(answer) {
                 //display attempt in answers if right or attempts if wrong    
                 if (answer.found === false){
-                    $(".attempts").append('<div id="false-answer"><i class="fa fa-close" style="font-size:3rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
+                    $(".attempts").append('<div id="false-answer-'+user_answer+'"><i class="fa fa-close" style="font-size:3rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
+                    $("#false-answer-"+user_answer).effect("pulsate", { times:3 }, 300);
                 }else{
                     //check if the answer was not found before
                     if (uniqueAnswer(current_answer, answer.actual_answer)) {
