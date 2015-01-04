@@ -6,7 +6,7 @@
         {% endblock %}
 
         {% block content %}
-        <div id="game">
+        <div id="game" style="height:120%;">
             <header class="custom-header">
                 <img src="../images/logo.png"/>
                 <hr />
@@ -38,7 +38,7 @@
                 {% if questions %}
                 <form id="form_get_answers" class="pure-form" method="GET" action="/answers">
                     <div class="pure-control-group">
-                        <label for="question">Question title: </label>
+                        <label for="question">Select Question </label><br><br>
                         <select id="question_title">
                             {% for q in questions %}
                             <option value="{{ q.key().id() }}">{{q.content}}</option>

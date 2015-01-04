@@ -109,7 +109,6 @@ function deleteAnswer(answer_id) {
         data: {'answer_id': answer_id},
         success: function(data) {
             // if in the response the data.success = true, display a success notification message.
-            console.log(data);
             if (data.success) {
                 $("form#form_answers :input").prop("disabled", true);
                 $("form#form_answers :button").prop("disabled", true);
@@ -202,7 +201,6 @@ function addAnswer(id) {
 */ 
 function createAnswer(numberId, questionId) {
     var number = Number(numberId);
-    console.log('question id: ' + questionId);
     // get answer content.
     var answer_content = $('#answer_value_' + number).val();
     // get answer difficulty.
@@ -221,7 +219,6 @@ function createAnswer(numberId, questionId) {
             ContentType: 'application/json',
             data: {'question_id': questionId, 'answer_content': answer_content, 'answer_rating': answer_rating},
             success: function(data) {
-                console.log(data);
                 // if in the response the data.success = true, display a success notification message.
                 if (data.success) {
                     $('#notification_messages').empty().removeAttr('style');
