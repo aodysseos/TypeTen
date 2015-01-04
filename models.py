@@ -1,5 +1,9 @@
 from google.appengine.ext import db
 
+'''
+Entity classes used to application data
+'''
+
 
 class Question(db.Model):
     content = db.StringProperty(required=True, indexed=False)

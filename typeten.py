@@ -23,8 +23,7 @@ jinja_environment = jinja2.Environment(autoescape=True,
                                                                                    'templates')))
 
 
-
-#5 Creates MainPage content
+#Reander the main page of the application
 class MainPage(webapp2.RequestHandler):
     def get(self):
 
@@ -46,8 +45,9 @@ class MainPage(webapp2.RequestHandler):
         # deal with static files
         template = jinja_environment.get_template('draft.html')
         self.response.write(template.render(template_values))
-        
-#5 Creates instructionPage content
+
+
+# Render Instruction Page
 class InstructionPage(webapp2.RequestHandler):
     def get(self):
         template_values = {
@@ -56,7 +56,8 @@ class InstructionPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('instructions.html')
         self.response.write(template.render(template_values))
 
-#Render new Game
+
+#Render new game page
 class NewGame(webapp2.RequestHandler):
     @login_required
     def get(self):
@@ -67,12 +68,12 @@ class NewGame(webapp2.RequestHandler):
         #q.order('-score')
         #q.run(10)
 
-
         template_values = {'user_nickname': current_user, 'users': q}
         template = jinja_environment.get_template('main.html')
         self.response.write(template.render(template_values))
 
 
+#Render admin page where new questions and answers can be inserted
 class AdminPage(webapp2.RequestHandler):
     #get all questions
     @admin_required
@@ -81,6 +82,7 @@ class AdminPage(webapp2.RequestHandler):
         template_values = {'questions': questions}
         template = jinja_environment.get_template('admin_draft.html')
         self.response.write(template.render(template_values))
+
 
 #handles questions inserts and updates
 class ManageQuestion(webapp2.RequestHandler):
@@ -94,13 +96,13 @@ class ManageQuestion(webapp2.RequestHandler):
         self.response.out.write(json.dumps(que_json))
 
     #Insert or Update Question
-    #If question_id is passed, it updated, otherwise its an update
+    #If question_id is passed, it is an updated, otherwise its an insert
     @admin_required
     def post(self):
         question_id = self.request.get('question_id')
         question_content = self.request.get('question_content')
 
-        #if question id exists then update
+        #if question id exists then update it
         if question_id:
             question = Question.get_by_id(int(question_id), parent=None)
             question.content = question_content
@@ -108,6 +110,7 @@ class ManageQuestion(webapp2.RequestHandler):
         else:
             question = Question(content=question_content)
 
+        #save or insert
         question.put()
         que_id = question.key().id()
 
@@ -121,7 +124,7 @@ class ManageQuestion(webapp2.RequestHandler):
 
 #Handles answers retreival, inserts and updates
 class ManageAnswer(webapp2.RequestHandler):
-    #get answers for specific question
+    #get all answers for specific question
     def get(self):
         question_id = self.request.get('question_id')
         question = Question.get_by_id(int(question_id), parent=None)
@@ -161,6 +164,8 @@ class ManageAnswer(webapp2.RequestHandler):
                                                 'message': 'A new answer has been created.', 'answer_id': ans_id}))
 
 
+#Look if the answer typed by the user exists in the list of answers
+# for the question specified by id
 class CheckAnswer(webapp2.RequestHandler):
     def post(self):
 
@@ -183,6 +188,7 @@ class CheckAnswer(webapp2.RequestHandler):
         self.response.out.write(json.dumps({'found': False}))
 
 
+#Gets random question at every round
 class GetRandomQuestion(webapp2.RequestHandler):
     def get(self):
         ques_count = Question.all().count()
@@ -192,7 +198,7 @@ class GetRandomQuestion(webapp2.RequestHandler):
                                              'question_content': question.content}]))
 
 
-# to delete question and its answers
+#Deletes the question and its answers
 class DeleteQuestion(webapp2.RequestHandler):
     @admin_required
     def post(self):
@@ -213,7 +219,7 @@ class DeleteQuestion(webapp2.RequestHandler):
                                             'message': 'The question has been deleted.'}))
 
 
-# to delete an answer
+#Delets an answer specified by answer_id
 class DeleteAnswer(webapp2.RequestHandler):
     @admin_required
     def post(self):
@@ -231,6 +237,7 @@ class DeleteAnswer(webapp2.RequestHandler):
                                                 'message': 'The answer has been deleted.'}))
 
 
+#Inserts new question with answers
 class NewCompleteQuestion(webapp2.RequestHandler):
     @admin_required
     def post(self):
@@ -268,6 +275,7 @@ class NewCompleteQuestion(webapp2.RequestHandler):
                                              'message': 'The question with its answers has been saved.'}]))
 
 
+#Creates a new game
 class SaveScore(webapp2.RequestHandler):
     def post(self):
 
@@ -324,17 +332,18 @@ class GetQuestions(webapp2.RequestHandler):
                                                  'question_content': question.content}]))
 
 
+#Gets random question at every round
 class GetQuestion(webapp2.RequestHandler):
     def get(self):
         offset = int(self.request.get('offset'))
-        logging.info(offset);
+        logging.info(offset)
         if offset > -1:
             q = db.GqlQuery("SELECT * FROM Question OFFSET " + str(offset))
-            logging.info(q);
+            logging.info(q)
             question = q.get()
             logging.info(question.key().id())
             self.response.out.write(json.dumps({'success': True, 'question_id': question.key().id(),
-                                             'question_content': question.content}))
+                                                'question_content': question.content}))
         else:
             self.response.out.write(json.dumps({'success': False}))
 
@@ -351,6 +360,7 @@ class GetOffset(webapp2.RequestHandler):
             self.response.out.write(json.dumps({'offset': offset}))
 
 
+#Gets the total number of question
 class GetTotalQuestions(webapp2.RequestHandler):
     def get(self):
         ques_count = Question.all().count()
@@ -360,6 +370,8 @@ class GetTotalQuestions(webapp2.RequestHandler):
         else:
             self.response.out.write(json.dumps({'ques_count': 10}))
 
+
+# Gets all acores
 class GetLeaderBoardComplete(webapp2.RequestHandler):
     def get(self):
         q = UserGame.all()
@@ -369,6 +381,8 @@ class GetLeaderBoardComplete(webapp2.RequestHandler):
 
         self.response.out.write(json.dumps(ans_json))
 
+
+#get top ten scores
 class GetTopTen(webapp2.RequestHandler):
     def get(self):
         q = UserGame.all()
@@ -379,6 +393,7 @@ class GetTopTen(webapp2.RequestHandler):
         self.response.out.write(json.dumps(ans_json))
 
 
+#Handles application routes
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/play',NewGame),
