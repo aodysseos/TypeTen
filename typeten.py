@@ -56,6 +56,14 @@ class InstructionPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('instructions.html')
         self.response.write(template.render(template_values))
 
+# Render Instruction Page
+class LeaderboardPage(webapp2.RequestHandler):
+    def get(self):
+        # Get all scores
+        q = UserGame.all().order('-score')
+        template_values = {'users': q}
+        template = jinja_environment.get_template('leaderboard.html')
+        self.response.write(template.render(template_values))
 
 #Render new game page
 class NewGame(webapp2.RequestHandler):
@@ -65,8 +73,6 @@ class NewGame(webapp2.RequestHandler):
         current_user = users.get_current_user().nickname()
         # Top ten Leaderboard
         q = UserGame.all().order('-score').fetch(10)
-        #q.order('-score')
-        #q.run(10)
 
         template_values = {'user_nickname': current_user, 'users': q}
         template = jinja_environment.get_template('main.html')
@@ -412,5 +418,6 @@ application = webapp2.WSGIApplication([
     ('/update_score', UpdateScore),
     ('/compLeaderboard', GetLeaderBoardComplete),
     ('/topTen', GetTopTen),
-    ('/instruction', InstructionPage)
+    ('/instructions', InstructionPage),
+    ('/leaderboard', LeaderboardPage)
 ], debug=True)

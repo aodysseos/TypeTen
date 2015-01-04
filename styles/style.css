@@ -229,7 +229,7 @@ html, body
   font-size: 2rem;
 }
 
-/* Intructions
+/* Instructions
 -----------------*/
 .intructions-header{
   width: 100%;
@@ -249,4 +249,37 @@ footer{
   text-align: center;
   font-size: 1rem;
   background-color: #14A2CC;
+}
+
+/* Leaderboard 
+---------------*/
+#all-time-table-title{
+  background-color: #FF8F35; /* #FF7F27*/
+  color: white;
+  height: 2rem;
+  padding-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+#rank-table {
+  text-align: center;
+  width: 100%;
+}
+
+#leaderboard{ 
+  margin:0;
+  background-color: #14A2CC;
+}
+
+.rank {
+  color:white;
+}
+
+.center-table{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  text-align: center;
+  width: 40%;
 }

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %} Leaderboard {% endblock %}
+       
+        {% block head %}
+            {{ super() }}
+        {% endblock %}
+
+        {% block content %}
+		<div id="leaderboard">
+            <div id="nav-menu" class="pure-g">
+                <div id="nav-left" class="pure-u-24-24">
+                    <a href="/"><button type="button" class="pure-button pure-button-primary"><i class="fa fa-hand-o-left"></i> Go back</button></a>
+				</div>
+		    </div>
+            <header class="instruction-header">
+                <img src="images/logo.png"/>
+            </header>
+            <div class="pure-u-24-24" >
+            	<div class="center-table">
+	                <div id="all-time-table-title">
+	                    Leaderboard
+	                </div>
+	                <table class="pure-table pure-table-horizontal" id="rank-table">
+	                    <thead>
+	                        <tr style="text-align:center">
+	                            <th>#</th>
+	                            <th>Username</th>
+	                            <th>Score</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        {%set x = 1%}
+	                        {% for u in users %}
+	                        	{% if u.score > 0%}
+	                            <tr class="rank">
+	                                <td>{{ x }}</td>
+	                                <td>{{ u.user_nickname }}</td>
+	                                <td>{{ u.score }}</td>
+	                            </tr>
+	                            {%set x = x + 1%}
+	                            {% endif %}
+	                        {% endfor %}
+	                    </tbody>
+	                </table>
+                </div>
+            </div>
+     	</div>
+        {% endblock %}
+
