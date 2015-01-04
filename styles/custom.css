@@ -3,6 +3,10 @@
 	padding-top: 5rem;
 }
 
+.menu p{
+	font-size: 1.2rem;
+}
+
 .instruction-header{
     text-align: center;
 	padding-top: 2rem;
