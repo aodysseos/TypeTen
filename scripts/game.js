@@ -319,7 +319,7 @@ function checkAnswer(user_answer) {
             success: function(answer) {
                 //display attempt in answers if right or attempts if wrong    
                 if (answer.found === false){
-                    $(".attempts").append('<div id="false-answer-'+user_answer+'"><i class="fa fa-close" style="font-size:3rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
+                    $(".attempts").append('<div id="false-answer-'+user_answer+'"><i class="fa fa-close" style="font-size:1.5rem; color:#FF3300"></i><span style="color:rgba(255, 51, 0, 0.6); padding-left:0.5rem">' + user_answer + '</span></div>');
                     $("#false-answer-"+user_answer).effect("pulsate", { times:3 }, 300);
                 }else{
                     //check if the answer was not found before
@@ -332,13 +332,13 @@ function checkAnswer(user_answer) {
                         updateScore(game_id, score);
                         //add new answer in the correct answers list
                         var new_number_answer = Number(current_answer) + 1;
-                        $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:3rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">...' + score + 'pts</div>');
+                        $(".answers").append('<div id="correct-answer-' + new_number_answer + '" class="correct-answer"><i class="fa fa-check" style="font-size:2rem; color:#00B01D"></i><span id="answer-' + new_number_answer + '" style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">' + answer.actual_answer + '</span><span style="color:rgba(0, 176, 29, 0.6); padding-left:0.5rem">...' + score + 'pts</div>');
                         //add bounce effect
                         $("#correct-answer-" + new_number_answer).effect("bounce", { times:3 }, 300);
                         $('#current-answer').attr('name', new_number_answer);
                         if (new_number_answer === 10) {
                             // All answers covered
-                            $(".attempts").append('<div><i class="fa fa-check" style="font-size:3rem; color:#00BF30"></i><span style="color:rgba(0, 191, 48, 0.9); padding-left:0.5rem">You already have 10 answers!</span></div>');
+                            $(".attempts").append('<div><i class="fa fa-check" style="font-size:2rem; color:#00BF30"></i><span style="color:rgba(0, 191, 48, 0.9); padding-left:0.5rem">You already have 10 answers!</span></div>');
                             $('.answer-input').prop('disabled', true);
                         }
                     }
