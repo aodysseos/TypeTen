@@ -25,7 +25,7 @@ $('#start_game').on("click", function () {
     // Get total questions
     var totalQuestions = $('#total-questions').attr('name');
     // Text for attempt box
-    $('.attempt-box').append('<span style="color:red">Wrong attempts</span>');
+    $('.attempt-box').append('<span style="color:red; font-size:1.6rem;">Wrong attempts</span>');
     $('.attempt-box').append('<div class="attempts"></div>');
     // Text for answers box
     $('#correct-answers-box').append('<div class="answers"></div>');
