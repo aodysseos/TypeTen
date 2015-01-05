@@ -6,7 +6,7 @@
         {% endblock %}
 
         {% block content %}
-        <div id="game" style="height:120%;">
+        <div id="game" style="height:auto;">
             <header class="custom-header">
                 <img src="../images/logo.png"/>
                 <hr />
@@ -38,7 +38,7 @@
                 {% if questions %}
                 <form id="form_get_answers" class="pure-form" method="GET" action="/answers">
                     <div class="pure-control-group">
-                        <label for="question">Select Question </label><br><br>
+                        <label for="question" style="color:white">Select Question </label>
                         <select id="question_title">
                             {% for q in questions %}
                             <option value="{{ q.key().id() }}">{{q.content}}</option>
@@ -59,12 +59,12 @@
             <div id="new_question_result" style="display:none">
                 <form id="form_new_question" class="pure-form pure-form-aligned">
                     <div class="pure-control-group">
-                        <label for="question">Question: </label>
+                        <label for="question" style="color:white">Question: </label>
                         <input class="pure-input-2-3" id="question" name="question" type="text" placeholder="question" required>
                     </div>
                     <hr />
                     <div class="pure-control-group">
-                        <label for="answer_1">Answer # 1</label>
+                        <label for="answer_1" style="color:white">Answer # 1</label>
                         <input class="pure-input-1-3" id="answer_1" name="answer_1" type="text" placeholder="Answer #1" required>
                         <select id="new_difficulty_answer_1" name="new_difficulty_answer_1" style="margin-left: 0.3rem">
                             <option value="low">low</option>

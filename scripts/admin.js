@@ -172,7 +172,7 @@ function addAnswer(id) {
     var realID = tmp[2];
     var numberID = Number(realID) + 1;
     // add the nodes to the form.
-    $('<div class="pure-control-group"><label for="answer_'+ numberID +'">Answer # ' + numberID + '</label><input class="pure-input-1-3" id="answer_' + numberID + '" name="answer_' + numberID + '" type="text" placeholder="Answer #' + numberID + '"><select id="new_difficulty_answer_'+ numberID + '" name="new_difficulty_answer_'+ numberID + '" style="margin-left: 0.3rem"><option value="low">low</option><option value="medium">medium</option><option value="high">high</option></select><button style="margin-left: 0.3rem" type="button" id="add_answer_' + numberID + '" name="update" class="pure-button pure-button-primary" onClick="addAnswer(this.id)"><i class="fa fa-plus"></i></button></div>').insertBefore($('#button_section'));
+    $('<div class="pure-control-group"><label for="answer_'+ numberID +'" style="color:white">Answer # ' + numberID + '</label><input class="pure-input-1-3" id="answer_' + numberID + '" name="answer_' + numberID + '" type="text" placeholder="Answer #' + numberID + '"><select id="new_difficulty_answer_'+ numberID + '" name="new_difficulty_answer_'+ numberID + '" style="margin-left: 0.3rem"><option value="low">low</option><option value="medium">medium</option><option value="high">high</option></select><button style="margin-left: 0.3rem" type="button" id="add_answer_' + numberID + '" name="update" class="pure-button pure-button-primary" onClick="addAnswer(this.id)"><i class="fa fa-plus"></i></button></div>').insertBefore($('#button_section'));
 
     // remove + button. + button must be only next to the last input (added in the lines above).
     $('#' + id).remove();
@@ -259,11 +259,11 @@ $('#get_answers').on("click", function () {
             var question_id = $("#question_title").val();
             // add nodes to the div to display the information.
             $('#question_results').empty();
-            $('#question_results').append('<form class="pure-form pure-form-aligned" id="form_answers"><div class="pure-control-group"><label for="question">Question:</label><input class="pure-input-2-3" id="' + $("#question_title").val() + '" type="text" value="' + $('#question_title').find(":selected").text() + '"><button style="margin-left: 0.3rem" type="button" id="update_question_1" name="update" class="pure-button pure-button-primary" onClick="updateQuestion(' + $("#question_title").val() + ')">Update</button><button style="margin-left: 0.3rem" type="button" id="delete_question_1" name="update" class="pure-button button-error" onClick="deleteQuestion(' + $("#question_title").val() + ')">Delete</button></div></form>');
+            $('#question_results').append('<form class="pure-form pure-form-aligned" id="form_answers"><div class="pure-control-group"><label for="question" style="color:white">Question:</label><input class="pure-input-2-3" id="' + $("#question_title").val() + '" type="text" value="' + $('#question_title').find(":selected").text() + '"><button style="margin-left: 0.3rem" type="button" id="update_question_1" name="update" class="pure-button pure-button-primary" onClick="updateQuestion(' + $("#question_title").val() + ')">Update</button><button style="margin-left: 0.3rem" type="button" id="delete_question_1" name="update" class="pure-button button-error" onClick="deleteQuestion(' + $("#question_title").val() + ')">Delete</button></div></form>');
 
             // loop to retrieve all the answers.
             for (i = 0; i < data.length; i++) {
-                $('#form_answers').append('<div id="answer_results_' + n + '" class="pure-control-group"><label for="answer_' + n + '">Answer # ' + n + '</label><input class="pure-input-1-3" id="'+ data[i].answer_id + '" type="text" value="' + data[i].answer_content + '"><select id="difficulty_answer_' + n + '" style="margin-left: 0.3rem"></select>');
+                $('#form_answers').append('<div id="answer_results_' + n + '" class="pure-control-group"><label for="answer_' + n + '" style="color:white">Answer # ' + n + '</label><input class="pure-input-1-3" id="'+ data[i].answer_id + '" type="text" value="' + data[i].answer_content + '"><select id="difficulty_answer_' + n + '" style="margin-left: 0.3rem"></select>');
 
                 if (data[i].answer_difficulty.toLowerCase() === 'low') {
                     $('#difficulty_answer_' + n).append('<option value="low" selected>low</option><option value="medium">medium</option><option value="high">high</option>');
